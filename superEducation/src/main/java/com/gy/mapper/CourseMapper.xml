@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.mapper.CourseMapper">
+
+ <!-- 查询所有的课程 -->
+<select id="findAllCourse"  resultMap="CourseMap"  parameterType="Course">
+		select course_id,course_name,c.user_id,class_id,course_view,course_description,coursephoto,price,u.user_id,u.user_name from course c , userInfo u where c.user_id=u.user_id ORDER BY course_view DESC
+ </select>
+ 
+ <!-- 查询所有的课程  最热排行-->
+  <select id="findAllHotCourse"  resultMap="CourseMap"  parameterType="Course">
+		select c.course_id,course_name,c.user_id,class_id,course_view,course_description,coursephoto,price,u.user_id,u.user_name from course c 
+				left join (select count(1) as rang,course_id from stu_count GROUP BY course_id) s on s.course_id=c.course_id
+				left join userInfo u on c.user_id=u.user_id 
+				ORDER BY s.rang DESC
+ </select>
+  <!-- 查询所有的课程  最新排行 -->
+<select id="findAllNewCourse"  resultMap="CourseMap"  parameterType="Course">
+		select course_id,course_name,c.user_id,class_id,course_view,course_description,coursephoto,price,u.user_id,u.user_name from course c , userInfo u where c.user_id=u.user_id ORDER BY course_id DESC
+ </select>
+ <!-- 查询某一类的课程 -->
+ <select id="findOneCategoryCourse"  resultMap="CourseMap"  parameterType="Course">
+		select course_id,course_name,c.user_id,class_id,course_view,course_description,coursephoto,price,u.user_id,u.user_name from course c , userInfo u where c.user_id=u.user_id and c.class_id=#{class_id} ORDER BY course_view DESC
+ </select>
+ 
+ <!-- 查询某一类的课程 最热排行 -->
+ <select id="findOneCategoryHotCourse"  resultMap="CourseMap"  parameterType="Course">
+		select c.course_id,course_name,c.user_id,class_id,course_view,course_description,coursephoto,price,u.user_id,u.user_name from course c 
+				left join (select count(1) as rang,course_id from stu_count GROUP BY course_id) s on s.course_id=c.course_id
+				left join userInfo u on c.user_id=u.user_id 
+				where  c.class_id=#{class_id}
+				ORDER BY s.rang DESC
+ </select>
+
+<!-- 查询某一类课程 最新排行 -->
+ <select id="findOneCategoryNewCourse"  resultMap="CourseMap"  parameterType="Course">
+		select course_id,course_name,c.user_id,class_id,course_view,course_description,coursephoto,price,u.user_id,u.user_name from course c , userInfo u where c.user_id=u.user_id and c.class_id=#{class_id} ORDER BY course_id DESC
+ </select>
+<!-- 	(course_name,user_id,class_id,course_view,course_description,coursephoto,price) -->
+
+	<resultMap id="CourseMap" type="Course">
+		<id property="course_id" column="course_id"/>
+		<result property="course_name" column="course_name" />
+		<result property="class_id" column="class_id" />
+		<result property="course_view" column="course_view" />
+		<result property="course_description" column="course_description" />
+		<result property="coursephoto" column="coursephoto" /> 
+		<result property="price" column="price" />
+		<association property="userInfo" javaType="UserInfo">
+			<id property="user_id" column="user_id"/>
+			<result property="user_name" column="user_name"/>
+		</association>
+	</resultMap> 
+	
+</mapper>

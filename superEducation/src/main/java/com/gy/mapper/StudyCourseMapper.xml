@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.mapper.StudyCourseMapper">
+
+	<select id="showStudyCourse" resultMap="MappingClass" parameterType="StudyCourse">
+		select c.*,begintime from course c,studyCourse s 
+  		where c.course_id=s.course_id  and c.course_id in
+		(select course_id from studyCourse where user_id=#{userInfo.user_id}) order by begintime desc limit #{userInfo.beginRow},#{userInfo.pageSize}; 
+	</select>
+	<resultMap id="MappingClass" type="StudyCourse">
+		<id property="scid" column="scid" />
+		<result property="begintime" column="begintime" />
+		<association property="course" javaType="Course">
+			<id property="course_id" column="course_id" />
+			<result property="course_name" column="course_name" />
+		</association>
+	</resultMap>
+</mapper>
