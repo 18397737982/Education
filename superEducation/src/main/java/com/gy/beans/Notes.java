@@ -1,8 +1,13 @@
 package com.gy.beans;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Notes {
+public class Notes implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int notes_id;
 	private String notes_content;
 

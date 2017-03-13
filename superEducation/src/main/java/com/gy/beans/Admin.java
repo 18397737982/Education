@@ -1,7 +1,13 @@
 package com.gy.beans;
 
-public class Admin {
+import java.io.Serializable;
+
+public class Admin implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int admin_id;
 	private String admin_name;
 	private String email;

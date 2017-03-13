@@ -27,10 +27,9 @@
     </nav>
     <div class="pull-right user-nav clearfix" id="topf" >
     	<ul class="nav pull-right">
-<c:set value="${users.user_category }" var="user_category"/>
-    	<c:if test="${user_category=='老师'}">
-    		<li class="hidden-xs hidden-sm"> <a class="btn btn-primary radius" href="page/createcourse.jsp"><i style="color: rgb(255, 247, 255);" class="glyphicon glyphicon-plus"></i> 创建课程</a> </li>
-    	</c:if>
+	<c:set value="${users.user_category }" var="user_category"/>
+    		<li class="hidden-xs hidden-sm"> <a class="btn btn-primary radius" href="toCreatecourse.action"><i style="color: rgb(255, 247, 255);" class="glyphicon glyphicon-plus"></i> 创建课程</a> </li>
+    	
 	        <li class="dropdown user-nav-dropdown user-img"> <a href="#" class="dropdown-toggle" id="toggle"> <img src="${users.pic }" class="user-avatar" alt="${users.user_name }" id="${users.user_id}"> </a>
           		<ul class="dropdown-menu" role="menu" id="dropdown-menu">
 		            <li> <a href="page/learnCenter.jsp" ><i style="color:#666;" class="glyphicon glyphicon-home" ></i>学习中心</a> </li>

@@ -12,13 +12,17 @@ public class Course  implements Serializable{
 	private Integer course_id;//课程id
 	private String course_name;//课程名
 	private String coursephoto;//课程头像
+	private String courseting;
+	
+	private String course_description;// 描述
+	
 	@Override
 	public String toString() {
 		return "Course [course_id=" + course_id + ", course_name=" + course_name + ", coursephoto=" + coursephoto
-				+ ", course_description=" + course_description + ", userInfo=" + userInfo + ", class_id=" + class_id
-				+ ", course_view=" + course_view + ", price=" + price + ", lass_category=" + lass_category + "]";
+				+ ", courseting=" + courseting + ", course_description=" + course_description + ", userInfo=" + userInfo
+				+ ", class_id=" + class_id + ", course_view=" + course_view + ", price=" + price + ", lass_category="
+				+ lass_category + "]";
 	}
-	private String course_description;// 描述
 	public Integer getCourse_id() {
 		return course_id;
 	}
@@ -36,6 +40,12 @@ public class Course  implements Serializable{
 	}
 	public void setCoursephoto(String coursephoto) {
 		this.coursephoto = coursephoto;
+	}
+	public String getCourseting() {
+		return courseting;
+	}
+	public void setCourseting(String courseting) {
+		this.courseting = courseting;
 	}
 	public String getCourse_description() {
 		return course_description;

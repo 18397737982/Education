@@ -1,8 +1,13 @@
 package com.gy.beans;
 
+import java.io.Serializable;
 
-public class Class_category {
+public class Class_category implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int class_id;
 	private String class_categorys;
 	

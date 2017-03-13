@@ -1,8 +1,13 @@
 package com.gy.beans;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Account {
+public class Account implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private UserInfo stu_user;
 	private BigDecimal balance;
 	public UserInfo getStu_user() {

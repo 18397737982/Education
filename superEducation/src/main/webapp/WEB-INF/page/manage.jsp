@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page isELIgnored="false"  %>
 <!DOCTYPE html>
 <!-- saved from url=(0045)http://www.howzhi.com/ugc/course/14023/manage -->
 <html class=""><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -48,10 +49,10 @@
         <h1 class="title">
         <c:choose>
          	<c:when test="${empty ctitle}">
-         		<a href="page/joinproject.jsp" id="cnameid"></a>
+         		<a href="joinproject.action" id="cnameid"></a>
         	</c:when>
         	<c:otherwise>
-        		<a href="page/joinproject.jsp" id="cnameid">${ctitle}</a>
+        		<a href="joinproject.action" id="cnameid">${ctitle}</a>
         	</c:otherwise>
 		 </c:choose>
         </h1>
@@ -60,7 +61,7 @@
             请完善基本信息、课程图片和课时后，再<font class="t-infowarn">申请发布</font>课程。<a href="javascript:;" class="active" id="js-info">新手引导</a>
           </p>
                        
-    </div>
+    </div> 
      <div class="action"> 
       <a class="btn com radius mts" href="http://www.howzhi.com/course/14023/?previewAs=member" target="_blank" style="width:83px;">返回课程</a>
 		<c:choose>
@@ -72,7 +73,7 @@
         	</c:otherwise>
 		 </c:choose>            
 		 </div>
-  </div>
+  	</div>
 
 <section class="create-course course-more">
   <div class="row">
@@ -88,7 +89,7 @@
         		<span id="istyle">1</span>
         	</c:otherwise>
 		 </c:choose>
-        <a title="请输入标题" href="page/manage.jsp">
+        <a title="请输入标题" href="course/manage.action">
             基本信息
           </a>
         </li>
@@ -102,7 +103,7 @@
         		<span id="tstyle">2</span>
         	</c:otherwise>
 		 </c:choose> 
-          <a class="" href="page/picture.jsp">课程图片</a>
+          <a class="" href="course/picture.action">课程图片</a>
         </li>
         
         <li data-step="3" data-intro="添加课时，完成最后信息的填写" data-position="right">
@@ -114,7 +115,7 @@
         		<span id="sstyle">3</span>
         	</c:otherwise>
 		 </c:choose>          
-                    <a class="" href="page/lesson.jsp">课时管理</a>
+                    <a class="" href="course/manage.action">课时管理</a>
         </li>
       </ul>     
     </div>
@@ -123,7 +124,7 @@
         <h1>基本信息<span>CREATE INFORMATION</span></h1>      
         <form id="course-form" class="form-horizontal" action="http://www.howzhi.com/ugc/course/14023/manage" method="post" novalidate="novalidate" data-widget-cid="widget-0">
             <div id="topicture" class="alert alert-success" style="display:none;"> 课程基本信息已保存，点击
-            <a href="page/picture.jsp"><font class="t-infowarn">【下一步】</font></a>开始添加课程图片
+            <a href="course/picture.action"><font class="t-infowarn">【下一步】</font></a>开始添加课程图片
 			</div> 
             <div class="form-group">
             <label class="col-md-2 control-label" for="course_title">标题</label>
@@ -158,12 +159,19 @@
           <c:choose>
          	<c:when test="${empty ctid}">
  				<select id="course_categoryId" name="categoryId" required="required" class="form-control width-input" data-widget-cid="widget-4" data-explain="">
-              		<option value="">分类</option><option value="1">摄影课堂</option><option value="2">创意设计</option><option value="3">声乐器乐</option><option value="4">运动健身</option><option value="5">IT互联网</option><option value="6">兴趣爱好</option><option value="7">语言学习</option><option value="8">职场技能</option><option value="9">公开课</option>
+              		<option value="-1">所有类别</option>
+					<c:forEach items="${categories}" var="ca">
+						<option value="${ca.class_id}">${ca.class_categorys}</option>
+					</c:forEach>
             	</select>        	
             </c:when>
         		<c:otherwise>
 				<select id="course_categoryId" name="categoryId" required="required" class="form-control width-input" data-widget-cid="widget-4" data-explain="">
-              		<option value="${ctid}">${courseType.typename}</option><option value="">分类</option><option value="1">摄影课堂</option><option value="2">创意设计</option><option value="3">声乐器乐</option><option value="4">运动健身</option><option value="5">IT互联网</option><option value="6">兴趣爱好</option><option value="7">语言学习</option><option value="8">职场技能</option><option value="9">公开课</option>
+              		<option value="${ctid}">${courseType.typename}</option>
+              		<option value="-1">所有类别</option>
+					<c:forEach items="${categories}" var="ca">
+						<option value="${ca.class_id}">${ca.class_categorys}</option>
+					</c:forEach>
             	</select>        		
             </c:otherwise>
 			 </c:choose>
@@ -204,11 +212,11 @@
 <jsp:include page="footer.jsp"></jsp:include>
 <script type="text/javascript">
 	function save(){
-		var ctitle=$("#course_title").val();
-		var cintroduction=myckeditor.document.getBody().getHtml();
-		var ctid=$("#course_categoryId").val();
+		var course_name=$("#course_title").val();
+		var course_description=myckeditor.document.getBody().getHtml();
+		var class_id=$("#course_categoryId").val();
 		var courseting=$("#howzhi_tags").val();
-		$.post("course/basic",{ctitle:ctitle,cintroduction:cintroduction,ctid:ctid,courseting:courseting},function(data){
+		$.post("course/basic",{course_name:course_name,course_description:course_description,class_id:class_id,courseting:courseting},function(data){
 			if(data==1){
 				alert("温馨提示：课程简介不能为空！");
 			}else if(data==2){

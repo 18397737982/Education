@@ -51,6 +51,22 @@
 			<id property="user_id" column="user_id"/>
 			<result property="user_name" column="user_name"/>
 		</association>
-	</resultMap> 
+	</resultMap>
+	
+	 <insert id="addcourse" parameterType="Course" useGeneratedKeys="true" keyProperty="course_id"> 
+		insert into course(class_id,course_name,coursephoto,course_description,courseting,user_id)
+			values
+		 (#{class_id},#{course_name},
+		 <if test='coursephoto==null'>
+			null</if>
+		<if test='coursephoto!=null'>
+			#{coursephoto}
+		</if>,#{course_description},#{courseting},#{userInfo.user_id})
+	</insert>
+	
+	<select id="findcourseid" resultType="Course" parameterType="Course">
+		select * from course order by course_id desc
+	</select>
+	 
 	
 </mapper>

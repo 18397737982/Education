@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.mapper.Class_hourMapper">
+		
+	<!-- <cache type="com.yc.dao.redis.cache.RedisCache"></cache> -->
+	
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"></cache>
+	
+	<select id="findcourseseq" resultType="Class_hour"  parameterType="Class_hour">
+		select * from class_hour where course_id=#{course.course_id} order by class_hour_id desc
+	</select>
+	
+	<insert id="addlession" parameterType="Class_hour" useGeneratedKeys="true" keyProperty="Class_hour_id"> 
+		insert into class_hour(course_id,type,title,introduction,courseseq,content)
+			values
+		 (#{course.course_id},#{type},#{title},#{introduction},#{courseseq},#{content})
+	</insert>
+	
+	<select id="findAllcourseseq" resultType="Class_hour"  parameterType="Class_hour">
+		select * from class_hour where course_id=#{course.course_id}
+	</select>
+	
+	
+</mapper>
+
+

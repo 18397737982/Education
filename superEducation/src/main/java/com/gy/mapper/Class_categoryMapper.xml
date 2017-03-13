@@ -9,4 +9,12 @@
 		select * from class_category
 	</select>
 
+	
+	<select id="getAllCategory" resultType="Class_category">
+		select *  from Class_category
+	</select>
+	
+	<select id="findbycalss_id" resultType="Class_category"  parameterType="Class_category">
+		select *  from Class_category where class_id=#{class_id}
+	</select>
 </mapper>

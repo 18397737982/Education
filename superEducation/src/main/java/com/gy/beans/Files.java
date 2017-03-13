@@ -1,7 +1,12 @@
 package com.gy.beans;
 
+import java.io.Serializable;
 
-public class Files {
+public class Files implements Serializable  {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int files_id;
 	private String files_name;
 	private String file_content;
