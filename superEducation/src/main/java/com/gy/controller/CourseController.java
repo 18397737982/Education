@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.gy.beans.Class_category;
 import com.gy.beans.Class_hour;
 import com.gy.beans.Course;
@@ -87,9 +88,11 @@ public class CourseController {
 	@RequestMapping(value = "/getCourseInformation.action/{class_id}")
 	public String getCategoryCourseInformation(Model model, HttpServletResponse response, Course course,
 			@PathVariable int class_id) throws IOException {
+		Gson gson = new Gson();
 		course.setClass_id(class_id);
 		List<Course> list = this.courseBiz.findOneCategoryCourse(course);
 		if (list.size() > 0) {
+			model.addAttribute("course", gson.toJson(list).toString());
 			model.addAttribute("courses", list);
 			model.addAttribute("class_id", list.get(0).getClass_id());
 		}
@@ -101,7 +104,12 @@ public class CourseController {
 	@RequestMapping(value = "/getAllCourseInformation.action")
 	public String getAllCourseInformation(Model model) {
 		System.out.println("getAllCourseInformation...........");
-		model.addAttribute("courses", this.courseBiz.findAllCourse());
+		Gson gson = new Gson();
+		List<Course> list = this.courseBiz.findAllCourse();
+//		System.out.println(gson.toJson(list).toString());
+		String x=String.valueOf(gson.toJson(list).toString());
+		model.addAttribute("course",x);
+		model.addAttribute("courses",list);
 		if (!model.containsAttribute("category")) {
 			model.addAttribute("category", this.categoryBiz.findAllCategory());
 		}

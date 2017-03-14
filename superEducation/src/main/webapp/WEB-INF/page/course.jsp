@@ -1,3 +1,4 @@
+<%@page import="org.springframework.ui.Model"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page isELIgnored="false" %>
@@ -37,6 +38,20 @@
 
  <!-- <script type="text/javascript" src="js/course.js"></script>/*精品课程*/ -->
 <script type="text/javascript" >
+<%
+	
+%>
+var course='${course}';
+
+course=JSON.parse(course); 
+/* 
+alert("........."+course);
+$(function() {
+	alert("........."+course);
+	changcourse(course);
+});
+alert(course); */
+var page=1;
 function courses(class_id,rang){
 	//获取页面课程信息
 	$.ajax({
@@ -48,35 +63,59 @@ function courses(class_id,rang){
 		type:"JSON",
 		dataType: 'json',
 		success:function(data){
+			course=data;
 			$("#SendMsg").css("display","block");
 			$("#inform").css("display","block");
-			$("#findCourse").html('');
-			for(var i=0;i<data.length;i++){
-				var thiscourse=data[i];			
-			$("#findCourse").append("<div class='col-md-4 col-xs-6'>"
-						+"<div class='course-item'  id='course"+thiscourse.course_id+"'>"
-								+" <div class='course-img' id='cimg"+thiscourse.course_id+"'> <a href='toOneCourse.action/"+thiscourse.course_id+"' > <img src='images/160148ccf620140008.jpg' alt='' class='''> </a> </div>"
-								+"  <div class='course-info'>"
-										+"<div class='title text-o-show'> <a href='toOneCourse.action/"+thiscourse.course_id+"' >"+thiscourse.course_name+"</a> </div>"
-										+"<div class='metas'  style='color:#666'><span>浏览量:"+thiscourse.course_view+"</span>/ <span>学员:</span>/ <span>评分</span> </div>"
-										+"<div class='teacher text-o-show'> <a class=' js-user-card' href='javaScript:void(0);' data-card-url='/user/1282433/card/show' data-user-id='1282433'> "
-											+"<img class='avatar-ss ' src=' images/2001255a2bbc776915.jpg' alt='' >"+thiscourse.userInfo.user_name+"</a>"
-											+" <div class='price free pull-right'><span>￥:"+thiscourse.price+"</span></div>"
-								  		+"</div>"
-								+"</div>"
-						+"</div>"
-	+"</div>"
-						
-	); 
-			}
-			
-			
+			page=1;
+			changcourse(course);
 		}
 	});
-
-	
 }
 
+//下一页
+function nextpage(p){
+	page=Math.ceil(p);
+	changcourse(course);
+}
+
+
+function changcourse(data){
+	$("#findCourse").html('');
+	var maxpage=Math.ceil(data.length/9);
+	var repage=1;
+	var nextpage=1;
+	if(page>1){repage=page-1;}else{repage=1;}
+	if(page<maxpage){nextpage=page+1;}else{nextpage=maxpage;}
+	$("#fenye").html("<a href='javascript:void(0);'onclick='nextpage(1)'>首页</a>&nbsp;&nbsp; "+page+" &nbsp;&nbsp;"
+			+"<a href='javascript:void(0);'onclick='nextpage("+repage+")'>上一页</a>&nbsp;&nbsp; "+page+" &nbsp;&nbsp;"
+			+"<a href='javascript:void(0);' onclick='nextpage("+nextpage+")'>下一页</a>&nbsp;&nbsp;"
+			+"<a href='javascript:void(0);' onclick='nextpage("+maxpage+")'>末页</a>&nbsp;&nbsp;"
+	);
+	for(var i=0;i<data.length;i++){  
+
+		if(i>(page*9-1)||i<(page-1)*9){
+			continue;
+		}
+	
+		var thiscourse=data[i];			
+	$("#findCourse").append("<div class='col-md-4 col-xs-6'>"
+				+"<div class='course-item'  id='course"+thiscourse.course_id+"'>"
+						+" <div class='course-img' id='cimg"+thiscourse.course_id+"'> <a href='toOneCourse.action/"+thiscourse.course_id+"' > <img src='images/160148ccf620140008.jpg' alt='' class='''> </a> </div>"
+						+"  <div class='course-info'>"
+								+"<div class='title text-o-show'> <a href='toOneCourse.action/"+thiscourse.course_id+"' >"+thiscourse.course_name+"</a> </div>"
+								+"<div class='metas'  style='color:#666'><span>浏览量:"+thiscourse.course_view+"</span>/ <span>学员:</span>/ <span>评分</span> </div>"
+								+"<div class='teacher text-o-show'> <a class=' js-user-card' href='javaScript:void(0);' data-card-url='/user/1282433/card/show' data-user-id='1282433'> "
+									+"<img class='avatar-ss ' src=' images/2001255a2bbc776915.jpg' alt='' >"+thiscourse.userInfo.user_name+"</a>"
+									+" <div class='price free pull-right'><span>￥:"+thiscourse.price+"</span></div>"
+						  		+"</div>"
+						+"</div>"
+				+"</div>"
++"</div>"
+); 
+	
+	
+	}
+}
 
 </script>
 <!-- 头部 -------------------------------------------------------------------  -->			
@@ -136,8 +175,8 @@ function courses(class_id,rang){
       
       <!--  从数据库查出来的课程------------------------------------------------------------------------------------------------ -->
 
-        <if test="${courses}!=null">
-        	<c:forEach items="${courses}" var="item"> 
+         <if test="${courses}!=null">
+        	<c:forEach items="${courses}" var="item"  begin="0" end="8"> 
         	        <div class="col-md-4 col-xs-6">
 	        <!-- 课程 -->
 	          <div class="course-item " id="course${item.course_id}">
@@ -153,12 +192,24 @@ function courses(class_id,rang){
           </div>
         </div>    
         	</c:forEach>
-        </if>
+        </if> 
        <!--  从数据库查出来的课程 0 ------------------------------------------------------------------------------------------------ -->
              
       </div>   
       <!--  分页 ----------------------------------------------- -->
-        <div class="tcdPageCode" id="commenttcpage"></div>	
+        <div class="tcdPageCode" id="commenttcpage">
+        <b id="fenye" >
+        <a href="javascript:void(0);" onclick="nextpage(1)">首页</a>&nbsp;&nbsp; 1 &nbsp;&nbsp;
+         	<a href="javascript:void(0);" onclick="nextpage(1)">上一页</a>&nbsp;&nbsp; 1 &nbsp;&nbsp;
+	        <a href="javascript:void(0);" onclick="nextpage(2)">下一页</a>&nbsp;&nbsp;
+	        <a href="javascript:void(0);" onclick="nextpage(${courses.size()/9})">末页</a>&nbsp;&nbsp; 1 &nbsp;&nbsp;
+        </b>
+		        <select id="select" >
+			        <c:forEach items="${courses}" var="item"  step="9"  varStatus="status" >
+					   		<option value="${status.count}" selected="">${status.count}</option>
+			        </c:forEach>
+		             </select>
+        </div>	
         <div class="tcdPageCode" id="hostcpage" style="display:none"></div>
          <div class="tcdPageCode" id="timecpage" style="display:none"></div>
        <!--  分页  ----------------------------------------------- -->

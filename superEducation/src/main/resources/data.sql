@@ -109,7 +109,21 @@ insert into course(course_name,user_id,class_id,course_view,course_description,c
 insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('交谈技巧',8,8,0,'这门课程将会带领你进一步的学会交谈技巧',null,'23.88');
 insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('马云演讲',9,9,0,'精彩的演讲',null,'0');
 insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲',9,9,0,'精彩的演讲',null,'0');
-
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲2',9,9,0,'精彩的演讲',null,'0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲3',9,9,0,'精彩的演讲',null,'0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲4',9,9,0,'精彩的演讲',null,'0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲5',9,9,0,'精彩的演讲',null,'0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲6',9,9,0,'精彩的演讲',null,'0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲7',9,9,0,'精彩的演讲',null,'0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲8',9,9,0,'精彩的演讲',null,'0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲9',9,9,0,'精彩的演讲',null,'0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲10',9,9,0,'精彩的演讲',null,'0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲11',9,9,0,'精彩的演讲',null,'0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲12',9,9,0,'精彩的演讲',null,'0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲13',9,9,0,'精彩的演讲',null,'0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲14',9,9,0,'精彩的演讲',null,'0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲15',9,9,0,'精彩的演讲',null,'0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲16',9,9,0,'精彩的演讲',null,'0');
 alter table course 
 	add constraint cs_class_id foreign key(class_id) references class_category(class_id);
 	
