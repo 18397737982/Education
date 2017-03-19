@@ -67,9 +67,8 @@ public class AdminController {
 				userInfo = list.get(0);
 				map.put("users", userInfo);
 				model.addAttribute("users", userInfo);
-				System.out.println(userInfo.getUser_id());
 			}
-		} else if (userInfo != null && !name.contains("@")) {
+		} else if (userInfo!= null && !name.contains("@")) {
 			userInfo.setUser_name(name);
 			userInfo.toString();
 			list = userInfoBiz.getUserInfoByUserName(userInfo);
@@ -79,10 +78,10 @@ public class AdminController {
 			}
 		}
 		// 登录页面跳转
-		if (list.get(0) == null) {
+		if (list.size()==0) {
 			map.put("Message", "block");
 			map.put("users", "");
-			return "login";
+			return "page/login";
 		}
 		return "page/index"; 
 	}

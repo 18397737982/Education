@@ -103,4 +103,22 @@ public class PageSkip {
 	public String show() {
 		return "page/createcourse";
 	}
+
+	// 进入个人主页界面
+	@RequestMapping(value = "/toPerson.action")
+	public String toPerson() {
+		return "page/person";
+	}
+
+	// 进入个人主页界面
+	@RequestMapping(value = "/toInfo.action")
+	public String toInfo() {
+		return "page/info";
+	}
+
+	// 进入小组介绍
+	@RequestMapping(value = "/toGroupIntroduce.action")
+	public String toGroupIntroduce() {
+		return "page/groupIntroduce";
+	}
 }

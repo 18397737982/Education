@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.mapper.CourseQuestionMapper">
+
+	<!--根据用户id获取到用户提出的问题  -->
+	<resultMap type="CourseQuestion" id="QuestionMap">
+		<id property="cqid" column="cqid"/>
+		<result property="cqcontent" column="cqcontent"/>
+		<association property="userInfo" javaType="UserInfo">
+			<id property="user_id" column="user_id"/>
+			<result property="user_name" column="user_name"/>
+			<result property="pic" column="pic"/>
+		</association>
+	</resultMap>
+	<select id="getMyQuestionByUsid" resultMap="QuestionMap" parameterType="CourseQuestion">
+		select cq.*,user_name,u.pic from courseQuestion cq
+		inner join userInfo u
+		on cq.user_id=u.user_id
+		where cq.user_id=#{userInfo.user_id}
+	</select>
+	
+</mapper>
