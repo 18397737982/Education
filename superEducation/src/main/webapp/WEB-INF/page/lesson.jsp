@@ -367,8 +367,7 @@
     <div id="modal" class="modal" tabindex="-1" aria-hidden="true" style="display: none;"><div class="modal-dialog  modal-lg">
   <div id="lessioncontent" class="modal-content">
     <div class="modal-header">
-                   <button type="button" class="
-" data-dismiss="modal" aria-hidden="true">×</button>
+                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             <h4 class="modal-title">  添加课时</h4>
            </div>
     <div class="modal-body">
@@ -801,14 +800,14 @@
   					str+="<li class='item-lesson clearfix' id='lesson-89862' data-file-id='0' data-lesson-type='text' style='word-break: break-all;' >";
 						str+="<div class='item-line'></div>";
 						str+="<div class='item-content'>";
-			  			str+="<i "+(data[i].type==1 ? 'class="glyphicon glyphicon-file" style="color: rgb(56, 193, 60);"':'class="glyphicon glyphicon-film" style="color: rgb(56, 193, 60);"')+"></i>课时 <span class='number' id='number'>"+data[i].courseseq+"</span>：   "+data[i].title+"";				
+			  			str+="<i "+(data[i].type==1 ? 'class="glyphicon glyphicon-file" style="color: rgb(56, 193, 60);"':'class="glyphicon glyphicon-film" style="color: rgb(56, 193, 60);"')+"></i>课时 <span class='number'>"+data[i].courseseq+"</span>：	"+data[i].title+"";				
 						str+="</div>";
 
 						str+="<div class='item-actions'>";
 		  				str+="<a class='btn btn-link' data-toggle='modal' data-target='#modal' data-backdrop='static' data-keyboard='false' data-url='/course/14687/manage/lesson/89862/edit'>";
 					 	str+="<span class='glyphicon glyphicon-edit prs'></span>编辑</a>";
 						str+="<a class='btn btn-link' href='/course/14687/lesson/89862' target='_blank'><span class='glyphicon glyphicon-eye-open prs'></span>预览</a>";
-						str+="<span class='dropdown'><p onclick='deleteLession()' class='delete-lesson-btn btn-danger btn' data-url='/course/14687/manage/lesson/89862/delete'><span class='glyphicon glyphicon-trash prs'></span>删除</p>";
+						str+="<span class='dropdown'><a href='javascript:;' class='delete-lesson-btn btn-danger btn' data-url='/course/14687/manage/lesson/89862/delete'><span class='glyphicon glyphicon-trash prs'></span>删除</a>";
 						str+="</span>";
 						str+="</div>";
 						str+="</li>";
@@ -817,43 +816,44 @@
 				$("#emptylession").hide();
   			}
   		},"json");
-  	});    
-  
-	function addlession(){
-			var type=$("input[name='type']:checked").val();
-			if(type==0){
-				var title=$("#lesson-title-field0").val();
-				var introduction=$("#lesson-summary-field0").val();
-				var content=$("#pathOrContetn").val();
-				
-			}else if(type==1){
-				var title=$("#lesson-title-field1").val(); 
-				var introduction=$("#lesson-summary-field1").val();
-				var content=myckeditor.document.getBody().getHtml();
-			}
-			if(title==null){
-				alert("温馨提示：标题不能为空！");
-			}else if(introduction==null){
-				alert("温馨提示：简介不能为空！");
-			}
-			//content:content,
-			$.post("course/addlession.action",{type:type,title:title,content:content,introduction:introduction},
-					function(data){
-					if(data!=null){
-						$("#sstyle").html("");
-						$("#emptylession").hide();
-						$('#modal').modal('hide');
-						alert(data.courseseq)
-						alert(data.title)
-						$("#pathOrContetn").popover('hide');
-						$("#pathOrContetn01").popover('hide');
-						window.location.reload();
-					}else{
-						alert("添加课时失败！")
-					}
-			},"json");
-		}
-		
+  	});  
+  		function addlession(){
+  			var type=$("input[name='type']:checked").val();
+  			if(type==0){
+  				var title=$("#lesson-title-field0").val();
+  				var introduction=$("#lesson-summary-field0").val();
+  				var content=$("#pathOrContetn").val();
+  				
+  			}else if(type==1){
+  				var title=$("#lesson-title-field1").val();
+  				var introduction=$("#lesson-summary-field1").val();
+  				var content=myckeditor.document.getBody().getHtml();
+  			}
+  			if(title==null){
+  				alert("温馨提示：标题不能为空！");
+  			}else if(introduction==null){
+  				alert("温馨提示：简介不能为空！");
+  			}
+  			//content:content,
+  			$.post("course/addlession.action",{type:type,title:title,content:content,introduction:introduction},
+  					function(data){
+  					if(data!=null){
+  						$("#sstyle").html("");
+  						$("#emptylession").hide();
+  						$('#modal').modal('hide');
+  						alert(data.courseseq)
+  						alert(data.title)
+  						$("#pathOrContetn").popover('hide');
+  						$("#pathOrContetn01").popover('hide');
+  						window.location.reload();
+  					}else{
+  						alert("添加课时失败！")
+  					}
+  			},"json");
+  		}
+  		
+  		
+  		
   		function inport(){
   		var netaddress=$("#pathOrContetn").val();
   		var RegUrl = new RegExp();
@@ -874,26 +874,9 @@
   		});
   		}
   	}
-  		
-	function deleteLession(){
-		var courseseq=$("#number").text();
-		alert(courseseq);
-		$.post("course/deleteLession.action",{courseseq:courseseq},
-				function(data){
-				if(data!=null){
-					window.location.reload();
-				}else{
-					alert("删除课时失败！")
-				}
-		},"json");
-	}
-  	
-	
-	
-	
   	function clicktrue(){
   		 if(confirm("您确定发布课程？")){
-  	        location.href="toPerson.action";
+  	        location.href="page/person.jsp";
   	     }
   	}
   </script>

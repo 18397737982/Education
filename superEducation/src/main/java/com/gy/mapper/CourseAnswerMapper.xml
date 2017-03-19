@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.mapper.CourseAnswerMapper">
+	<!-- 根据用户id获取到用户回答过的问题 -->
+	<resultMap type="CourseAnswer" id="AnswerMap">
+		<id property="caid" column="caid"/>
+		<result property="answerContent" column="answerContent"/>
+		<result property="answertime" column="answertime"/>
+		<collection property="userInfo" ofType="UserInfo">
+			<id property="user_id" column="user_id"/>
+			<result property="user_name" column="user_name"/>
+		</collection>
+		<collection property="courseQuestion" ofType="CourseQuestion">
+			<id property="cqid" column="cqid"/>
+			<result property="cqcontent" column="cqcontent"/>
+		</collection>
+	</resultMap>
+	<select id="getMyAnswerByUsid" resultMap="AnswerMap" parameterType="CourseAnswer">
+		select ca.*,cqcontent,user_name from courseAnswer ca
+		inner join userInfo u
+		on ca.user_id=u.user_id
+		inner join courseQuestion cq
+		on ca.cqid=cq.cqid
+		where ca.user_id=#{userInfo.user_id}
+	</select>
+	
+</mapper>

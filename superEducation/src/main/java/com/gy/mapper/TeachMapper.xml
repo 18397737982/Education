@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.mapper.TeachCourseMapper">
+
+	<!-- //通过userid查在教的课程信息 -->
+	<resultMap type="TeachCourse" id="TeachCourseByUsidMap">
+		<id column="tcid" property="tcid" />
+		<id column="teachPeriod" property="teachPeriod" />
+		<id column="assess" property="assess" />
+		<id column="memberCount" property="memberCount" />
+		<id column="assessAvg" property="assessAvg" />
+		<collection property="userInfo" ofType="UserInfo">
+			<id property="user_id" column="user_id" />
+			<result property="user_name" column="user_name" />
+			<result property="pic" column="pic" />
+		</collection>
+		<collection property="course" ofType="Course">
+			<id property="course_id" column="course_id" />
+			<result property="course_name" column="course_name" />
+			<result property="coursephoto" column="coursephoto" />
+			<result property="course_view" column="course_view" />
+			<result property="courseting" column="courseting" />
+		</collection>
+	</resultMap>
+	<select id="getTeachByUsid" resultMap="TeachCourseByUsidMap" parameterType="TeachCourse">
+		select c.*,(select count(1) from teachCourse where course_id = c.course_id )
+		memberCount,u.*,
+		(select avg(assess) from teachCourse where course_id = c.course_id) assessAvg
+		from teachCourse t
+		inner join userInfo u
+		on u.user_id=t.user_id
+		inner join course c
+		on c.course_id=t.course_id
+		where t.user_id=#{userInfo.user_id}
+	</select>
+	
+</mapper>

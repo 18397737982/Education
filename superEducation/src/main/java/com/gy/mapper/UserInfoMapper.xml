@@ -31,21 +31,36 @@
 		select * from userInfo where user_id=#{user_id}
 	</select>
 	
-	<!-- 修改用户基础信息-->
-	<update id="updatesomeUserInfo" parameterType="UserInfo">
-		update userInfo set age=#{age},realname=#{realname},sex=#{sex},usign=#{usign},introduce=#{introduce},email=#{email}
-		where user_id=#{user_id}
-	</update>
+	<!-- //通过userid查课程信息 -->
+	<resultMap type="Course" id="CourseByUsidMap">
+		<id column="course_id" property="course_id"/>
+		<result property="course_name" column="course_name" />
+		<result property="course_view" column="course_view" />
+		<result property="course_description" column="course_description" />
+		<result property="coursephoto" column="coursephoto" />
+		<result property="courseting" column="courseting" />
+		<result property="price" column="price" />
+		<result property="memberCount" column="memberCount" />
+		<result property="assessAvg" column="assessAvg" />
+		<result property="totalCm" column="totalCm" />
+		<result property="studyPeriod" column="studyPeriod" />
+		<collection property="userInfo" ofType="UserInfo">
+			<id property="course_id" column="course_id" />
+			<result property="course_name" column="course_name" />
+		</collection>
+		<collection property="class_category" ofType="Class_category">
+			<id property="class_id" column="class_id" />
+			<result property="class_categorys" column="class_categorys" />
+		</collection>
+	</resultMap>
+	<select id="getCourseByUsid" resultMap="CourseByUsidMap" parameterType="UserInfo">
+		 select s.*,(select count(1) from studyCourse where course_id = s.course_id ) memberCount,
+		(select avg(assess) from studyCourse where course_id = s.course_id) assessAvg,
+		(select count(*) from class_hour cm where cm.course_id=s.course_id ) totalCm,
+		(select studyPeriod from studyCourse sc where sc.user_id=#{user_id} and sc.course_id=s.course_id) studyPeriod
+		 from course s where s.course_id in(select course_id from studyCourse  where user_id =#{user_id})
+	</select>
 	
-	<!-- 修改头像 -->
-	<update id="updatePic" parameterType="UserInfo">
-		update userInfo set pic=#{pic}
-		where user_id=#{user_id}
-	</update>
 	
-	<!-- 修改密码 -->
-	<update id="updatePassword" parameterType="UserInfo">
-		update userInfo set password=#{password}
-		where user_id=#{user_id}
-	</update>
+	
 </mapper>
