@@ -1,7 +1,10 @@
 package com.gy.controller;
 
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +16,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gy.beans.UserInfo;
 import com.gy.biz.CategoryBiz;
@@ -107,4 +112,75 @@ public class AdminController {
 		}
 		return userInfo;
 	}
+	
+	//用户基础信息添加
+	@ResponseBody
+	@RequestMapping(value="userinfo/save")
+	public String saveInfo(@ModelAttribute UserInfo users,ModelMap map,HttpServletRequest request,Model model){
+		System.out.println("save了");
+		//System.out.println(users);
+		String flag="";
+		//String user_name=users.getUser_name();
+		
+		//System.out.println(user_name);
+		
+		int result=userInfoBiz.saveInfo(users);
+		if(result==1){
+			flag = "1";
+		}else{
+		}
+		return flag;
+	}
+	//修改头像
+	@RequestMapping("userinfo/editPhoto")
+	 public String editItemsSubmit( Model model,HttpServletRequest request,Integer userid,
+			  MultipartFile items_pic,UserInfo user)throws Exception {
+		
+	      // 上传图片的原始名称
+	      String originalFilename = items_pic.getOriginalFilename();
+	      // 上传图片
+	      if (items_pic!= null&&originalFilename!=null&&originalFilename.length()>0) {// 存储图片的物理路径
+	        String pic_path = request.getServletContext().getRealPath("../img/headimg/")+"/";
+	        // 新的图片名称
+	        String newFilename = new Date().getTime()+""+new Random().nextInt(100000)
+	        		 +originalFilename.substring(originalFilename.lastIndexOf("."));
+	        //新的图片
+	        File newfile=new java.io.File(pic_path+newFilename);
+	        
+	        //将内存的数据写入磁盘
+	        items_pic.transferTo(newfile);   	
+	        user.setUser_id(userid);
+	        user.setPic("../img/headimg/"+newFilename);
+	        userInfoBiz.editPic(user);
+	   }
+	      return "redirect:/toInfo.action";
+	}
+	
+	//获取原有头像
+	@ResponseBody
+	@RequestMapping(value="userInfo/selectTouxiang.action",method=RequestMethod.POST)
+	public UserInfo register1(UserInfo userInfo,ModelMap map){
+		 UserInfo user=userInfoBiz.getUserInfoByUserid(userInfo).get(0);
+		return user;
+
+	}
+	
+	//修改密码
+	@RequestMapping(value="userInfo/editpwd.action",method=RequestMethod.POST)
+	public void editpwd(UserInfo userInfo,Integer user_id,String curpwd,String newpwd,String conpwd, PrintWriter out){
+		UserInfo user=userInfoBiz.getUserInfoByUserid(userInfo).get(0);
+		System.out.println(user);
+		if(!curpwd.equals( user.getPassword()) ){
+			out.print(1);
+		}else if(!newpwd.equals(conpwd)){
+			out.print(2);
+		}else{
+			userInfo.setUser_id(user_id);
+			userInfo.setPassword(newpwd);
+			userInfoBiz.editPwd(userInfo);
+			out.print(3);
+		}
+	}
+	
+	
 }

@@ -103,4 +103,18 @@ public class PageSkip {
 	public String show() {
 		return "page/createcourse";
 	}
+	
+	//进入个人设置界面
+	@RequestMapping(value = "/toInfo.action")
+	public String toInfo() {
+		return "page/info";
+	}
+	
+	//进入个人账户中心
+	@RequestMapping(value = "/toCoin.action")
+	public String toCoin() {
+		return "page/coin";
+	}
+	
+	
 }

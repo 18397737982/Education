@@ -195,6 +195,20 @@
           </div>
           
           <div class="form-group">
+                <label class="col-md-2 control-label" for="howzhi_price">价格</label>
+                <div class="col-md-8 controls">
+                  <c:choose>
+         			<c:when test="${empty price}">
+                  <input type="text" id="howzhi_price" name="howzhi_customTags" required="required" class="form-control" value=""data-widget-cid="widget-3">
+        			</c:when>
+        			<c:otherwise>
+                  <input type="text" id="howzhi_price" name="howzhi_customTags" required="required" class="form-control" value="${price}" data-widget-cid="widget-3">
+        			</c:otherwise>
+			 	</c:choose>
+                </div>
+          </div>
+          
+          <div class="form-group">
             <div class="col-md-offset-2 col-md-8 controls">            
               <a href="javascript:save()" id="save_button" class="btn btn-blue pull-right mrl">保存</a> 
             </div>
@@ -216,7 +230,8 @@
 		var course_description=myckeditor.document.getBody().getHtml();
 		var class_id=$("#course_categoryId").val();
 		var courseting=$("#howzhi_tags").val();
-		$.post("course/basic",{course_name:course_name,course_description:course_description,class_id:class_id,courseting:courseting},function(data){
+		var price=$("#howzhi_price").val();
+		$.post("course/basic",{course_name:course_name,course_description:course_description,class_id:class_id,courseting:courseting,price:price},function(data){
 			if(data==1){
 				alert("温馨提示：课程简介不能为空！");
 			}else if(data==2){

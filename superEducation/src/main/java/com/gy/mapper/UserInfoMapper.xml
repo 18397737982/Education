@@ -30,4 +30,22 @@
 	<select id="findUserInfoByUserId" parameterType="UserInfo" resultType="UserInfo">
 		select * from userInfo where user_id=#{user_id}
 	</select>
+	
+	<!-- 修改用户基础信息-->
+	<update id="updatesomeUserInfo" parameterType="UserInfo">
+		update userInfo set age=#{age},realname=#{realname},sex=#{sex},usign=#{usign},introduce=#{introduce},email=#{email}
+		where user_id=#{user_id}
+	</update>
+	
+	<!-- 修改头像 -->
+	<update id="updatePic" parameterType="UserInfo">
+		update userInfo set pic=#{pic}
+		where user_id=#{user_id}
+	</update>
+	
+	<!-- 修改密码 -->
+	<update id="updatePassword" parameterType="UserInfo">
+		update userInfo set password=#{password}
+		where user_id=#{user_id}
+	</update>
 </mapper>

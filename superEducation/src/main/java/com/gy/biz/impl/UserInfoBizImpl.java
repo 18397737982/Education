@@ -63,4 +63,19 @@ public class UserInfoBizImpl implements UserInfoBiz {
 		return this.baseDao.findAll(userInfo, "findUserInfoByUserId");
 	}
 
+	@Override
+	public int saveInfo(UserInfo user) {
+		return this.baseDao.update(user, "updatesomeUserInfo");
+	}
+
+	@Override
+	public void editPic(UserInfo user) {
+		 this.baseDao.update(user, "updatePic");
+	}
+
+	@Override
+	public void editPwd(UserInfo userInfo) {
+		this.baseDao.update(userInfo, "updatePassword");
+		
+	}
 }

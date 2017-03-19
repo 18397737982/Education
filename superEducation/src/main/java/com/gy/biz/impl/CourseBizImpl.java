@@ -97,4 +97,9 @@ public class CourseBizImpl implements CourseBiz {
 		return this.baseDao.findAll(  c  ,  "findAllcourseseq");
 	}
 
+	@Override
+	public int deletelession(Class_hour class_hour) {
+		return this.baseDao.delete(class_hour, "deletelession");
+	}
+
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -149,7 +150,7 @@ public class CourseController {
 	// 添加基本课程信息
 	@RequestMapping("course/basic")
 	public void savebasic(Class_category class_category, PrintWriter out, String course_name, String course_description,
-			int class_id, String courseting, HttpSession session) {
+			int class_id, String courseting,BigDecimal price, HttpSession session) {
 
 		class_category.setClass_id(class_id);
 		Class_category class_categorys = this.courseBiz.findbycalss_id(class_id);// 根据id课程类
@@ -161,6 +162,7 @@ public class CourseController {
 		session.setAttribute("courseting", courseting);
 		session.setAttribute("basicstatus", "1");
 		session.setAttribute("Class_category", class_categorys);
+		session.setAttribute("price", price);
 
 		if (course_description == null && "".equals(course_description)) {
 			out.print(1);
@@ -232,16 +234,17 @@ public class CourseController {
 			String course_description = (String) session.getAttribute("course_description");
 			int class_id = (int) session.getAttribute("class_id");
 			String courseting = (String) session.getAttribute("courseting");
+			BigDecimal price= (BigDecimal) session.getAttribute("price");
 			UserInfo user = (UserInfo) session.getAttribute("users");
 
 			course.setCourse_name(course_name);
 			course.setClass_id(class_id);
 			course.setCourse_description(course_description);
 			course.setCourseting(courseting);
+			course.setPrice(price);
 			course.setCoursephoto("../img/headimg/" + str);
 			course.setUserInfo(user);
 			System.out.println(course.toString());
-
 			Course courses = this.courseBiz.save(course);
 			resMap.put("filename", str);
 		}
@@ -259,6 +262,8 @@ public class CourseController {
 		Course course = this.courseBiz.findcourse_id();
 		int course_id = course.getCourse_id();
 		System.out.println(course_id);
+		session.setAttribute("courseidnow", course_id);
+		session.setAttribute("coursenow", course);
 
 		Class_hour list = this.courseBiz.findcourseseq(course);
 		Integer courseseqs = null;
@@ -324,4 +329,28 @@ public class CourseController {
 		}
 	}
 
+	//删除课时
+	@RequestMapping("course/deleteLession.action")
+	public void deleteLession(Class_hour class_hour,PrintWriter out,int courseseq, HttpSession session) {
+		//int course_id= (int) session.getAttribute("courseidnow"); 
+		Course course=(Course) session.getAttribute("coursenow");
+		//System.out.println(course_id);
+		System.out.println(courseseq);
+		System.out.println(course);
+		
+		class_hour.setCourse(course);
+		class_hour.setCourseseq(courseseq);
+		int result = this.courseBiz.deletelession(class_hour);
+		Gson gson = new Gson();
+		String cs = gson.toJson(class_hour);
+		if (result > 0) {
+			out.print(cs);
+			session.setAttribute("addlessions", 1);
+			session.setAttribute("cManage", class_hour);
+		}
+		out.flush();
+		out.close();
+	}
 }
+	
+

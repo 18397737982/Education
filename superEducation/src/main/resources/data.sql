@@ -2,13 +2,19 @@ create database mydate;
 --管理员表
 create table admin(
 	admin_id int primary key auto_increment,
+	admin_name varchar(50),
 	admin_password varchar(50),
-	email varchar2(20), 
-	temp01 varchar2(200),--备用字段
-    temp02 varchar2(200)--备用字段
+	email varchar(20),
+	temp01 varchar(200),
+    temp02 varchar(200)
 );
+insert into admin(admin_name,admin_password,email) values('a','a','207297700@qq.com');
 drop table admin;
+select * from admin;
+commit;
+
 --学员表
+select * from userInfo;
 select user_name from userInfo where user_name='a';
 create table userInfo(
 	user_id int primary key auto_increment,
@@ -125,7 +131,7 @@ create table class_hour(
 );
 alter table class_hour 
 	add constraint ch_course_id foreign key(course_id) references course(course_id);
-	
+select * from class_hour;
 --文件
 create table files(
 	files_id int primary key auto_increment,--文件id

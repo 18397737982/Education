@@ -23,6 +23,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from class_hour where course_id=#{course.course_id}
 	</select>
 	
+	<delete id="deletelession" parameterType="Class_hour" > 
+		delete from class_hour where course_id=#{course.course_id} and courseseq=#{courseseq}
+	</delete>
+	
 	
 </mapper>
 
