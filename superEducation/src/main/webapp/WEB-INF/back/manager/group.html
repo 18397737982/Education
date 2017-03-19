@@ -1,0 +1,387 @@
+<table id="group_data"></table>  
+<!-- <table id="news_error"><label style="font-size: 20px;text-align: center;">没有找到相关课程,请重新查询...</label></table>
+-->
+
+<div id="add_group" class="easyui-dialog" title="添加课程" data-options="iconCls:'icon-add',resizable:true,model:true,closed:true,fit:true">
+	<br />
+	<form action="" style="float:left;padding-left:20px;">
+		<label>组名：</label><input type="text" id="group_name" name="groupname" /> <br /><br />
+		<label>组长：</label><input type="text" id="group_author" name="author"  value="课程"/> <br /><br />
+		<label>发布日期：</label><input type="text" id="group_mdate" name="mdate"  class="easyui-datebox" /> <br /><br />
+		
+		<label>小组简介：</label>
+		
+		<div style="width:560px;height: 250px;margin-right: 130px;"> <textarea name="myckeditor"></textarea></div><br/>
+			<script type="text/javascript">
+   		var myckeditor;
+	    	$(document).ready(function(){  
+	    	 myckeditor=CKEDITOR.replace('myckeditor'); 
+	    });
+
+	</script> 
+	<br/>
+	<br/>
+	<br/>
+	<a href="javascript:addgroupInfo()" style="float: right;"  class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>
+		
+	</form>
+	
+
+	
+		<div class="mycontainer" style="float:right;">
+		  <div class="imageBox" style="url(&quot;http://www.17sucai.com/preview/1/2015-03-19/%E4%B8%8A%E4%BC%A0%E6%88%AA%E5%9B%BE/images/avatar.jpg&quot;); background-size: 658px 851px; background-position: -129px -225.5px; background-repeat: no-repeat;">
+		    <div class="thumbBox"></div>
+		    <div class="spinner" style="display: none;">Loading...</div>
+		  </div>
+		  <div class="action"> 
+		    <!-- <input type="file" id="file" style=" width: 200px">-->
+		    <div class="new-contentarea tc"> <a href="javascript:void(0)" class="upload-img">
+		      <label for="upload-file">上传图像</label>
+		      </a>
+		      <input type="file" class="" name="upload-file" id="upload-file">
+		    </div>
+		    <input type="button" id="btnCrop" class="Btnsty_peyton" value="裁切">
+		    <input type="button" id="btnZoomIn" class="Btnsty_peyton" value="+">
+		    <input type="button" id="btnZoomOut" class="Btnsty_peyton" value="-">
+		  </div>
+		  <div id="photo"></div>
+		  </div>
+		
+</div>
+
+
+
+<div id="groupIntroduction" style="top:500px;left:500px;display:none;width: 500px;height: 500px;z-index: 1000px;">
+	我是简介
+
+
+</div>
+<!--
+<div id="edit_group" class="easyui-dialog" title="修改课程" data-options="iconCls:'icon-edit',resizable:true,model:true,closed:true,fit:true">
+	<br />
+	<form action="" style="float:left;padding-left:20px;">
+		<label>课程编号：</label><input type="text" id="egroup_nid" name="nid" required="required" onchange="showInfo()"/> <br /><br />
+		<label>课程类型：</label><select id="egroup_newstype" name="tid"></select> <br /><br />
+		<label>课程标题：</label><input type="text" id="enews_title" name="title" required="required" /> <br /><br />
+		<label>课程作者：</label><input type="text" id="enews_author" name="author" required="required" /> <br /><br />
+		<label>发布日期：</label><input type="text" id="enews_mdate" name="mdate" required="required" class="easyui-datebox" /> <br /><br />
+		<label>课程权重：</label><input type="number" id="enews_weight" name="weight" required="required" min="0" value="0" /> <br /><br />
+		<label>课程图片：</label><input type="file" id="enews_pics" name="pics" required="required" multiple="multiple" onchange="previewMultipleImage(this,'enews_pic_show')"/> <br /><br />
+		<label>课程内容：</label>
+		
+		<div>
+			<script id="editor2" type="text/plain" style="width:800px;height:300px;"></script>
+		</div>
+		
+		<a href="javascript:editNewsInfo()"  class="easyui-linkbutton" data-options="iconCls:'icon-add'" >修改</a>
+	</form>
+
+	<div style="float:right;width:360px;margin-right:20px;">
+		<fieldset id="enews_pic_show">
+			<legend>图片预览</legend>
+		</fieldset>
+	</div>
+</div>
+
+<div id="select_news" class="easyui-dialog" title="条件搜索课程" style="width:300px;height:300px;" data-options="iconCls:'icon-add',closed:true">
+	<form action="" style="float:left;padding-left:20px;">
+		<br />
+		<label>课程标题：</label><input type="text" id="stitle" /> <br /><br />
+		<label>课程类型：</label><input type="text" id="stype" /> <br /><br />
+		<label>课程作者：</label><input type="text" id="sauthor"  /> <br /><br />
+ 		<label>开始时间：</label><input type="text" id="btime" class="easyui-datebox"  /> <br /><br />  
+		<label>结束时间：</label><input type="text" id="etime" class="easyui-datebox"  /> <br /><br />  
+		<input type="button" id="search" value="查询" onclick="searchInfo()" /> <br /><br />  
+	</form>
+</div>
+ -->
+
+<script>
+	//实例化编辑器
+	//建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+	/* var ue = UE.getEditor('editor');
+	var ue2 = UE.getEditor('editor2'); */
+	
+	var obj=$('#group_data').datagrid({  
+	    url:'/newhaozhiwang/group/getAllgroupbypage',  
+		fitColumns:true,//true将自动扩展/收缩columns大小适应grid的宽度,防止水平滚动.
+		striped:true,//显示条纹所在行
+		loadMsg:"数据加载中...",//当从远程服务器加载数据的时候,显示的提示消息.
+		pagination:true,//分页
+		fit:true,//满屏
+		pageNumber:1,//初始页码
+		pageSize:5,//分页大小
+		pageList:[5,10,20,30,40,50],//设置属性
+		/* sortName:'createTime',//定义那个列可以排序
+		sortOrder:'desc', */
+		remoteSort:false,//定义是否远程排序.对数据库进行操作
+	    columns:[[ 
+			{field:'gids',title:'',width:60,align:'center',checkbox:true}, 
+			 {field:'gid',title:'小组编号',width:100,align:'center',
+	        	
+			},
+			 {field:'groupname',title:'小组名称',width:100,align:'center',
+	        	formatter: function(value,row,index){
+	        			if(row.groupType){
+	        				return row.groupType.typename;
+	        			}else{
+	        				return value;
+	        			}
+						
+				}
+			},  
+	       
+	        {field:'userid',title:'组长',width:100,align:'center',
+	        	formatter: function(value,row,index){
+	        			if(row.user){
+	        				return row.user.userid;
+	        			}else{
+	        				return value;
+	        			}
+						
+				}
+			},
+			 {field:'peoplecount',title:'成员个数',width:80,align:'center'},
+	        
+	        
+	        {field:'createtime',title:'发布日期',width:130,align:'center'},
+	       
+	        {field:'pic',title:'小组头像',width:100,align:'center',
+	        	formatter: function(value,row,index){
+					if(value!=null){
+						
+						return "<img src='"+value+"' style='width='60px' height='60px'/>";
+					}else{
+						return;
+					}
+				}
+	        },
+	        {field:'cintrodution',title:'课程简介', width:100,align:'center',
+	        	formatter: function(value,rowData,index){
+						return "<a href='javascript:show("+rowData.groupid+")'>详细</a>";
+				}
+			}
+	        
+	    ]],
+	    toolbar:[{
+			text:"添加",
+			iconCls:"icon-add",
+			handler:function(){
+				$('#add_group').dialog('open'); 
+				$("#group_date").datebox('setValue',myformatter(new Date()));
+			}
+		},{
+			text:"修改",
+			iconCls:"icon-edit",
+			handler:function(){
+				var rows=$('#group_data').datagrid("getChecked")[0];
+				
+				console.info(rows.groupType.ctid);
+				
+				if(rows!=undefined){
+					 var nid=rows.nid;
+					 console.info(nid);
+					$('#edit_news').dialog('open');
+					$("#enews_nid").val(nid);
+					$("#enews_date").datebox('setValue',myformatter(new Date()));
+				
+					$.post("../../newsInfoServlet",{op:"findAllNewsByNid",nid:nid},function(data){
+						$.each(data.rows,function(index,item){
+							$("#enews_title").val(item.title);
+							$("#enews_author").val(item.author);
+							$("#enews_mdate").datebox('setValue',item.mdate);
+							$("#enews_weight").val(item.weight);
+							ue2.setContent(item.ncontent);
+						});
+					},"json");	
+				}else{
+					$.messager.show({
+						title:'成功提示',
+						msg:'请选中您要修改的数据...',
+						timeout:2000,
+						showType:'slide'
+					});
+				}
+				
+			}
+		},{
+			text:"删除",
+			iconCls:"icon-remove",
+			handler:function(){
+				var rows=$('#news_data').datagrid("getChecked");
+				if(rows!=undefined){
+					console.info(rows);
+					 $.messager.confirm('信息确认','您确认要删除选定的数据吗？',function(rs){
+							if(rs){
+								var nids="";
+								for(var i=0;i<rows.length-1;i++){
+									nids+=rows[i].nid+",";
+								}
+								nids+=rows[i].nid;
+								//发请求到数据库删除
+								$.post("../../newsInfoServlet",{op:"delNewsByNid",nid:nids},function(data){
+									if(data>0){
+										$.messager.show({
+											title:'成功提示',
+											msg:'课程类型删除成功',
+											timeout:2000,
+											showType:'slide'
+										});
+										rows=null;
+										$('#news_data').datagrid("reload");//刷新表格
+									}else{	
+										$.messager.alert('失败提示','课程删除失败','error');
+									}
+								});
+							}else{
+								return;
+							}
+						});
+				}else{
+					$.messager.show({
+						title:'成功提示',
+						msg:'请选中您要删除的数据...',
+						timeout:2000,
+						showType:'slide'
+					});  
+				}
+			}
+		},{
+			text:"多条件查询",
+			iconCls:"icon-add",
+			handler:function(){
+				$("#select_news").dialog('open'); 
+				$("#stitle").val("");
+				$("#stype").val("");
+				$("#sauthor").val("");
+				$("#scontent").val("");
+				$("#stime").val("");
+			}
+		}
+	    ]
+	}); 
+	
+	
+	function show(id){
+		$("#groupIntroduction").css("display","block"); 
+	}
+	
+	
+	function showInfo(){
+		var nid=$.trim($("#enews_nid").val());
+		$.post("../../newsInfoServlet",{op:"findAllNewsByNid",nid:nid},function(data){
+				$.each(data.rows,function(index,item){
+					$("#enews_title").val(item.title);
+					$("#enews_author").val(item.author);
+					$("#enews_mdate").datebox('setValue',item.mdate);
+					$("#enews_weight").val(item.weight);
+					ue2.setContent(item.ncontent);
+				});
+		},"json");
+	}
+	
+	function myformatter(date){
+		var y=date.getFullYear();
+		var m=date.getMonth()+1;
+		var d=date.getDate();
+		return y+"-"+(m<10?('0'+m):m) +"-"+( d<10?('0'+m):m) +"-"+( d<10?('0'+d):d);
+	}
+	//初始化加载课程的类型
+	 $(function (){
+		$.post("/newhaozhiwang/groupType/findAllgroupType",function(data){
+			var str="";
+			for(var i=0;i<data.length;i++){
+				str+="<option value='"+data[i].ctid+"'>"+data[i].typename+"</option>";
+			}
+			$("#group_grouptype").html($(str));
+		},"json");
+	});
+	
+	function addgroupInfo(){
+	
+		var groupname=$.trim($("#group_name").val());
+		var userid=$.trim($("#group_author").val());
+		var createTime=$.trim($("#group_mdate").datebox('getValue'));
+		
+		var pic=document.getElementById("uploadhead").src;
+		console.info(groupphoto);
+		var introduction=myckeditor.document.getBody().getHtml(); 
+		console.info(ctintrodution);
+		$.post("/newhaozhiwang/group/addgroup",{"createman":userid,"groupname":groupname,"createtime":createtime,"pic":pic,"introduction":introduction},function(data){
+			if(data){
+				$.messager.show({title:'成功提示',msg:"小组添加成功...",timeout:2000,showType:'slide'});
+				
+				obj.datagrid('reload');
+				$('#add_group').dialog('close');
+			}else{
+				$.messager.show({title:'成功提示',msg:"小组添加失败...",timeout:2000,showType:'slide'});
+
+			}
+		},"json");
+		
+		
+	/* 	$.ajaxFileUpload({
+			url:"/newhaozhiwang/back/manager/uploadheadpic.jsp",
+			secureuri:false,
+			//fileElementId:"update_news_pics",
+			dataType:"json",
+			data:{groupphoto:groupphoto,ctid:ctid,ctitle:ctitle,userId:userId,createTime:createTime,ctintrodution:ctintrodution},
+			success:function(data,status){
+				if(data>0){
+					$.messager.show({title:'成功提示',msg:"新闻修改成功...",timeout:2000,showType:'slide'});
+					/* $("#update_news_newstypes").val("");
+					$("#update_news_title").val("");
+					$("#update_news_author").val("新闻中国");
+					$("#update_news_date").datebox('setValue',"");
+					$("#update_news_weight").val("0");
+					ue1.setContent("");
+					$("update_news_pic_show").html("");
+					obj.datagrid('reload');
+			/* 		$('#update_news').dialog('close'); */
+			/* 	}else{
+					$.messager.alert("错误提示","新闻信息修改失败...\n","error");
+				}
+			},
+			error:function(data,status,e){
+				$.messager.alert("错误提示","新闻信息修改失败...\n","error");
+			}	
+		});	 */
+
+	/* 	$.post("/newhaohziwang/group/addgroup",{"groupphoto":groupphoto,"ctid":ctid,"ctitle":ctitle,"userId":userId,"createTime":createTime,"ctintrodution":ctintrodution},function(data){
+			
+		}); */
+		
+	}
+	
+	//上传头像的js
+	var options =
+	{
+		thumbBox: '.thumbBox',
+		spinner: '.spinner',
+		imgSrc: 'images/avatar.jpg'
+	}
+	var cropper = $('.imageBox').cropbox(options);
+	$('#upload-file').on('change', function(){
+		console.info("yes");
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			options.imgSrc = e.target.result;
+			cropper = $('.imageBox').cropbox(options);
+		}
+		reader.readAsDataURL(this.files[0]);
+		this.files = [];
+	})
+
+	$('#btnCrop').on('click', function(){
+		var img = cropper.getDataURL();
+		$('#photo').html('');
+		
+		$('#photo').append('<img  id="uploadhead" src="'+img+'" style="width:360px;height:270px;margin-top:4px;box-shadow:0px 0px 12px #7E7E7E;">');
+	})
+	$('#btnZoomIn').on('click', function(){
+		cropper.zoomIn();
+	})
+	$('#btnZoomOut').on('click', function(){
+		cropper.zoomOut();
+	})
+</script>
