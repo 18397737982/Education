@@ -60,7 +60,7 @@ function courses(class_id,rang){
 					"rang":rang		//最热排序  -1    
 		},
 		method:"POST",
-		type:"JSON",
+		type:"POST",
 		dataType: 'json',
 		success:function(data){
 			course=data;
@@ -100,12 +100,12 @@ function changcourse(data){
 		var thiscourse=data[i];			
 	$("#findCourse").append("<div class='col-md-4 col-xs-6'>"
 				+"<div class='course-item'  id='course"+thiscourse.course_id+"'>"
-						+" <div class='course-img' id='cimg"+thiscourse.course_id+"'> <a href='toOneCourse.action/"+thiscourse.course_id+"' > <img src='images/160148ccf620140008.jpg' alt='' class='''> </a> </div>"
+						+" <div class='course-img' id='cimg"+thiscourse.course_id+"'> <a href=\"toOneCourse.action/"+thiscourse.course_id+"\"> <img src='"+thiscourse.coursephoto+"' alt='' class='''> </a> </div>"
 						+"  <div class='course-info'>"
 								+"<div class='title text-o-show'> <a href='toOneCourse.action/"+thiscourse.course_id+"' >"+thiscourse.course_name+"</a> </div>"
 								+"<div class='metas'  style='color:#666'><span>浏览量:"+thiscourse.course_view+"</span>/ <span>学员:</span>/ <span>评分</span> </div>"
 								+"<div class='teacher text-o-show'> <a class=' js-user-card' href='javaScript:void(0);' data-card-url='/user/1282433/card/show' data-user-id='1282433'> "
-									+"<img class='avatar-ss ' src=' images/2001255a2bbc776915.jpg' alt='' >"+thiscourse.userInfo.user_name+"</a>"
+									+"<img class='avatar-ss ' src=' "+thiscourse.coursephoto+"' alt='' >"+thiscourse.userInfo.user_name+"</a>"
 									+" <div class='price free pull-right'><span>￥:"+thiscourse.price+"</span></div>"
 						  		+"</div>"
 						+"</div>"
@@ -180,12 +180,12 @@ function changcourse(data){
         	        <div class="col-md-4 col-xs-6">
 	        <!-- 课程 -->
 	          <div class="course-item " id="course${item.course_id}">
-			            <div class="course-img"  id="cimg${item.course_id}"> <a href="'toOneCourse.action/"+${item.course_id}+"' " > <img src="images/160148ccf620140008.jpg" alt="" class=""> </a> </div>
+			            <div class="course-img"  id="cimg${item.course_id}"> <a href="toOneCourse.action/${item.course_id}" > <img src="${item.coursephoto}" alt="" class=""> </a> </div>
 			            <div class="course-info">
 			              <div class="title text-o-show"> <a href="'toOneCourse.action/"+${item.course_id}+"' " ></a>${item.course_name} </div>
 			              <div class="metas"  style="color:#666"><span>浏览量:${item.course_view}</span>/ <span>学员</span>/ <span>评分</span> </div>
 			              <div class="teacher text-o-show"> <a class=" js-user-card" href="javaScript:void(0);" data-card-url="/user/1282433/card/show" data-user-id="1282433"> 
-			              	<img class="avatar-ss " src=" images/2001255a2bbc776915.jpg" alt="" >${item.userInfo.user_name}</a>
+			              	<img class="avatar-ss " src=" ${item.coursephoto}" alt="" >${item.userInfo.user_name}</a>
 			                <div class="price free pull-right"><span>￥：${item.price}</span></div>
 			              </div>
 			            </div>

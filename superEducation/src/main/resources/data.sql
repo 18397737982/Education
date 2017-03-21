@@ -83,47 +83,47 @@ create table course(
 	course_view int ,
 	course_description varchar(500),
 	coursephoto varchar(400),
-	courseting varchar(100),
+	courseting varchar(100),   --//标签
 	price numeric(8,2)
 );
 
 select course_id,course_name,c.user_id,class_id,course_view,course_description,coursephoto,price,u.user_id,u.user_name from course c , userInfo u where c.user_id=u.user_id and c.class_id=1 ORDER BY course_view DESC
 
 select *from course;
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('java初级教学',2,5,0,'这门课程将会带领你初步的学会java语言编程',null,'23.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('摄影初级教学',10,1,0,'这门课程将会带领你初步的学会摄影初级',null,'21.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('摄影中级教学',10,1,0,'这门课程将会带领你中步的学会摄影初级',null,'43.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('设计图初级教学',2,2,0,'这门课程将会带领你初步的学会设计图初级',null,'23.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('设计图中级教学',2,2,0,'这门课程将会带领你进一步的学会设计图初级',null,'43.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('吉他初级教学',3,3,0,'这门课程将会带领你初步的学会吉他',null,'23.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('吉他初级教学',3,3,0,'这门课程将会带领你进一步步的学会吉他',null,'43.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('篮球初级教学',4,4,0,'这门课程将会带领你初步的学会篮球',null,'23.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('篮球中级教学',4,4,0,'这门课程将会带领你进一步的学会java语言编程',null,'43.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('js初级教学',5,5,0,'这门课程将会带领你初步的学会js语言编程',null,'23.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('js中级教学',5,5,0,'这门课程将会带领你进一步的学会js语言编程',null,'43.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('LOL初级教学',6,6,0,'这门课程将会带领你初步的学会LOL',null,'23.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('LOL中级教学',6,6,0,'这门课程将会带领你进一步的学会LOL',null,'23.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('英语初级教学',7,7,0,'这门课程将会带领你初步的学会英语',null,'23.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('英语中级教学',7,7,0,'这门课程将会带领你进一步的学会英语',null,'43.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('交谈技巧',8,8,0,'这门课程将会带领你初步的学会交谈技巧',null,'23.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('交谈技巧',8,8,0,'这门课程将会带领你进一步的学会交谈技巧',null,'23.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('马云演讲',9,9,0,'精彩的演讲',null,'0');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲',9,9,0,'精彩的演讲',null,'0');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲2',9,9,0,'精彩的演讲',null,'0');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲3',9,9,0,'精彩的演讲',null,'0');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲4',9,9,0,'精彩的演讲',null,'0');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲5',9,9,0,'精彩的演讲',null,'0');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲6',9,9,0,'精彩的演讲',null,'0');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲7',9,9,0,'精彩的演讲',null,'0');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲8',9,9,0,'精彩的演讲',null,'0');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲9',9,9,0,'精彩的演讲',null,'0');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲10',9,9,0,'精彩的演讲',null,'0');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲11',9,9,0,'精彩的演讲',null,'0');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲12',9,9,0,'精彩的演讲',null,'0');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲13',9,9,0,'精彩的演讲',null,'0');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲14',9,9,0,'精彩的演讲',null,'0');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲15',9,9,0,'精彩的演讲',null,'0');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲16',9,9,0,'精彩的演讲',null,'0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('java初级教学',2,5,0,'这门课程将会带领你初步的学会java语言编程','../img/headimg/1489496618068.jpg','23.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('摄影初级教学',10,1,0,'这门课程将会带领你初步的学会摄影初级','../img/headimg/1489496618068.jpg','21.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('摄影中级教学',10,1,0,'这门课程将会带领你中步的学会摄影初级','../img/headimg/1489496618068.jpg','43.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('设计图初级教学',2,2,0,'这门课程将会带领你初步的学会设计图初级','../img/headimg/1489496618068.jpg','23.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('设计图中级教学',2,2,0,'这门课程将会带领你进一步的学会设计图初级','../img/headimg/1489496618068.jpg','43.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('吉他初级教学',3,3,0,'这门课程将会带领你初步的学会吉他','../img/headimg/1489496618068.jpg','23.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('吉他初级教学',3,3,0,'这门课程将会带领你进一步步的学会吉他','../img/headimg/1489496618068.jpg','43.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('篮球初级教学',4,4,0,'这门课程将会带领你初步的学会篮球','../img/headimg/1489496618068.jpg','23.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('篮球中级教学',4,4,0,'这门课程将会带领你进一步的学会java语言编程','../img/headimg/1489496618068.jpg','43.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('js初级教学',5,5,0,'这门课程将会带领你初步的学会js语言编程','../img/headimg/1489496618068.jpg','23.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('js中级教学',5,5,0,'这门课程将会带领你进一步的学会js语言编程','../img/headimg/1489496618068.jpg','43.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('LOL初级教学',6,6,0,'这门课程将会带领你初步的学会LOL','../img/headimg/1489496618068.jpg','23.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('LOL中级教学',6,6,0,'这门课程将会带领你进一步的学会LOL','../img/headimg/1489496618068.jpg','23.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('英语初级教学',7,7,0,'这门课程将会带领你初步的学会英语','../img/headimg/1489496618068.jpg','23.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('英语中级教学',7,7,0,'这门课程将会带领你进一步的学会英语','../img/headimg/1489496618068.jpg','43.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('交谈技巧',8,8,0,'这门课程将会带领你初步的学会交谈技巧','../img/headimg/1489496618068.jpg','23.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('交谈技巧',8,8,0,'这门课程将会带领你进一步的学会交谈技巧','../img/headimg/1489496618068.jpg','23.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('马云演讲',9,9,0,'精彩的演讲','../img/headimg/1489496618068.jpg','0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲',9,9,0,'精彩的演讲','../img/headimg/1489496618068.jpg','0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲2',9,9,0,'精彩的演讲','../img/headimg/1489496618068.jpg','0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲3',9,9,0,'精彩的演讲','../img/headimg/1489496618068.jpg','0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲4',9,9,0,'精彩的演讲','../img/headimg/1489496618068.jpg','0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲5',9,9,0,'精彩的演讲','../img/headimg/1489496618068.jpg','0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲6',9,9,0,'精彩的演讲','../img/headimg/1489496618068.jpg','0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲7',9,9,0,'精彩的演讲','../img/headimg/1489496618068.jpg','0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲8',9,9,0,'精彩的演讲','../img/headimg/1489496618068.jpg','0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲9',9,9,0,'精彩的演讲','../img/headimg/1489496618068.jpg','0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲10',9,9,0,'精彩的演讲','../img/headimg/1489496618068.jpg','0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲11',9,9,0,'精彩的演讲','../img/headimg/1489496618068.jpg','0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲12',9,9,0,'精彩的演讲','../img/headimg/1489496618068.jpg','0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲13',9,9,0,'精彩的演讲','../img/headimg/1489496618068.jpg','0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲14',9,9,0,'精彩的演讲','../img/headimg/1489496618068.jpg','0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲15',9,9,0,'精彩的演讲','../img/headimg/1489496618068.jpg','0');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('雷军演讲16',9,9,0,'精彩的演讲','../img/headimg/1489496618068.jpg','0');
 alter table course 
 	add constraint cs_class_id foreign key(class_id) references class_category(class_id);
 	
@@ -137,6 +137,14 @@ create table class_hour(
 	courseseq int ,
 	content varchar(2000)	
 );
+	select * from class_hour where courseseq >= (
+		select courseseq from class_hour where class_hour_id=2 GROUP BY class_hour_id
+	) order by courseseq  limit 2;
+insert into class_hour(course_id,type,title,introduction,courseseq,content) values(40,1,'摄影第一讲','介绍各类摄影的设备',1,'https://v.qq.com/');
+insert into class_hour(course_id,type,title,introduction,courseseq,content) values(40,1,'摄影第一讲','介绍各类摄影的历史',2,'https://v.qq.com/');
+insert into class_hour(course_id,type,title,introduction,courseseq,content) values(40,1,'摄影第一讲','拍摄基础',3,'https://v.qq.com/');
+
+
 alter table class_hour 
 	add constraint ch_course_id foreign key(course_id) references course(course_id);
 	
@@ -192,8 +200,8 @@ create table stu_count(
 	course_id int,
 	stu_id int
 );
-insert into  stu_count(course_id,stu_id) values(1,1);
-insert into  stu_count(course_id,stu_id) values(1,2);
+insert into  stu_count(course_id,stu_id) values(41,1);
+insert into  stu_count(course_id,stu_id) values(51,2);
 insert into  stu_count(course_id,stu_id) values(1,4);
 insert into  stu_count(course_id,stu_id) values(2,3);
 insert into  stu_count(course_id,stu_id) values(2,2);
@@ -241,12 +249,21 @@ create table studyCourse(
        user_id int,
        course_id int, 
        begintime date ,
-       assess int ,
+       assess int,
        studyPeriod varchar(500),
        temp01 varchar(200),
        temp02 varchar(200)
 );
-
+insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,40,'2017-02-23 00:00:00',2,'10');
+insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(4,40,'2017-02-23 00:00:00',1,'10');
+insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(5,40,'2017-02-23 00:00:00',2,'10');
+insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,41,'2017-02-23 00:00:00',1,'10');
+insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,41,'2017-02-23 00:00:00',2,'10');
+insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,43,'2017-02-23 00:00:00',3,'10');
+insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,44,'2017-02-23 00:00:00',1,'10');
+insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,42,'2017-02-23 00:00:00',2,'10');
+insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,44,'2017-02-23 00:00:00',1,'10');
+insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,45,'2017-02-23 00:00:00',4,'10');
 drop table studyCourse;
 select scid,studyCourse.user_id,studyCourse.course_id,begintime,assess,studyPeriod from studyCourse 
 		inner join userInfo
@@ -278,5 +295,9 @@ select c.course_id,course_name,c.user_id,class_id,course_view,course_description
 				ORDER BY s.rang DESC
  ;
 
-
+select sc.* ,c.*,u.user_id,u.user_name,u.pic from studyCourse sc,Course c,UserInfo u 
+			where sc.course_id=40
+				and sc.user_id=u.user_id 
+				and sc.course_id=c.course_id
+				ORDER BY sc.begintime DESC
 

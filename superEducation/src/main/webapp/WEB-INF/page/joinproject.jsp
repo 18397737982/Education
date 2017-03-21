@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@page isELIgnored="false" %>
 <!DOCTYPE html>
 <html class="">
 <head>
-<base href="/newhaozhiwang/" />
+<base href="/superEducation/"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
-<title>人像摄影高级教程 - 好知网-重拾学习乐趣</title>
+<title>${onecourse.course_name}</title>
 
 <link href="http://f1.howzhi.com/system/2016/03-31/113613d6a857327741.ico" rel="shortcut icon">
 
@@ -76,9 +76,9 @@
 <script type="text/javascript">
 	var attention;
 	var flag = "${(empty users)? false : true}";
-	var uname = '${users.uname}';
-	var userid = '${users.userid}';
-	var presentid='${users.userid}';
+	var uname = '${users.user_name}';
+	var userid = '${users.user_id}';
+	var presentid='${users.user_id}';
 	console.info(presentid);
 	if("${users}"==""){
 		console.info("yes");
@@ -91,33 +91,59 @@
 		}
 		
 		
-		$.post('courseAnswer/AddAnswerbycqid/',{userid:"${users.userid}",cqid:$("#cqid").val(),answerContent:$("#add").val()},function(data){
+ 		$.post('courseAnswer/AddAnswerbycqid/',{userid:"${users.user_id}",cqid:$("#cqid").val(),answerContent:$("#add").val()},function(data){
 			
 			
 			window.location.href=window.location.href;
 		})
-		
+		 
 	}
+	function Assessgrade(){
+		var grade=${assessGrade};
+		if(grade!=null){
+			var star1='images/star-off.png',star2='images/star-off.png',star3='images/star-off.png',star4='images/star-off.png',star5='images/star-off.png';
+			if(grade<=1){
+				star1='images/star-on.png';
+			}else if(grade<=2&&grade>1){
+				star1='images/star-on.png';star2='images/star-on.png';
+			}else if(grade<=3&&grade>2){
+				star1='images/star-on.png';star2='images/star-on.png';star3='images/star-on.png';
+			}else if(grade<=4&&grade>3){
+				star1='images/star-on.png';star2='images/star-on.png';star3='images/star-on.png';star4='images/star-on.png';
+			}else{
+				star1='images/star-on.png';star2='images/star-on.png';star3='images/star-on.png';star4='images/star-on.png';star5='images/star-on.png';
+			}
+			$("#xinxin").html("<img src='"+star1+"' alt='1' title='很差'>&nbsp;"
+			+"<img src='"+star2+"' alt='2' title='较差'>&nbsp;"
+			+"<img src='"+star3+"'  alt='3' title='还行'>&nbsp;"
+			+"<img src='"+star4+"' alt='4' title='推荐'>&nbsp;"
+			+"<img src='"+star5+"' alt='5' title='力荐'>"
+		/* 	+"<input type='hidden' name='score' value='3">" */
+			);
+			
+		}
+	}
+	
+	
 </script>
 </head>
 
 <body class="course-dashboard-page">
 
-	<c:set value="${users}" var="us" />
-	<c:if test="${empty us }">
-		<jsp:include page="topf.jsp"></jsp:include>
-	</c:if>
-	<c:if test="${us!=null }">
-		<jsp:include page="topb.jsp"></jsp:include>
-	</c:if>
-
+<c:set value="${users}" var="us"/>
+<c:if test="${empty us }">
+	<jsp:include page="topf.jsp"></jsp:include>
+</c:if>
+<c:if test="${us!=null }">
+	<jsp:include page="topb.jsp"></jsp:include>
+</c:if>
 	<section class="course-header-new">
 		<div class="container">
 			<!-- 面包屑 -->
 			<div class="bread_crumb">
 
 				<div class="breadcrumb">
-					<a href=""></a> <span> &gt; </span><a href=""> <span class="in"></span>
+					<a href="toCourse.action/${onecourse.class_id}" >${onecourse.lass_category.class_categorys}</a> <span> &gt; </span><a href="">${onecourse.course_name} <span class="in"></span>
 					</a>
 					
 				</div>
@@ -126,19 +152,19 @@
 
 			<div class="row hz-course-before clearfix">
 				<div class="pic col-md-5 col-xs-12">
-					<img class="img-responsive" id="img-responsive" src="images/160148ccf620140008.jpg"
+					<img class="img-responsive" id="img-responsive" src="${onecourse.coursephoto}"
 						alt="">
 				</div>
 				<div class="info col-md-7 col-xs-12 pull-right">
-					<h1 id="title"></h1>
+					<h1 id="title">${onecourse.course_name} </h1>
 					<div class="action">
 						<div class="share hz-share top pull-right">
-							<a href="javascript:;" class=" dropdown-toggle"
+							<a href="javaScript:void(0);" class=" dropdown-toggle"
 								data-toggle="dropdown"> <i class="glyphicon glyphicon-link"
 								style="color: rgb(0, 0, 0)"></i>分享
 							</a>
 
-							<div class="dropdown-menu  js-social-share-params"
+	<!-- 						<div class=""
 								data-title="人像摄影高级教程"
 								data-summary="由摄影师杨最醉主讲的人像摄影高级教程，从人像摄影器材到主题策划、光线捕捉、后期调色、磨皮等各个角度讲..."
 								data-message="我发现了一门好课程《人像摄影高级教程》，一起来学习吧！"
@@ -156,7 +182,7 @@
 									class="js-social-share qzone" data-cmd="qzone" title="分享到QQ空间"
 									data-share="qzone"><i class="es-icon es-icon-qzone"></i></a>
 
-							</div>
+							</div> -->
 
 						</div>
 						<a class="favorite pull-right" href="javascript:"
@@ -171,26 +197,25 @@
 					<div class="score">
 						<span class="rating-btn mls fsm" data-rating="3" id="xinxin"
 									data-img-path="/assets/img/raty"
-									style="cursor: pointer; width: 100px;"><img 
-									src="images/star-off.png" alt="1" title="很差">&nbsp;<img
-									src="images/star-off.png" alt="2" title="较差">&nbsp;<img
-									src="images/star-off.png" alt="3" title="还行">&nbsp;<img
-									src="images/star-off.png" alt="4" title="推荐">&nbsp;<img
-									src="images/star-off.png" alt="5" title="力荐"><input
+									style="cursor: pointer; width: 100px;">
+									<c:if test="${!empty assessGrade}">
+									<script>Assessgrade();</script>
+									</c:if>
+									<input
 									type="hidden" name="score" value="3"></span> <span id="ass"></span> <span
-							id="asscount">（人评价）</span>
+							id="asscount">（${assessCount}人评价）</span>
 					</div>
 
 					<ul class="metas clearfix">
 						<li class="bd"><i class="glyphicon glyphicon-book"
 							style="color: rgb(0, 0, 0);"></i>
-							<p id="c1"></p></li>
+							<p id="c1">课时：${class_hour.size()}</p></li>
 						<li class="bd"><i class="glyphicon glyphicon-user"
 							style="color: rgb(0, 0, 0);"></i>
-							<p id="c2"></p></li>
+							<p id="c2"></p>学员：${all_study.size() }</li>
 						<li><i class="glyphicon glyphicon-zoom-in"
 							style="color: rgb(0, 0, 0);"></i>
-							<p id="c3"></p></li>
+							<p id="c3"></p>关注：${stu_count}</li>
 						<li class="join"><a class="btn btn-primary"
 							data-toggle="modal" href="javascript:void(0);"
 							data-url="/course/9573/buy?targetType=course" id="joinCourse">加入课程</a>
@@ -262,6 +287,7 @@
 						<h3 class="overview-title hz-line-left">课程简介</h3>
 						<div class="editor-text ptl">
 							<p id="courseinfo">
+							${onecourse.course_description }
 								<br>
 							</p>
 						</div>
@@ -271,23 +297,39 @@
 						</ul>
 
 						<h3 class="overview-title hz-line-left">课程列表</h3>
-						<ul class="period-list hz-courselist" id="course-item-list">
-
-							<li class="period lesson-item lesson-item-67383 "
-								style="text-align: center; color: #616161">该课程还未添加课时！！！</li>
-
-						</ul>
+							<ul class="period-list hz-courselist" id="course-item-list">
+							<c:if test="${class_hour.size()>0}"> 
+								<c:forEach items="${class_hour}" var="item" >
+									<li class="period lesson-item lesson-item-67383 " data-num="1" data-id="67383">
+											<a title="${item.title}" href="toplay.action/${onecourse.course_id}_${item.class_hour_id}">
+											<i class="es-icon es-icon-undone status-icon"></i>
+											<span class="title">L${item.courseseq}：${item.title}</span>
+										<!-- 	<span class="date" title="视频时长25:10">(75:10)</span> -->
+											<span class="course-type">
+												<i class="glyphicon glyphicon-play" title="" data-placement="top" data-toggle="tooltip" data-original-title="视频课程"></i>
+											</span>
+											</a>
+									</li>
+								</c:forEach>
+							</c:if> 
+							<c:if test="${class_hour.size()}<=0">
+								<li class="period lesson-item lesson-item-67383 "style="text-align: center; color: #616161">
+								该课程还未添加课时！！！
+								</li>
+							</c:if>
+							</ul>
+							
 					</div>
 					<!--  课程详情分割线 ------------------------------------ -->
 
-					<!--  课程列表分割线  ---------------------------------------------- -->
+<!-- 					 课程列表分割线  ----------------------------------------------
 					<ul class="period-list hz-courselist" id="courselist"
 						style="display: none;">
 						<li class="period lesson-item lesson-item-67383 "
 							style="text-align: center; color: #616161">该课程还未添加课时！！！</li>
 
 					</ul>
-					<!--  课程列表分割线  ---------------------------------------------- -->
+					 课程列表分割线  ---------------------------------------------- -->
 					<!--  笔记 ----------------------------------- -->
 					<div class="course-notes course-in" style="display: none;"
 						id="courseNotes">
@@ -637,7 +679,7 @@
 					</div>
 					<div class="teach-info media-body">
 						<p class="text-o-show">
-							<a class="link-light " href="http://www.howzhi.com/u/1687444/" id="tname">${course.user.uname}</a>
+							<a class="link-light " href="http://www.howzhi.com/u/1687444/" id="tname">${onecourse.userInfo.user_name}</a>
 						</p>
 						<p>
 							<a href="http://www.howzhi.com/u/1687444/course/created"><span id="teachnumber">1</span>在教</a>
@@ -761,18 +803,29 @@
 				<!--新加入学员-->
 				<div class="flat sidebar-learner ">
 					<h3>
-						最新加入学员<span class="count">(11922)</span>
+						最新加入学员<span class="count">(${all_study.size() })</span>
 					</h3>
 					<ul class="clearfix" id="top12">
-
-						<li><a class=" js-user-card"
-							href="http://www.howzhi.com/u/2359828/"
-							data-card-url="/user/2359828/card/show" data-user-id="2359828">
-								<img class="avatar-sm" src="images/avatar.png" alt="红日211">
-						</a> <a href="http://www.howzhi.com/u/2359828/" title="红日211"
-							class="name">红日211</a></li>
-
-
+					<c:if test="${all_study.size()>0}"> 
+								<c:forEach items="${all_study}" var="item" begin="0" end="5">
+										
+										<li><a class=" js-user-card"  href="http://www.howzhi.com/u/2359828/"
+											data-card-url="/user/2359828/card/show" data-user-id="2359828">
+												<img class="avatar-sm" 
+												<c:choose> 
+													<c:when test="${item.userInfo.pic!=null}">
+														src="${item.userInfo.pic}" 
+													</c:when>
+													<c:otherwise>
+														src="images/avatar.png" 
+													</c:otherwise>
+													</c:choose> 
+												alt="${item.userInfo.user_name }">
+										</a> <a href="http://www.howzhi.com/u/2359828/" title="${item.userInfo.user_name }"
+											class="name">${item.userInfo.user_name }</a></li>
+									
+								</c:forEach>
+					</c:if>
 					</ul>
 				</div>
 
@@ -940,7 +993,7 @@
 	<div id="loadingDiv"
 		style="position: fixed; display: none; z-index: 2000; top: 0px; left: 0px; width: 100%; height: 100%; background-color: #333; opacity: 0.8"></div>
 
-	<script type="text/javascript">
+	<script type="text/javascript"> 
 		var mouseXPosition = 0;
 		var mouseYPosition = 0;
 
