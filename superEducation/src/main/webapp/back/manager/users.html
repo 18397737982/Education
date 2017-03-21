@@ -1,0 +1,322 @@
+<table id="users_data"></table>  
+<div id="add_users" style="font-size:16px;" class="easyui-dialog" title="添加会员" data-options="iconCls:'icon-add',resizable:true,model:true,closed:true,fit:true">
+	<br />
+	<form action="" style="float:left;padding-left:100px;">
+		<label>会员名称：</label><input type="text" id="users_uname" name="uname" required="required" /> <br /><br /><br />
+		<label>会员密码：</label><input type="password" id="users_pwd" name="upassword" required="required" /> <br /><br /><br />
+		<label>电子邮件：</label><input type="text" id="users_email" name="email" required="required" /> <br /><br /><br />
+		<label>性 &nbsp; &nbsp;&nbsp;别：</label><input type="radio" id="users_sex" name="gender" checked="checked" value="男"/>男 <input type="radio" id="users_sex" name="gender" value="女"/>女<br /><br /><br />
+		<label>个性签名：</label><input  type="text" Style="width:400px;" id="users_usign" name="usign" required="required"><br /><br /><br />
+		<div><label >自我介绍：</label></div><textarea id="users_introdution" name="introdution" Style="width:400px;height:200px;" rows="" cols=""></textarea><br /><br /><br /><br />
+		<a href="javascript:void(0)" style="width:100px;mrgin-left:400px;" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="addUsersInfo()">添加</a>
+	</form>
+	
+	<div class="container" id="addphoto"  style="float:right;margin-right: 300px;">
+	  <div id="addimg" class="imageBox" style=" url(&quot;http://www.17sucai.com/preview/1/2015-03-19/%E4%B8%8A%E4%BC%A0%E6%88%AA%E5%9B%BE/images/avatar.jpg&quot;); background-size: 658px 851px; background-position: -129px -225.5px; background-repeat: no-repeat;">
+	    <div class="thumbBox"></div>
+	    <div class="spinner" style="display: none;">Loading...</div>
+	  </div>
+		  <div class="action"> 
+		    <!-- <input type="file" id="file" style=" width: 200px">-->
+		    <div class="new-contentarea tc"> <a href="javascript:void(0)" class="upload-img">
+		      <label for="upload-file">上传头像</label>
+		      </a>
+		      <input type="file" class="" name="upload-file" id="upload-file">
+		    </div>
+		    <input type="button" id="btnCrop" class="Btnsty_peyton" value="裁切">
+		    <input type="button" id="btnZoomIn" class="Btnsty_peyton" value="+">
+		    <input type="button" id="btnZoomOut" class="Btnsty_peyton" value="-">
+		  </div>
+  	<div class="cropped"></div>
+</div>
+	
+</div>
+
+<div id="edit_users" style="font-size:16px;" class="easyui-dialog" title="修改会员" data-options="iconCls:'icon-edit',resizable:true,model:true,closed:true,fit:true">
+	<br />
+	<form action="" style="float:left;padding-left:100px;">
+		<label>会员编号：</label><input type="text" id="eusers_usid" name="userid" readonly="readonly" /> <br /><br />
+		<label>会员名称：</label><input type="text" id="eusers_uname" name="uname" required="required" /> <br /><br /><br />
+		<label>会员密码：</label><input type="password" id="eusers_pwd" name="upassword" required="required" /> <br /><br /><br />
+		<label>电子邮件：</label><input type="text" id="eusers_email" name="email" required="required" /> <br /><br /><br />
+		<label>性 &nbsp; &nbsp;&nbsp;别：</label><input type="radio" id="eusers_sex01" name="gender01"  value="男"/>男 <input type="radio" id="eusers_sex02" name="gender01" value="女"/>女<br /><br /><br />
+		<label>个性签名：</label><input  type="text" Style="width:400px;" id="eusers_usign" name="usign" required="required"><br /><br /><br />
+		<div><label >自我介绍：</label></div><textarea id="eusers_introdution" name="introdution" Style="width:400px;height:200px;" rows="" cols=""></textarea><br /><br />
+		<label>状&nbsp; &nbsp;&nbsp;态：</label><select id="status" style="margin-left:10px;"><option value="0">0</option><option value="1">1</option></select><br /><br />
+		<a href="javascript:void(0)" style="width:100px;mrgin-left:400px;" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="editUsersInfo()">修改</a>
+	</form>
+	
+	<div class="container" style="float:right;margin-right: 300px;">
+	  <div  id="updateimg" class="imageBox" style=" url(&quot;http://www.17sucai.com/preview/1/2015-03-19/%E4%B8%8A%E4%BC%A0%E6%88%AA%E5%9B%BE/images/avatar.jpg&quot;); background-size: 658px 851px; background-position: -129px -225.5px; background-repeat: no-repeat;">
+	    <div class="thumbBox"></div>
+	    <div class="spinner" style="display: none;">Loading...</div>
+	  </div>
+		  <div class="action"> 
+		    <!-- <input type="file" id="file" style=" width: 200px">-->
+		    <div class="new-contentarea tc"> <a href="javascript:void(0)" class="upload-img">
+		      <label for="upload-file">上传头像</label>
+		      </a>
+		      <input type="file" class="" name="upload-file" id="upload-file01">
+		    </div>
+		    <input type="button" id="btnCrop01" class="Btnsty_peyton" value="裁切">
+		    <input type="button" id="btnZoomIn01" class="Btnsty_peyton" value="+">
+		    <input type="button" id="btnZoomOut01" class="Btnsty_peyton" value="-">
+		  </div>
+  	<div class="cropped02"></div>
+</div>
+</div>
+<style type="text/css">
+	
+</style>
+<script>
+$('#users_data').datagrid({  
+    url:'userinfo/findall',  
+	fitColumns:true,//true将自动扩展/收缩columns大小适应grid的宽度,防止水平滚动.
+	striped:true,//显示条纹所在行
+	loadMsg:"数据加载中...",//当从远程服务器加载数据的时候,显示的提示消息.
+	pagination:true,//分页
+	fit:true,//满屏
+	pageNumber:1,//初始页码
+	pageSize:10,//分页大小
+	pageList:[5,10,20,30,40,50],//设置属性
+	sortName:'userid',//定义那个列可以排序.
+	remoteSort:false,//定义是否远程排序.对数据库进行操作
+    columns:[[ 
+		{field:'usids',title:'',width:60,align:'center',checkbox:true}, 
+        {field:'userid',title:'会员编号',width:80,align:'center',sortable:true},  
+        {field:'uname',title:'会员名称',width:80,align:'center'},
+        {field:'email',title:'电子邮件',width:150,align:'center'},
+        {field:'upassword',title:'会员密码',width:80,align:'center'},
+        {field:'gender',title:'性别',width:50,align:'center'},
+        {field:'photo',title:'个人头像',width:100,align:'center',
+        	formatter: function(value,row,index){
+				if(value!=null){
+					return "<img src='../../touxiangPic/"+value+"' style='width='60px' height='60px'/>";
+				}else{
+					return;
+				}
+			}},
+        {field:'usign',title:'个性签名',width:200,align:'center'},
+        {field:'introdution',title:'自我介绍',width:350,align:'center'},
+        {field:'status',title:'状态',width:80,align:'center'},
+        {field:'score',title:'学分',width:80,align:'center'},
+        {field:'signDate',title:'签到',width:80,align:'center'}
+
+    ]],
+    toolbar:[{
+		text:"添加",
+		iconCls:"icon-add",
+		handler:function(){
+			$('#add_users').dialog('open'); 
+			$("#addphoto").show();
+		}
+	},{
+		text:"修改",
+		iconCls:"icon-edit",
+		handler:function(){
+			$("#addphoto").hide();
+			var rows=$('#users_data').datagrid("getChecked")[0];
+			if(rows!=undefined){
+				 var userid=rows.userid;
+				 var uname=rows.uname;
+				 var email=rows.email;
+				 var upassword=rows.upassword;
+				 var gender=rows.gender;
+				 var photo=rows.photo;
+				 var usign=rows.usign;
+				 var status=rows.status;
+				 var introdution=rows.introdution;
+				$('#edit_users').dialog('open');
+				$("#eusers_usid").val(userid);
+				$("#eusers_uname").val(uname);
+				$("#eusers_pwd").val(upassword);
+				$("#eusers_email").val(email);
+				if(gender == "男"){
+					$("#eusers_sex01").attr("checked",'checked');
+				}else{
+					$("#eusers_sex02").attr("checked",'checked');
+				}
+				 
+				$("#eusers_usign").val(usign);
+				$("#eusers_introdution").val(introdution);
+				$("#status").val(status);
+				$('.cropped02').html("");
+				$('.cropped02').append('<img id="pic01" src="../../touxiangPic/'+photo+'" style="width:200px;height:200px;margin-top:4px;box-shadow:0px 0px 12px #7E7E7E;" >');
+			}else{
+				$.messager.show({
+					title:'错误提示',
+					msg:'请选中您要修改的数据...',
+					timeout:2000,
+					showType:'slide'
+				});
+			}
+			
+		}
+	},{
+		text:"删除",
+		iconCls:"icon-remove",
+		handler:function(){
+			var rows=$('#users_data').datagrid("getChecked");
+			if(rows!=undefined){
+				console.info(rows);
+				 $.messager.confirm('信息确认','您确认要删除选定的数据吗？',function(rs){
+						if(rs){
+							if(rows.length == 1){
+								var userid=rows[0].userid;
+								$.post("userinfo/deluserinfo",{userid:userid},function(data){
+									if(data>0){
+										$.messager.show({
+											title:'成功提示',
+											msg:'会员删除成功',
+											timeout:2000,
+											showType:'slide'
+										});
+										rows=null;
+										obj.datagrid("reload");//刷新表格
+										$('#users_data').datagrid("reload");
+									}else{	
+										$.messager.alert('失败提示','会员删除失败','error');
+									}
+								});
+							}else{
+									var userids="";
+									for(var i=0;i<rows.length-1;i++){
+										userids+=rows[i].userid+",";
+									}
+									userids+=rows[i].userid;
+									//发请求到数据库删除
+									$.post("userinfo/deluserinfo",{userid:userids},function(data){
+										if(data>0){
+											$.messager.show({
+												title:'成功提示',
+												msg:'会员删除成功',
+												timeout:2000,
+												showType:'slide'
+											});
+											rows=null;
+											obj.datagrid("reload");//刷新表格
+											$('#users_data').datagrid("reload");
+										}else{	
+											$.messager.alert('失败提示','会员删除失败','error');
+										}
+									});
+								 }
+								}else{
+							return;
+						}
+					});
+			}else{
+				$.messager.show({
+					title:'成功提示',
+					msg:'请选中您要删除的数据...',
+					timeout:2000,
+					showType:'slide'
+				});
+			}
+		}
+	}
+	]
+}); 
+
+function addUsersInfo(){
+	var uname=$("#users_uname").val();
+	var upassword=$("#users_pwd").val();
+	var email=$("#users_email").val();
+	var gender=$('input:radio:checked').val();
+	var photo=document.getElementById("pic").src;
+	var usign=$("#users_usign").val();
+	var introdution=$("#users_introdution").val();
+	$.post("userinfo/adduserinfo",{uname:uname,upassword:upassword,email:email,gender:gender,photo:photo,usign:usign,introdution:introdution},function(data,status){
+			if(data){
+				$.messager.show({title:'成功提示',msg:"会员添加成功...",timeout:2000,showType:'slide'});
+				
+				$("#users_uname").val("");
+				$("#users_pwd").val("");
+				$("#users_email").val("");
+				$("#users_usign").val("");
+				$("#users_introdution").val("");
+				$('#addimg').cropbox(options);
+				$('.cropped').html("");
+				$('#users_data').datagrid("reload");//数据重新加载
+				$("#add_users").dialog('close');//关闭添加新闻页面
+			}else{
+				$.messager.alert("错误提示","会员添加失败...\n","error");
+			}
+		});
+	}
+function editUsersInfo(){
+	var userid=$("#eusers_usid").val();
+	var uname=$("#eusers_uname").val();
+	var upassword=$("#eusers_pwd").val();
+	var email=$("#eusers_email").val();
+	var gender=$("input[name='gender01']:checked").val();
+	var usign=$("#eusers_usign").val();
+	var introdution=$("#eusers_introdution").val();
+	var status=$("#status").val();
+	var photo=document.getElementById("pic01").src;
+	alert(photo)
+	$.post("userinfo/updateuserinfo",{userid:userid,uname:uname,upassword:upassword,email:email,gender:gender,photo:photo,usign:usign,introdution:introdution,status:status},function(data,status){
+		if(data){
+			$.messager.show({title:'成功提示',msg:"会员修改成功...",timeout:2000,showType:'slide'});
+			$('#users_data').datagrid("reload");//数据重新加载
+			$("#edit_users").dialog('close');//关闭添加新闻页面
+			
+		}else{
+			$.messager.alert("错误信息","会员修改失败...\n"+e,"error");
+		}
+	});
+}
+//第一个编辑器
+var options =
+{
+	thumbBox: '.thumbBox',
+	spinner: '.spinner',
+	imgSrc: 'images/avatar.jpg'
+}
+var cropper = $('.imageBox').cropbox(options);
+$('#upload-file').on('change', function(){
+	var reader = new FileReader();
+		reader.onload = function(e) {
+		options.imgSrc = e.target.result;
+		cropper = $('#addimg').cropbox(options);
+	}
+	reader.readAsDataURL(this.files[0]);
+	this.files = [];
+})
+
+$('#btnCrop').on('click', function(){
+	var img = cropper.getDataURL();
+	$('.cropped').html("");
+	$('.cropped').append('<img id="pic" src="'+img+'" style="width:200px;height:200px;margin-top:4px;box-shadow:0px 0px 12px #7E7E7E;" >');
+	
+})
+$('#btnZoomIn').on('click', function(){
+	cropper.zoomIn();
+})
+$('#btnZoomOut').on('click', function(){
+	cropper.zoomOut();
+})
+//第二份编辑器
+
+$('#upload-file01').on('change', function(){
+	var reader = new FileReader();
+		reader.onload = function(e) {
+		options.imgSrc = e.target.result;
+		cropper = $('#updateimg').cropbox(options);
+	}
+	reader.readAsDataURL(this.files[0]);
+	this.files = [];
+})
+
+$('#btnCrop01').on('click', function(){
+	var img = cropper.getDataURL();
+	$('.cropped02').html("");
+	$('.cropped02').append('<img id="pic01" src="'+img+'" style="width:200px;height:200px;margin-top:4px;box-shadow:0px 0px 12px #7E7E7E;" >');
+})
+$('#btnZoomIn01').on('click', function(){
+	cropper.zoomIn();
+})
+$('#btnZoomOut01').on('click', function(){
+	cropper.zoomOut();
+})
+</script>

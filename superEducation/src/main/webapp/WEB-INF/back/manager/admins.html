@@ -1,0 +1,231 @@
+<table id="admins_data"></table>  
+
+<div id="add_admin" class="easyui-dialog" title="添加管理员" 
+style="width:500px;height:360px;"
+data-options="iconCls:'icon-add',resizable:true,model:true,closed:true">
+	<form action="" method="post">
+		<div id="admincss" style="margin-top:50px;">
+		<label>管理员姓名：</label><input type="text" id="aname" name="aname" required="required" placeholder="请输入用户名..."/> <br/><br/><br/>
+		<label>管理员密码：</label><input type="password" id="apassword" name="apassword" value="a" required="required"/> <br/><br/><br/>
+		<label>电 子 邮 件：</label><input type="text" id="email" name="email" required="required" placeholder="请输入电子邮箱..."/> <br/><br/><br/>
+		</div>
+		<div style="margin-top:50px;">
+		<a id="a1" href="javascript:addAdminInfo()" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="addadmin()">Ok</a>
+		<a id="a2" href="javascript:closeDialog()"  class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="closedialog()">Cancel</a>
+		</div>
+	</form>
+</div>
+
+<style>
+	#admincss label{
+		margin-left:100px;
+		font-size:16px;
+		width:150px;
+	}
+	a{
+		float:right;
+	}
+	#a1{
+		margin-right:40px;
+	}
+	#a2{
+		margin-right:20px;
+	}
+</style>
+
+<script>
+	var obj;
+	var editRow=undefined; //记录当前正在被编辑的行
+	var currentOp;
+	var flag;
+
+    obj=$('#admins_data').datagrid({  
+  	url:'admin/findAll',  
+	fitColumns:true,//true将自动扩展/收缩columns大小适应grid的宽度,防止水平滚动.
+	striped:true,//显示条纹所在行
+	loadMsg:"数据加载中...",//当从远程服务器加载数据的时候,显示的提示消息.
+	pagination:true,//分页
+	fit:true,//满屏
+	pageNumber:1,//初始页码
+	pageSize:10,//分页大小
+	pageList:[5,10,20,30,40,50],//设置属性
+	sortName:'aid',//定义那个列可以排序.
+	remoteSort:false,//定义是否远程排序.对数据库进行操作
+    columns:[[ 
+		{field:'aids',title:'',width:60,align:'center',checkbox:true}, 
+        {field:'aid',title:'管理员编号',width:80,align:'center',sortable:true},  
+        {field:'aname',title:'管理员名称',width:80,align:'center',editor:{type:"text",options:{requires:true}}},
+        {field:'email',title:'管理员邮箱',width:80,align:'center',editor:{type:"text",options:{requires:true}}},
+
+    ]],
+    toolbar:[{
+		text:"添加",
+		iconCls:"icon-add",
+		handler:function(){
+			$('#add_admin').dialog('open');
+			$('#add_admin').datagrid("reload");
+		}
+	},{
+		text:"删除",
+		iconCls:"icon-remove",
+		handler:function(){
+			var rows=obj.datagrid("getChecked");
+			if(rows.length>0){
+				$.messager.confirm('信息确认','您确认要删除选定的数据吗？',function(rs){
+					if(rs){
+						if(rows.length == 1){
+							var aid=rows[0].aid;
+							$.post("admin/deladmin",{aid:aid},function(data){
+								if(data>0){
+									$.messager.show({
+										title:'成功提示',
+										msg:'管理员删除成功',
+										timeout:2000,
+										showType:'slide'
+									});
+									rows=null;
+									obj.datagrid("reload");//刷新表格
+									$('#admins_data').datagrid("reload");
+								}else{	
+									$.messager.alert('失败提示','管理员删除失败','error');
+								}
+							});
+						}else{
+								var aids="";
+								for(var i=0;i<rows.length-1;i++){
+									aids+=rows[i].aid+",";
+								}
+								aids+=rows[i].aid;
+								//发请求到数据库删除
+								$.post("admin/deladmin",{aid:aids},function(data){
+									if(data>0){
+										$.messager.show({
+											title:'成功提示',
+											msg:'管理员删除成功',
+											timeout:2000,
+											showType:'slide'
+										});
+										rows=null;
+										obj.datagrid("reload");//刷新表格
+										$('#admins_data').datagrid("reload");
+									}else{	
+										$.messager.alert('失败提示','管理员删除失败','error');
+									}
+								});
+							 }
+							}else{
+								return;
+							}
+						});
+			}else{
+				$.messager.show({
+					title:'错误提示',
+					msg:'请选中您要删除的数据...',
+					timeout:2000,
+					showType:'slide'
+				});
+			}
+		}
+	},{
+		text:"保存",
+		iconCls:"icon-save",
+		handler:function(){
+			obj.datagrid("endEdit",editRow); //关闭正在被编辑的行
+	
+			//获取正在编辑的数据
+			var rows=obj.datagrid("getChanges")[0];
+			 if(rows ==undefined){   //说明没有被保存到数据库
+				obj.datagrid("rejectChanges"); //回滚所有的数据
+				obj.datagrid("endEdit",editRow); //关闭正在被编辑的行
+				editRow=undefined;
+			}else if(rows.tname==""){
+				editRow=undefined;
+				obj.datagrid("rejectChanges");
+			}else{
+				//保存到数据库
+				rows["op"]=currentOp;
+				
+				$.post("admin/rows",function(data){
+					if(data>0){
+						$.messager.show({
+							title:'成功提示',
+							msg:'新闻类型操作成功',
+							timeout:2000,
+							showType:'slide'
+						});
+						
+						rows=null;
+						obj.datagrid("reload"); 
+						editRow=undefined;
+						obj.datagrid("rejectChanges");
+						obj.datagrid("endEdit",editRow);
+					}else{
+						$.messager.alert('失败提示','新闻类型操作失败','error');
+					}
+				});
+				
+			}
+
+		}
+	},{
+		text:"撤销",
+		iconCls:"icon-redo",
+		handler:function(){
+			obj.datagrid("rejectChanges"); //回滚所有的数据
+			obj.datagrid("endEdit",editRow); //关闭正在被编辑的行
+			editRow=undefined;
+		}
+	}]
+});
+    
+   function closedialog(){
+	   $("#add_admin").dialog("close");
+   }
+   function addadmin(){
+	   var aname=$("#aname").val();
+	   var apassword=$("#apassword").val();
+	   var email=$("#email").val();
+	   if(aname == null || aname==""){
+		   $.messager.show({
+				title:'温馨提示',
+				msg:'请填写管理员名称...',
+				timeout:2000,
+				showType:'slide'
+			});
+	   }else if(email == null || email==""){
+		   $.messager.show({
+				title:'温馨提示',
+				msg:'请填写电子邮箱...',
+				timeout:2000,
+				showType:'slide'
+			});
+	   }else{
+		   $.post("admin/addadmin",{aname:aname,apassword:apassword,email:email},function(data){
+			   if(data>0){
+				   $("#aname").val("");
+				  $("#apassword").val("");
+				  $("#email").val("");
+				   $("#add_admin").dialog("close");
+				   $.messager.show({
+						title:'成功提示',
+						msg:'管理员添加成功',
+						timeout:2000,
+						showType:'slide'
+					});
+				   obj.datagrid("reload");
+				   $('#admins_data').datagrid("reload");
+			   }else{
+				   $("#add_admin").dialog("close");
+				   $.messager.show({
+						title:'成功提示',
+						msg:'管理员添加失败',
+						timeout:2000,
+						showType:'slide'
+					});
+				   obj.datagrid("reload"); 
+			   }
+		   }); 
+	   }
+   }
+   
+</script>
