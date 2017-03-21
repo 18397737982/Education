@@ -22,7 +22,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findAllcourseseq" resultType="Class_hour"  parameterType="Class_hour">
 		select * from class_hour where course_id=#{course.course_id}
 	</select>
-	
+<!-- 		//当前课时 和//下一课时 -->
+	<select id="findNowclasshour" resultType="Class_hour"  parameterType="Class_hour">
+	select * from class_hour where courseseq >= (
+		select courseseq from class_hour 
+			where class_hour_id=#{class_hour_id} GROUP BY class_hour_id
+	) order by courseseq  limit 2;
+	</select>
 	
 </mapper>
 

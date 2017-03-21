@@ -97,4 +97,21 @@ public class CourseBizImpl implements CourseBiz {
 		return this.baseDao.findAll(  c  ,  "findAllcourseseq");
 	}
 
+	@Override
+	public Course findOneCourse(Course course) {
+		List<Course> list=this.baseDao.findAll(course, "findOneCourse");
+		return list != null && list.size() >0 ? list.get(0) : null ;
+	}
+
+	@Override
+	public int findAttentionCount(Course course) {
+		List<Object> list=this.baseDao.findAll(  course  ,  "findAttentionCount");
+		return list != null ? list.size():0 ;
+	}
+
+	@Override
+	public List<Class_hour> findNowclasshour(Class_hour class_hour) {
+		return this.baseDao.findAll(  class_hour  ,  "findNowclasshour");
+	}
+
 }

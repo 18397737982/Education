@@ -41,7 +41,9 @@
 		studyCourse where user_id=#{userInfo.user_id}) order by begintime desc
 		limit #{userInfo.beginRow},#{userInfo.pageSize};
 	</select>
-	<resultMap id="MappingClass" type="StudyCourse">
+	
+
+	<resultMap id="MappingClass" type="StudyCourse" >
 		<id property="scid" column="scid" />
 		<result property="begintime" column="begintime" />
 		<association property="course" javaType="Course">

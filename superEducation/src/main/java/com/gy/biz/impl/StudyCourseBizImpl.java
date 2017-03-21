@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.gy.beans.Course;
+
 import com.gy.beans.Notes;
 import com.gy.beans.StudyCourse;
 import com.gy.beans.TeachCourse;
@@ -29,6 +30,20 @@ public class StudyCourseBizImpl implements StudyCourseBiz {
 		StudyCourse studyCourse=new StudyCourse();
 		studyCourse.setUserInfo(userInfo);
 		return this.baseDao.findAll(studyCourse, "showStudyCourse");
+	}
+	
+	/**
+	 * 所有学习了某一门课程的总数
+	 */
+	@Override
+	public List<StudyCourse> studyCourseOfCourse(Course course) {
+		return this.baseDao.findAll(course, "studyCourseOfCourse");
+	}
+	
+	 //所有学习了某一门课程评论的总数 -->
+	@Override
+	public List<StudyCourse> studyCourseOfassess(Course course) {
+		return this.baseDao.findAll(course, "studyCourseOfassess");
 	}
 	@Override
 	public List<Course> getCourseByUsid(UserInfo userInfo) {

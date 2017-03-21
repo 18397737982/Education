@@ -68,5 +68,11 @@ public class Notes implements Serializable{
 	public void setStu_user(UserInfo stu_user) {
 		this.stu_user = stu_user;
 	}
+	public Course getCourse() {
+		return course;
+	}
+	public void setCourse(Course course) {
+		this.course = course;
+	}
 
 }

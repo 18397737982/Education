@@ -38,4 +38,10 @@ public interface CourseBiz {
 	public int addlession(Class_hour class_hour);
 
 	public List<Class_hour> findAllcourseseq(Course course);
+
+	public Course findOneCourse(Course course);
+
+	public int findAttentionCount(Course course);
+
+	public List<Class_hour> findNowclasshour(Class_hour class_hour);
 }

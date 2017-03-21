@@ -25,12 +25,15 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.gy.beans.Class_category;
 import com.gy.beans.Class_hour;
 import com.gy.beans.Course;
+import com.gy.beans.StudyCourse;
 import com.gy.beans.UserInfo;
 import com.gy.biz.CategoryBiz;
 import com.gy.biz.CourseBiz;
+import com.gy.biz.StudyCourseBiz;
 import com.gy.biz.UserInfoBiz;
 
 @Controller
@@ -39,7 +42,13 @@ public class CourseController {
 
 	private CourseBiz courseBiz;
 	private CategoryBiz categoryBiz;
+	private StudyCourseBiz studyCourseBiz;
 
+	@Resource(name = "studyCourseBizImpl")
+	public void setCategoryBiz(StudyCourseBiz studyCourseBiz) {
+		this.studyCourseBiz = studyCourseBiz;
+	}
+	
 	@Resource(name = "categoryBizImpl")
 	public void setCategoryBiz(CategoryBiz categoryBiz) {
 		this.categoryBiz = categoryBiz;
@@ -87,9 +96,11 @@ public class CourseController {
 	@RequestMapping(value = "/getCourseInformation.action/{class_id}")
 	public String getCategoryCourseInformation(Model model, HttpServletResponse response, Course course,
 			@PathVariable int class_id) throws IOException {
+		Gson gson = new Gson();
 		course.setClass_id(class_id);
 		List<Course> list = this.courseBiz.findOneCategoryCourse(course);
 		if (list.size() > 0) {
+			model.addAttribute("course", gson.toJson(list).toString());
 			model.addAttribute("courses", list);
 			model.addAttribute("class_id", list.get(0).getClass_id());
 		}
@@ -101,19 +112,58 @@ public class CourseController {
 	@RequestMapping(value = "/getAllCourseInformation.action")
 	public String getAllCourseInformation(Model model) {
 		System.out.println("getAllCourseInformation...........");
-		model.addAttribute("courses", this.courseBiz.findAllCourse());
+		Gson gson = new Gson();
+		List<Course> list = this.courseBiz.findAllCourse();
+//		System.out.println(gson.toJson(list).toString());
+		String x=String.valueOf(gson.toJson(list).toString());
+		model.addAttribute("course",x);
+		model.addAttribute("courses",list);
 		if (!model.containsAttribute("category")) {
 			model.addAttribute("category", this.categoryBiz.findAllCategory());
 		}
 		model.addAttribute("class_id", 0);
 		return "page/course";
 	}
-
+	/**
+	 * 跳转到具体的某一门课程的学习界面
+	 * @param model
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/getOneCourseInformation.action/{course_id}")
+	public String  getOneCourseInformation(Model model,@PathVariable int course_id,Course course) throws IOException {
+		course.setCourse_id(course_id);
+		System.out.println(course);
+		model.addAttribute("onecourse",this.courseBiz.findOneCourse(course));
+		
+		//评论的总数
+		List<StudyCourse> list=this.studyCourseBiz.studyCourseOfassess(course);
+		double grade=0;  //评论级别 一星  二星 .....
+		for(StudyCourse sc:list){
+			if(sc.getAssess()!=null){
+				grade+=Integer.parseInt(sc.getAssess());
+			}
+		}
+		if(list.size()>0){
+			grade=grade/list.size();
+		}
+		model.addAttribute("assessCount",list.size());
+		model.addAttribute("assessGrade",grade);
+		//学习人数
+		model.addAttribute("all_study",this.studyCourseBiz.studyCourseOfCourse(course));
+		//关注人数
+		model.addAttribute("stu_count",this.courseBiz.findAttentionCount(course));
+		//课时
+		model.addAttribute("class_hour",this.courseBiz.findAllcourseseq(course));
+	
+		return "page/joinproject";
+		
+	}
 	// 课程类
 	@RequestMapping(value = "getCategoryInformation.action", produces = "text/html;charset=UTF-8")
 	public void getCategoryInformation(Model model) throws IOException {
 		model.addAttribute("category", this.categoryBiz.findAllCategory());
 	}
+	
 
 	// 把title传过去
 	@RequestMapping(value = "course/sendtitle")
@@ -324,4 +374,7 @@ public class CourseController {
 		}
 	}
 
+	
+	
+	
 }
