@@ -95,7 +95,7 @@
 			<div class="dashboard-body" id="dashboard-body">
 			<section id="player">
 			  <video id="media" width="100%" height="400" controls> 
-			    <source src="${item.content}">
+			    <source src="${theclass_hour[0].content}">
 			  </video> 
 			</section>
 			</div>

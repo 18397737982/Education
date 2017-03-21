@@ -10,7 +10,7 @@ public class Notes implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int notes_id;
 	private String notes_content;
-
+	private Course course;
 	private Date comment_time;
 	private Class_hour class_hour;
 	private UserInfo stu_user;
@@ -59,6 +59,12 @@ public class Notes implements Serializable{
 	}
 	public void setStu_user(UserInfo stu_user) {
 		this.stu_user = stu_user;
+	}
+	public Course getCourse() {
+		return course;
+	}
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 
 }

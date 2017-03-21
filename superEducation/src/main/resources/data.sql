@@ -104,14 +104,13 @@ create table class_hour(
 	courseseq int ,
 	content varchar(2000)	
 );
-
 	select * from class_hour where courseseq >= (
 		select courseseq from class_hour where class_hour_id=2 GROUP BY class_hour_id
 	) order by courseseq  limit 2;
-insert into class_hour(course_id,type,title,introduction,courseseq,content) values(40,1,'摄影第一讲','介绍各类摄影的设备',1,'https://v.qq.com/');
-insert into class_hour(course_id,type,title,introduction,courseseq,content) values(40,1,'摄影第一讲','介绍各类摄影的历史',2,'https://v.qq.com/');
-insert into class_hour(course_id,type,title,introduction,courseseq,content) values(40,1,'摄影第一讲','拍摄基础',3,'https://v.qq.com/');
-
+insert into class_hour(course_id,type,title,introduction,courseseq,content) values(40,1,'摄影第一讲','介绍各类摄影的设备',1,'http://tb-video.bdstatic.com/tieba-smallvideo/1252235_a05f804362182e822679d64a34a27beb.mp4');
+insert into class_hour(course_id,type,title,introduction,courseseq,content) values(40,1,'摄影第2讲','介绍各类摄影的历史',2,'http://tb-video.bdstatic.com/tieba-smallvideo/1252235_99b72d83e822d2f38b5b3820ea1097aa.mp4');
+insert into class_hour(course_id,type,title,introduction,courseseq,content) values(40,1,'摄影第3讲','拍摄基础',3,'http://tb-video.bdstatic.com/tieba-smallvideo/337_6f80ee8c53335a8b754f6d0c1400ae99.mp4');
+commit;
 
 alter table class_hour 
 	add constraint ch_course_id foreign key(course_id) references course(course_id);
