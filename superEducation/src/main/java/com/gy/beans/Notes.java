@@ -10,13 +10,25 @@ public class Notes implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int notes_id;
 	private String notes_content;
-
+	private Course course;
 	private Date comment_time;
 	private Class_hour class_hour;
 	private UserInfo stu_user;
 	private String notesCount;
 	
 	
+	@Override
+	public String toString() {
+		return "Notes [notes_id=" + notes_id + ", notes_content=" + notes_content + ", course=" + course
+				+ ", comment_time=" + comment_time + ", class_hour=" + class_hour + ", stu_user=" + stu_user
+				+ ", notesCount=" + notesCount + "]";
+	}
+	public Course getCourse() {
+		return course;
+	}
+	public void setCourse(Course course) {
+		this.course = course;
+	}
 	public String getNotesCount() {
 		return notesCount;
 	}
@@ -39,11 +51,7 @@ public class Notes implements Serializable{
 	public Date getComment_time() {
 		return comment_time;
 	}
-	@Override
-	public String toString() {
-		return "Notes [notes_id=" + notes_id + ", notes_content=" + notes_content + ", comment_time=" + comment_time
-				+ ", class_hour=" + class_hour + ", stu_user=" + stu_user + "]";
-	}
+	
 	public Class_hour getClass_hour() {
 		return class_hour;
 	}
