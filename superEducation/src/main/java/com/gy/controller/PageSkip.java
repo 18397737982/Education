@@ -91,10 +91,11 @@ public class PageSkip {
 
 	}
 
-	// 跳转具体课程页面
+	// 跳转具体课程学习页面
 	@RequestMapping(value = "/toOneCourse.action/{course_id}")
-	public String toOneCourse() {
-		return "page/course";
+	public String toOneCourse(@PathVariable int course_id) {
+		System.out.println(".hhhhhhhhhhhhhh");
+		return "redirect:/getOneCourseInformation.action/" + course_id;
 
 	}
 
@@ -102,6 +103,15 @@ public class PageSkip {
 	@RequestMapping(value = "/toCreatecourse.action")
 	public String show() {
 		return "page/createcourse";
+	}
+	
+	/**
+	 * 播放页面
+	 * @return
+	 */
+	@RequestMapping(value = "/toplay.action/{course_id}_{class_hour_id}")
+	public String toplay(@PathVariable int class_hour_id,@PathVariable int course_id) {
+		return "redirect:/playVideo.action/"+course_id+"_" + class_hour_id;
 	}
 
 	// 进入个人主页界面

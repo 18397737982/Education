@@ -98,6 +98,8 @@ public class Course  implements Serializable{
 	public void setLass_category(Class_category lass_category) {
 		this.lass_category = lass_category;
 	}
+
+	
 	public Integer getMemberCount() {
 		return memberCount;
 	}

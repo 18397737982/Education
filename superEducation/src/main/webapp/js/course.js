@@ -1,7 +1,6 @@
 if("${users}"!=""){//登陆验证
 		//获取页面课程信息
 	var d;
-	alert("${users}");
 	$.ajax({
 		url:"getCourseInformation.action",
 		data: {"user_id": "${users.user_id}"},

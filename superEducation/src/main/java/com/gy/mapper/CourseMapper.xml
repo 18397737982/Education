@@ -2,6 +2,10 @@
  <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.gy.mapper.CourseMapper">
+<!-- 查询关注某课程人数-->
+<select id="findAttentionCount"  resultMap="CourseMap"  parameterType="Course">
+		select *from stu_count where course_id=#{course_id}
+ </select>
 
  <!-- 查询所有的课程 -->
 <select id="findAllCourse"  resultMap="CourseMap"  parameterType="Course">
@@ -24,6 +28,10 @@
 		select course_id,course_name,c.user_id,class_id,course_view,course_description,coursephoto,price,u.user_id,u.user_name from course c , userInfo u where c.user_id=u.user_id and c.class_id=#{class_id} ORDER BY course_view DESC
  </select>
  
+  <!-- 查询某一门的课程 -->
+ <select id="findOneCourse"  resultMap="CourseMap"  parameterType="Course">
+		select course_id,course_name,c.user_id,c.class_id,course_view,course_description,coursephoto,price,u.user_id,u.user_name,u.pic,ca.class_id,ca.class_categorys from course c , userInfo u,class_category ca where c.user_id=u.user_id and c.course_id=#{course_id} and c.class_id=ca.class_id
+ </select>
  <!-- 查询某一类的课程 最热排行 -->
  <select id="findOneCategoryHotCourse"  resultMap="CourseMap"  parameterType="Course">
 		select c.course_id,course_name,c.user_id,class_id,course_view,course_description,coursephoto,price,u.user_id,u.user_name from course c 
@@ -50,8 +58,16 @@
 		<association property="userInfo" javaType="UserInfo">
 			<id property="user_id" column="user_id"/>
 			<result property="user_name" column="user_name"/>
+			<result property="pic" column="pic"/>
+		</association>
+		<association property="lass_category" javaType="Class_category">
+			<id property="class_id" column="class_id"/>
+			<result property="class_categorys" column="class_categorys"/>
 		</association>
 	</resultMap>
+	
+	
+	
 	
 	 <insert id="addcourse" parameterType="Course" useGeneratedKeys="true" keyProperty="course_id"> 
 		insert into course(class_id,course_name,coursephoto,course_description,courseting,price,user_id)
@@ -67,7 +83,41 @@
 	<select id="findcourseid" resultType="Course" parameterType="Course">
 		select * from course order by course_id desc
 	</select>
-	 
+	
+		<!-- //所有学习了某一门课程的总数 -->
+	 	<select id="studyCourseOfCourse" resultMap="StudyCourseMap"  parameterType="Course">
+		select sc.* ,c.*,u.user_id,u.user_name,u.pic from studyCourse sc,Course c,UserInfo u 
+			where sc.course_id=#{course_id} 
+				and sc.user_id=u.user_id 
+				and sc.course_id=c.course_id
+				ORDER BY sc.begintime DESC
+	</select>
+	
+		<!-- //所有学习了某一门课程评论的总数 -->
+	 	<select id="studyCourseOfassess" resultType="StudyCourse"  parameterType="Course">
+		select * from studyCourse where course_id=#{course_id} and assess !=''
+	</select>
+	
+	
+	<resultMap id="StudyCourseMap" type="StudyCourse">
+		<id property="scid" column="scid"/>
+		<result property="begintime" column="begintime" />
+		<result property="assess" column="assess" />
+		<result property="studyPeriod" column="studyPeriod" />
+		
+		<association property="userInfo" javaType="UserInfo">
+			<id property="user_id" column="user_id"/>
+			<result property="user_name" column="user_name"/>
+			<result property="pic" column="pic"/>
+		</association>
+		<association property="course" javaType="Course">
+			<id property="course_id" column="course_id"/>
+			<result property="course_name" column="course_name"/>
+			<result property="coursephoto" column="coursephoto"/>
+			<result property="courseting" column="courseting"/>
+		</association>
+	</resultMap>
+	
 	
 	 
 	 

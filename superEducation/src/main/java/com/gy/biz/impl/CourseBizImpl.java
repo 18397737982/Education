@@ -101,5 +101,20 @@ public class CourseBizImpl implements CourseBiz {
 	public int deletelesson(Class_hour class_hour) {
 		return this.baseDao.delete(class_hour, "deletelesson");
 	}
+	public Course findOneCourse(Course course) {
+		List<Course> list=this.baseDao.findAll(course, "findOneCourse");
+		return list != null && list.size() >0 ? list.get(0) : null ;
+	}
+
+	@Override
+	public int findAttentionCount(Course course) {
+		List<Object> list=this.baseDao.findAll(  course  ,  "findAttentionCount");
+		return list != null ? list.size():0 ;
+	}
+
+	@Override
+	public List<Class_hour> findNowclasshour(Class_hour class_hour) {
+		return this.baseDao.findAll(  class_hour  ,  "findNowclasshour");
+	}
 
 }
