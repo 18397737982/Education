@@ -62,7 +62,7 @@ public class PlayVideoController {
 	
 	@RequestMapping(value = "/playVideo.action/{course_id}_{class_hour_id}")
 	public String  getVideoInformation(Model model,@PathVariable int course_id,@PathVariable int class_hour_id,Course course,Class_hour class_hour) throws IOException {
-		course.setCourse_id(course_id);class_hour.setClass_hour_id(class_hour_id);
+		course.setCourse_id(course_id);class_hour.setClass_hour_id(class_hour_id);class_hour.setCourse(course);
 		System.out.println(course);
 		model.addAttribute("onecourse",this.courseBiz.findOneCourse(course));
 
@@ -85,6 +85,8 @@ public class PlayVideoController {
 			) throws IOException {
 		notes.setStu_user(userInfo);
 		notes.setCourse(course);
+		
+		
 		System.out.println(notes);
 		
 		Gson gson = new Gson();
