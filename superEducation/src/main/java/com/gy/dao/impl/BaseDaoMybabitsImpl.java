@@ -23,12 +23,25 @@ public class BaseDaoMybabitsImpl<T> extends SqlSessionDaoSupport implements Base
 	}
 	
 	private String getMapperId(T t,String sqlId){
-		
+		String s=mapperLocation+t.getClass().getSimpleName()+"Mapper."+sqlId;
+		System.out.println(s);
 		return mapperLocation+t.getClass().getSimpleName()+"Mapper."+sqlId;
+		
+	}
+	
+	@Override
+	public String findString(T t, String sqlId) {
+		return super.getSqlSession().selectOne(this.getMapperId(t, sqlId), t);
+	}
+	
+	@Override
+	public T find(T t, String sqlId) {
+		return super.getSqlSession().selectOne(this.getMapperId(t, sqlId), t);
 	}
 
 	@Override
 	public List<T> findAll(T t, String sqlId) {
+
 		return super.getSqlSession().selectList(this.getMapperId(t, sqlId),t);
 	}
 
@@ -87,5 +100,9 @@ public class BaseDaoMybabitsImpl<T> extends SqlSessionDaoSupport implements Base
 	public double fiondFunc(T t, Map map, String sqlId) {
 		return super.getSqlSession().selectOne(this.getMapperId(t, sqlId),map);
 	}
+
+	
+
+
 
 }

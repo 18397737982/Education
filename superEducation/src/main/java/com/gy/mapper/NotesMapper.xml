@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 使用映射接口的方式， 命名空间的值必须与映射接口的全限定名一致 -->
+<mapper namespace="com.gy.mapper.NotesMapper">
+	<select id="getPersonNoteCountByUseId" parameterType="Notes" resultType="Notes">
+	
+		select count(*) notes from notes where user_id=#{stu_user.user_id}
+	</select>
+	
+	<resultMap type="Notes" id="CourseNoteMap3">
+		<id column="notes_id" property="notes_id"/>
+		<result column="notes_content" property="notes_content"/>
+		<result column="comment_time" property="comment_time"/>
+		<collection property="class_hour" ofType="Class_hour" >
+			<id property="class_hour_id" column="user_id"/>
+			<result column="title" property="title"/>
+		</collection>
+	</resultMap>
+	<select id="getPersonNoteByUseid" resultMap="CourseNoteMap3" parameterType="Notes">
+		select * from notes where user_id=#{stu_user.user_id}
+	</select>
+	
+	<select id="getNoteCount" parameterType="Notes" resultType="string">
+		select count(1) from notes where user_id=#{stu_user.user_id}
+	</select>
+
+</mapper>

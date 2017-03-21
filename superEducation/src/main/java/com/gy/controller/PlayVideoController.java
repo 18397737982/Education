@@ -83,7 +83,8 @@ public class PlayVideoController {
 	@RequestMapping(value = "/addCourseNote.action", produces = "text/html;charset=UTF-8")
 	public @ResponseBody String  addCourseNote(HttpServletResponse response,Notes notes,Course course,UserInfo userInfo
 			) throws IOException {
-		notes.setStu_user(userInfo);notes.setCourse(course);
+		notes.setStu_user(userInfo);
+		notes.setCourse(course);
 		System.out.println(notes);
 		
 		Gson gson = new Gson();

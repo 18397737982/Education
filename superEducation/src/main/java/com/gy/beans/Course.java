@@ -13,15 +13,30 @@ public class Course  implements Serializable{
 	private String course_name;//课程名
 	private String coursephoto;//课程头像
 	private String courseting;
-	
 	private String course_description;// 描述
-	
-	@Override
-	public String toString() {
-		return "Course [course_id=" + course_id + ", course_name=" + course_name + ", coursephoto=" + coursephoto
-				+ ", courseting=" + courseting + ", course_description=" + course_description + ", userInfo=" + userInfo
-				+ ", class_id=" + class_id + ", course_view=" + course_view + ", price=" + price + ", lass_category="
-				+ lass_category + "]";
+	private UserInfo userInfo;
+	private Integer class_id; // --课程类别id
+	private Integer course_view;// --浏览量
+	private BigDecimal price; //价格
+	private Class_category lass_category;
+	private Integer memberCount;  //--课程总人员
+	private Double assessAvg;  //--课程评分
+	private Integer assessCount; //评价人数
+	private Integer totalCm;//课程课时数
+	private String studyPeriod;//个人学习进度
+	private int studyPeriodcount;
+
+	public int getStudyPeriodcount() {
+		return studyPeriodcount;
+	}
+	public void setStudyPeriodcount(int studyPeriodcount) {
+		this.studyPeriodcount = studyPeriodcount;
+	}
+	public String getStudyPeriod() {
+		return studyPeriod;
+	}
+	public void setStudyPeriod(String studyPeriod) {
+		this.studyPeriod = studyPeriod;
 	}
 	public Integer getCourse_id() {
 		return course_id;
@@ -83,13 +98,40 @@ public class Course  implements Serializable{
 	public void setLass_category(Class_category lass_category) {
 		this.lass_category = lass_category;
 	}
-	private UserInfo userInfo;
-	private Integer class_id; // --课程类别id
-	private Integer course_view;// --浏览量
-	private BigDecimal price; //价格
-	private Class_category lass_category;
+
 	
-	
-	
+	public Integer getMemberCount() {
+		return memberCount;
+	}
+	public void setMemberCount(Integer memberCount) {
+		this.memberCount = memberCount;
+	}
+	public Double getAssessAvg() {
+		return assessAvg;
+	}
+	public void setAssessAvg(Double assessAvg) {
+		this.assessAvg = assessAvg;
+	}
+	public Integer getAssessCount() {
+		return assessCount;
+	}
+	public void setAssessCount(Integer assessCount) {
+		this.assessCount = assessCount;
+	}
+	public Integer getTotalCm() {
+		return totalCm;
+	}
+	public void setTotalCm(Integer totalCm) {
+		this.totalCm = totalCm;
+	}
+	@Override
+	public String toString() {
+		return "Course [course_id=" + course_id + ", course_name=" + course_name + ", coursephoto=" + coursephoto
+				+ ", courseting=" + courseting + ", course_description=" + course_description + ", userInfo=" + userInfo
+				+ ", class_id=" + class_id + ", course_view=" + course_view + ", price=" + price + ", lass_category="
+				+ lass_category + ", memberCount=" + memberCount + ", assessAvg=" + assessAvg + ", assessCount="
+				+ assessCount + ", totalCm=" + totalCm + ", studyPeriod=" + studyPeriod + "]";
+	}
+
 	
 }

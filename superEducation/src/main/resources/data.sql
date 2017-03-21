@@ -1,5 +1,5 @@
 create database mydate;
---管理员表
+--1管理员表
 create table admin(
 	admin_id int primary key auto_increment,
 	admin_password varchar(50),
@@ -8,7 +8,7 @@ create table admin(
     temp02 varchar2(200)--备用字段
 );
 drop table admin;
---学员表
+--2学员表
 select user_name from userInfo where user_name='a';
 create table userInfo(
 	user_id int primary key auto_increment,
@@ -29,51 +29,14 @@ create table userInfo(
 	temp02 varchar(200),
     temp03 varchar(200)
 );
-insert into
-		userInfo(user_name,realname,age,sex,pic,password,usign,introduce,email,status,user_category,tel,qq,time,temp02,temp03)
-		values('a','a',5,'a',null,'c','s','d','f',2,'g','g','d',null,null,null);
-select * from userInfo;
 
-insert into userInfo(user_name,realname,age,sex,pic,password,usign,introduce,email,status,user_category,tel,qq,time,temp02,temp03)
-		values('t','唐t',23,'男',null,'t','s','d','tang430524@163.com',0,'学生','13212680558','1937681802',null,null,null);
-insert into userInfo(user_name,realname,age,sex,pic,password,usign,introduce,email,status,user_category,tel,qq,time,temp02,temp03)
-		values('ty1','唐',23,'男',null,'a','s','d','tang430524@163.com',0,'老师','13212680558','1937681802',null,null,null);
-insert into userInfo(user_name,realname,age,sex,pic,password,usign,introduce,email,status,user_category,tel,qq,time,temp02,temp03)
-		values('ty2','唐',23,'男',null,'a','s','d','tang430524@163.com',0,'老师','13212680558','1937681802',null,null,null);
-insert into userInfo(user_name,realname,age,sex,pic,password,usign,introduce,email,status,user_category,tel,qq,time,temp02,temp03)
-		values('ty3','唐',23,'男',null,'a','s','d','tang430524@163.com',0,'老师','13212680558','1937681802',null,null,null);
-insert into userInfo(user_name,realname,age,sex,pic,password,usign,introduce,email,status,user_category,tel,qq,time,temp02,temp03)
-		values('ty4','唐',23,'男',null,'a','s','d','tang430524@163.com',0,'老师','13212680558','1937681802',null,null,null);
-insert into userInfo(user_name,realname,age,sex,pic,password,usign,introduce,email,status,user_category,tel,qq,time,temp02,temp03) values('ty5','唐',23,'男',null,'a','s','d','tang430524@163.com',0,'老师','13212680558','1937681802',null,null,null);
-
-insert into userInfo(user_name,realname,age,sex,pic,password,usign,introduce,email,status,user_category,tel,qq,time,temp02,temp03) values('ty6','唐',23,'男',null,'a','s','d','tang430524@163.com',0,'老师','13212680558','1937681802',null,null,null);
-
-insert into userInfo(user_name,realname,age,sex,pic,password,usign,introduce,email,status,user_category,tel,qq,time,temp02,temp03) values('ty7','唐',23,'男',null,'a','s','d','tang430524@163.com',0,'老师','13212680558','1937681802',null,null,null);
-
-insert into userInfo(user_name,realname,age,sex,pic,password,usign,introduce,email,status,user_category,tel,qq,time,temp02,temp03) values('ty8','唐',23,'男',null,'a','s','d','tang430524@163.com',0,'老师','13212680558','1937681802',null,null,null);
-
-insert into userInfo(user_name,realname,age,sex,pic,password,usign,introduce,email,status,user_category,tel,qq,time,temp02,temp03) values('ty9','唐',23,'男',null,'a','s','d','tang430524@163.com',0,'老师','13212680558','1937681802',null,null,null);
-
-select *from userInfo;
-
---课程类别
+--3课程类别
 create table class_category(
 	class_id int primary key auto_increment,
 	class_categorys varchar(50),
 	temp01 varchar(200) 
-)engine=MYISAM character set utf8;
-		select course_id,course_name,c.user_id,class_id,course_view,course_description,coursephoto,price,u.user_id,u.user_name from Course c , userInfo u where c.user_id=u.user_id
-
-insert into  class_category(class_categorys) values('摄影课堂');
-insert into  class_category(class_categorys) values('创意设计');
-insert into  class_category(class_categorys) values('声乐器乐');
-insert into  class_category(class_categorys) values('运动健身');
-insert into  class_category(class_categorys) values('IT互联网');
-insert into  class_category(class_categorys) values('兴趣爱好');
-insert into  class_category(class_categorys) values('语言学习');
-insert into  class_category(class_categorys) values('职场技能');
-insert into  class_category(class_categorys) values('公开课');
---课程
+);
+--4课程
 drop table course;
 create table course(
 	course_id int primary key auto_increment,
@@ -86,6 +49,7 @@ create table course(
 	courseting varchar(100),   --//标签
 	price numeric(8,2)
 );
+<<<<<<< HEAD
 
 select course_id,course_name,c.user_id,class_id,course_view,course_description,coursephoto,price,u.user_id,u.user_name from course c , userInfo u where c.user_id=u.user_id and c.class_id=1 ORDER BY course_view DESC
 
@@ -128,6 +92,9 @@ alter table course
 	add constraint cs_class_id foreign key(class_id) references class_category(class_id);
 	
 --课时 
+
+--5课时 
+>>>>>>> branch 'master' of git@github.com:18397737982/Education.git
 create table class_hour(
 	class_hour_id int primary key auto_increment,
 	course_id int,
@@ -137,6 +104,7 @@ create table class_hour(
 	courseseq int ,
 	content varchar(2000)	
 );
+
 	select * from class_hour where courseseq >= (
 		select courseseq from class_hour where class_hour_id=2 GROUP BY class_hour_id
 	) order by courseseq  limit 2;
@@ -174,32 +142,35 @@ create table comment_detail(
 )
 alter table comment 
 	add constraint cm_course_id foreign key(course_id) references course(course_id);
+=======
+>>>>>>> branch 'master' of git@github.com:18397737982/Education.git
 
-alter table comment 
-	add constraint cm_stu_id foreign key(stu_id) references stu_user(stu_id);
-
---笔记
+select s.*,(select count(1) from studyCourse where course_id = s.course_id ) memberCount,
+		(select avg(assess) from studyCourse where course_id = s.course_id) assessAvg,
+		(select count(*) from class_hour ch where ch.course_id=s.course_id )totalCm,
+		(select studyPeriod from studyCourse sc where sc.user_id=2 and sc.course_id=s.course_id)studyPeriod
+		 from course s
+		 inner join userInfo u
+		 on s.user_id=u.user_id
+		 inner join class_category cl
+		 on cl.class_id=s.class_id
+		 where s.course_id in(select course_id from studyCourse  where user_id =2)
+--6笔记
 create table notes(
-	notes_id int primary key auto_increment,--笔记id
-	notes_content varchar(500),--笔记内容
-	course_id int,--课程id
-	user_id int,--学者id 
-	comment_time date--时间
+	notes_id int primary key auto_increment,
+	notes_content varchar(500),
+	class_hour_id int,
+	user_id int,
+	comment_time date
 );
-alter table notes 
-	add constraint nt_course_id foreign key(course_id) references course(course_id);
 
-alter table notes 
-	add constraint nt_stu_id foreign key(stu_id) references stu_user(stu_id);
-
-
-
---课程学习总数(统计某课程被加入关注的总数)
+--7课程学习总数(统计某课程被加入关注的总数)
 create table stu_count(
 	user_count_id int primary key auto_increment,
 	course_id int,
 	stu_id int
 );
+<<<<<<< HEAD
 insert into  stu_count(course_id,stu_id) values(41,1);
 insert into  stu_count(course_id,stu_id) values(51,2);
 insert into  stu_count(course_id,stu_id) values(1,4);
@@ -236,14 +207,25 @@ alter table stu_count
 	add constraint sc_stu_id foreign key(stu_id) references stu_user(stu_id);
 
 --账户表
+=======
+--8账户表
+>>>>>>> branch 'master' of git@github.com:18397737982/Education.git
  学生id  账户余额  
 create table account(
 	user_id int,--学员id 
 	balance decimal
 );
-alter table account 
-	add constraint ac_stu_id foreign key(stu_id) references stu_user(stu_id);
---学习课程表
+-----------------9.课程评价表
+create table courseAssess(
+       caid int primary key auto_increment,
+       user_id int, 
+       class_hour_id int, 
+       content varchar(500),
+       time date,
+       readstatus int,
+       temp03 varchar(200)--备用字段  
+);
+--10学习课程表
 create table studyCourse(
        scid int primary key auto_increment,
        user_id int,
@@ -254,6 +236,7 @@ create table studyCourse(
        temp01 varchar(200),
        temp02 varchar(200)
 );
+<<<<<<< HEAD
 insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,40,'2017-02-23 00:00:00',2,'10');
 insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(4,40,'2017-02-23 00:00:00',1,'10');
 insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(5,40,'2017-02-23 00:00:00',2,'10');
@@ -275,29 +258,116 @@ select scid,studyCourse.user_id,studyCourse.course_id,begintime,assess,studyPeri
 		select c.*,begintime from course c,studyCourse s 
   		where c.course_id=s.course_id  and c.course_id in
 		(select course_id from studyCourse where user_id=2) order by begintime desc limit 2,2;
+=======
 
---------------------------10.关注表（保留意见）
+--11在教课程表
+create table teachCourse(
+	tcid int primary key auto_increment,
+	user_id int,
+	course_id int,
+	begintime date,
+	assess int ,
+    temp01 varchar(200)
+);
+>>>>>>> branch 'master' of git@github.com:18397737982/Education.git
+
+drop table teachCourse;
+	select c.*,(select count(1) from teachCourse where course_id = c.course_id )
+		memberCount,u.*,
+		(select avg(assess) from teachCourse where course_id = c.course_id) assessAvg
+		from teachCourse t
+		inner join userInfo u
+		on u.user_id=t.user_id
+		inner join course c
+		on c.course_id=t.course_id
+		where t.user_id=2
+--------------------------11.关注表（保留意见）
 create table attention(
        atid  int  primary key auto_increment,  
-       attention int 
-                 constraint FK_userinfo_userid05 references userinfo(userid),-- 被关注的人 用户id(外键)
-       userid int 
-              constraint FK_userinfo_userid06 references userinfo(userid),-- 关注发起者 用户id(外键)
-       sreadstatus int,--备用字段
-       temp02 varchar2(200),--备用字段
-       temp03 varchar2(200)--备用字段 
+       attention int,
+       user_id int, 
+       sreadstatus int,
+       temp02 varchar(200),
+       temp03 varchar(200)
 );
---热门查询测试
-select c.course_id,course_name,c.user_id,class_id,course_view,course_description,coursephoto,price,u.user_id,u.user_name from course c 
-				left join (select count(1) as rang,course_id from stu_count GROUP BY course_id) s on s.course_id=c.course_id
-				left join userInfo u on c.user_id=u.user_id 
-				where  c.class_id=3
-				ORDER BY s.rang DESC
- ;
+drop table teachCourse;
 
+select * from userInfo;
+insert into attention(attention,user_id,sreadstatus,temp02,temp03) values(3,2,null,null,null);
+insert into attention(attention,user_id,sreadstatus,temp02,temp03) values(4,2,null,null,null);
+insert into attention(attention,user_id,sreadstatus,temp02,temp03) values(5,2,null,null,null);
+
+--12课程问题
+--cqid 课程提问表
+create table courseAnswer(
+       caid int primary key auto_increment ,
+       cqid int,
+       user_id int,
+       answerContent varchar(100),
+       answertime date,
+       temp01 varchar(200)
+);
+--------------------16.课程提问表
+create table courseQuestion(
+       cqid int primary key auto_increment,  
+       user_id int, 
+       class_hour_id int ,
+       cqcontent varchar(500),
+       cqtime date,
+       cqview int ,
+       qreadstatus int,
+       temp03 varchar(200)
+);
+select cq.*,user_name,u.pic from courseQuestion cq
+		inner join userInfo u
+		on cq.user_id=u.user_id
+		where cq.user_id=2
+select ca.*,cqcontent,user_name from courseAnswer ca
+		inner join userInfo u
+		on ca.user_id=u.user_id
+		inner join courseQuestion cq
+		on ca.cqid=cq.cqid
+		where ca.user_id=2;
+-----------------14.小组表
+create table cgroup(
+       gid int primary key auto_increment,  
+       groupname varchar(50),
+       user_id int,
+       createtime date,
+       groupnumber varchar(500),
+       peoplecount int,
+       pic varchar(200),
+       introduction varchar(400),
+       class_id int
+);
+select cg.*,user_name,ca.* from cgroup cg
+			inner join userInfo u
+			on u.user_id=cg.user_id
+			inner join class_category ca
+			on cg.class_id=ca.class_id
+			order by gid limit 2,3
+--15私信或留言
+create table selfMessage(
+       smid int primary key auto_increment,  
+       sendman int, 
+       receiveman int,
+       scontent varchar(500),
+       smtime date,
+       sendType int ,
+       sreadstatus int,
+       temp03 varchar(200)
+);
+select * from userInfo where user_id in
+(select attention from attention where user_id=2)
+
+<<<<<<< HEAD
 select sc.* ,c.*,u.user_id,u.user_name,u.pic from studyCourse sc,Course c,UserInfo u 
 			where sc.course_id=40
 				and sc.user_id=u.user_id 
 				and sc.course_id=c.course_id
 				ORDER BY sc.begintime DESC
 
+=======
+
+		
+>>>>>>> branch 'master' of git@github.com:18397737982/Education.git

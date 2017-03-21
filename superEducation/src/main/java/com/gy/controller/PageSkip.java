@@ -113,4 +113,22 @@ public class PageSkip {
 	public String toplay(@PathVariable int class_hour_id,@PathVariable int course_id) {
 		return "redirect:/playVideo.action/"+course_id+"_" + class_hour_id;
 	}
+
+	// 进入个人主页界面
+	@RequestMapping(value = "/toPerson.action")
+	public String toPerson() {
+		return "page/person";
+	}
+
+	// 进入个人主页界面
+	@RequestMapping(value = "/toInfo.action")
+	public String toInfo() {
+		return "page/info";
+	}
+
+	// 进入小组介绍
+	@RequestMapping(value = "/toGroupIntroduce.action")
+	public String toGroupIntroduce() {
+		return "page/groupIntroduce";
+	}
 }
