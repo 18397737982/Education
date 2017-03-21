@@ -22,6 +22,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findAllcourseseq" resultType="Class_hour"  parameterType="Class_hour">
 		select * from class_hour where course_id=#{course.course_id}
 	</select>
+	
+	 <delete id="deletelesson" parameterType="int">
+		delete from class_hour where courseseq=#{courseseq} and course_id=#{course.course_id}
+	</delete>
 <!-- 		//当前课时 和//下一课时 -->
 	<select id="findNowclasshour" resultType="Class_hour"  parameterType="Class_hour">
 	select * from class_hour where courseseq >= (

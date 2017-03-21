@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+  <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page isELIgnored="false"  %>
 <!DOCTYPE html>
@@ -800,14 +800,14 @@
   					str+="<li class='item-lesson clearfix' id='lesson-89862' data-file-id='0' data-lesson-type='text' style='word-break: break-all;' >";
 						str+="<div class='item-line'></div>";
 						str+="<div class='item-content'>";
-			  			str+="<i "+(data[i].type==1 ? 'class="glyphicon glyphicon-file" style="color: rgb(56, 193, 60);"':'class="glyphicon glyphicon-film" style="color: rgb(56, 193, 60);"')+"></i>课时 <span class='number'>"+data[i].courseseq+"</span>：	"+data[i].title+"";				
+			  			str+="<i "+(data[i].type==1 ? 'class="glyphicon glyphicon-file" style="color: rgb(56, 193, 60);"':'class="glyphicon glyphicon-film" style="color: rgb(56, 193, 60);"')+"></i>课时 <span class='number' id='number'>"+data[i].courseseq+"</span>：	"+data[i].title+"";				
 						str+="</div>";
 
 						str+="<div class='item-actions'>";
 		  				str+="<a class='btn btn-link' data-toggle='modal' data-target='#modal' data-backdrop='static' data-keyboard='false' data-url='/course/14687/manage/lesson/89862/edit'>";
 					 	str+="<span class='glyphicon glyphicon-edit prs'></span>编辑</a>";
 						str+="<a class='btn btn-link' href='/course/14687/lesson/89862' target='_blank'><span class='glyphicon glyphicon-eye-open prs'></span>预览</a>";
-						str+="<span class='dropdown'><a href='javascript:;' class='delete-lesson-btn btn-danger btn' data-url='/course/14687/manage/lesson/89862/delete'><span class='glyphicon glyphicon-trash prs'></span>删除</a>";
+						str+="<span class='dropdown'><p onclick='deleteLesson()' class='delete-lesson-btn btn-danger btn' data-url='/course/14687/manage/lesson/89862/delete'><span class='glyphicon glyphicon-trash prs'></span>删除</p>";
 						str+="</span>";
 						str+="</div>";
 						str+="</li>";
@@ -817,6 +817,19 @@
   			}
   		},"json");
   	});  
+  
+  		function deleteLesson(){
+  			var courseseq=$("#number").text();
+  			$.post("course/deletelession.action",{courseseq:courseseq},
+  					function(data){
+  					if(data!=null){
+  						window.location.reload();
+  					}else{
+  						alert("删除课时失败！")
+  					}
+  			},"json");                                               
+  		}
+  
   		function addlession(){
   			var type=$("input[name='type']:checked").val();
   			if(type==0){
@@ -876,7 +889,7 @@
   	}
   	function clicktrue(){
   		 if(confirm("您确定发布课程？")){
-  	        location.href="page/person.jsp";
+  	        location.href="toPerson.action";
   	     }
   	}
   </script>

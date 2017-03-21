@@ -61,6 +61,24 @@
 		 from course s where s.course_id in(select course_id from studyCourse  where user_id =#{user_id})
 	</select>
 	
+	<select id="findPic" parameterType="UserInfo" resultType="UserInfo">
+		select * from userInfo where user_id=#{user_id}
+	</select>
+	
+	<update id="updateUserInfo" parameterType="UserInfo">
+		update userinfo set user_name=#{user_name},realname=#{realname},email=#{email},sex=#{sex},usign=#{usign},email=#{email},introduce=#{introduce}
+		where user_id=#{user_id}
+	</update>
+	
+	<update id="updatePic" parameterType="UserInfo">
+		update userinfo set pic=#{pic}
+		where user_id=#{user_id}
+	</update>
+	
+	<update id="updatePwd" parameterType="UserInfo">
+		update userinfo set password=#{password}
+		where user_id=#{user_id}
+	</update>
 	
 	
 </mapper>

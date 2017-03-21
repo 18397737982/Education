@@ -98,6 +98,9 @@ public class CourseBizImpl implements CourseBiz {
 	}
 
 	@Override
+	public int deletelesson(Class_hour class_hour) {
+		return this.baseDao.delete(class_hour, "deletelesson");
+	}
 	public Course findOneCourse(Course course) {
 		List<Course> list=this.baseDao.findAll(course, "findOneCourse");
 		return list != null && list.size() >0 ? list.get(0) : null ;

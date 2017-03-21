@@ -70,14 +70,14 @@
 	
 	
 	 <insert id="addcourse" parameterType="Course" useGeneratedKeys="true" keyProperty="course_id"> 
-		insert into course(class_id,course_name,coursephoto,course_description,courseting,user_id)
+		insert into course(class_id,course_name,coursephoto,course_description,courseting,price,user_id)
 			values
 		 (#{class_id},#{course_name},
 		 <if test='coursephoto==null'>
 			null</if>
 		<if test='coursephoto!=null'>
 			#{coursephoto}
-		</if>,#{course_description},#{courseting},#{userInfo.user_id})
+		</if>,#{course_description},#{courseting},#{price},#{userInfo.user_id})
 	</insert>
 	
 	<select id="findcourseid" resultType="Course" parameterType="Course">
@@ -118,5 +118,8 @@
 		</association>
 	</resultMap>
 	
+	
+	 
+	 
 	
 </mapper>
