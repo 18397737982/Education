@@ -280,7 +280,8 @@ public class CourseController {
 			Course course = new Course();
 			String course_name = (String) session.getAttribute("course_name");
 			String course_description = (String) session.getAttribute("course_description");
-			int class_id = (int) session.getAttribute("class_id");
+			Class_category class_category=(Class_category) session.getAttribute("Class_category");
+			int class_id = class_category.getClass_id();
 			String courseting = (String) session.getAttribute("courseting");
 			UserInfo user = (UserInfo) session.getAttribute("users");
 

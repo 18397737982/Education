@@ -49,7 +49,7 @@ create table course(
 	courseting varchar(100),   --//标签
 	price numeric(8,2)
 );
-<<<<<<< HEAD
+
 
 select course_id,course_name,c.user_id,class_id,course_view,course_description,coursephoto,price,u.user_id,u.user_name from course c , userInfo u where c.user_id=u.user_id and c.class_id=1 ORDER BY course_view DESC
 
@@ -94,7 +94,6 @@ alter table course
 --课时 
 
 --5课时 
->>>>>>> branch 'master' of git@github.com:18397737982/Education.git
 create table class_hour(
 	class_hour_id int primary key auto_increment,
 	course_id int,
@@ -111,10 +110,11 @@ insert into class_hour(course_id,type,title,introduction,courseseq,content) valu
 insert into class_hour(course_id,type,title,introduction,courseseq,content) values(40,1,'摄影第2讲','介绍各类摄影的历史',2,'http://tb-video.bdstatic.com/tieba-smallvideo/1252235_99b72d83e822d2f38b5b3820ea1097aa.mp4');
 insert into class_hour(course_id,type,title,introduction,courseseq,content) values(40,1,'摄影第3讲','拍摄基础',3,'http://tb-video.bdstatic.com/tieba-smallvideo/337_6f80ee8c53335a8b754f6d0c1400ae99.mp4');
 commit;
-
+select * from class_hour;
 alter table class_hour 
 	add constraint ch_course_id foreign key(course_id) references course(course_id);
-	
+select *from course;
+select * from class_category;
 --文件
 create table files(
 	files_id int primary key auto_increment,--文件id
@@ -141,8 +141,6 @@ create table comment_detail(
 )
 alter table comment 
 	add constraint cm_course_id foreign key(course_id) references course(course_id);
-=======
->>>>>>> branch 'master' of git@github.com:18397737982/Education.git
 
 select s.*,(select count(1) from studyCourse where course_id = s.course_id ) memberCount,
 		(select avg(assess) from studyCourse where course_id = s.course_id) assessAvg,

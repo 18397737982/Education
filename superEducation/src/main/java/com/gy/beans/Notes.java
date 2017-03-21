@@ -23,12 +23,7 @@ public class Notes implements Serializable{
 				+ ", comment_time=" + comment_time + ", class_hour=" + class_hour + ", stu_user=" + stu_user
 				+ ", notesCount=" + notesCount + "]";
 	}
-	public Course getCourse() {
-		return course;
-	}
-	public void setCourse(Course course) {
-		this.course = course;
-	}
+	
 	public String getNotesCount() {
 		return notesCount;
 	}
