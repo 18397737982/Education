@@ -15,7 +15,7 @@ $(function() {
 			$.post("userInfo/selectTouxiang.action", {"_method" : "POST",user_id :user_id},function(data){
 				if(data){
 					var st="";
-					alert(data);
+					//alert(data);
 					st=data.pic;
 					if(st.indexOf("avatar") > 0 ){
 						$("#imgPrc").attr('src',"images/avatar.png");

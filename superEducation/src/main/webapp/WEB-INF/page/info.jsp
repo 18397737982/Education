@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page isELIgnored="false"  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,8 +43,8 @@
 </style>
 <script type="text/javascript">
 var flag = "${(empty users)? false : true}";
-var uname = '${users.uname}';
-var userid = '${users.userid}';
+var user_name = '${users.user_name}';
+var user_id = '${users.user_id}';
 </script>
 
 </head>
@@ -66,8 +67,6 @@ var userid = '${users.userid}';
 								class="glyphicon glyphicon-picture"></i> 头像设置</a></li>
 						<li class="list-group-item "><a href="javascript:void(0)"><i
 								class="glyphicon glyphicon-lock"></i> 安全设置</a></li>
-						<li class="list-group-item "><a href="javascript:void(0)"><i
-								class="glyphicon glyphicon-envelope"></i> 邮箱设置</a></li>
 					</ul>
 				</div>
 			</div>
@@ -85,17 +84,29 @@ var userid = '${users.userid}';
 								<label class="col-md-2 control-label">昵称</label>
 								<div class="col-md-7 controls">
 									<div class="control-text">
-										<input type="text" name="userid" value="${users.userid}"
-											style="display: none;">${users.uname}</div>
+										<input type="text" name="userid" value="${users.user_id}"
+											style="display: none;">${users.user_name}</div>
 								</div>
 							</div>
+
+							<div class="form-group">
+								<label class="col-md-2 control-label" for="usign">真实姓名</label>
+								<div class="col-md-7 controls">
+									<input type="text" id="profile_realnameture" name="usign"
+										data-url="/sensitive/check" class="form-control"
+										value="${users.realname}" data-widget-cid="widget-1"
+										data-explain="">
+									<div class="help-block" style="display: none;"></div>
+								</div>
+							</div>
+
 
 							<div class="form-group">
 								<label class="col-md-2 control-label">性别</label>
 								<div class="col-md-7 controls radios">
 									<div id="profile_gender">
 										<c:choose>
-											<c:when test="${users.gender}==null">
+											<c:when test="${users.sex}==null">
 												<input type="radio" id="profile_gender_0" name="gender"
 													required="required" value="男">
 												<label for="profile_gender_0" class="required">男</label>
@@ -103,7 +114,7 @@ var userid = '${users.userid}';
 													required="required" value="女">
 												<label for="profile_gender_1" class="required">女</label>
 											</c:when>
-											<c:when test="${users.gender}=='男'">
+											<c:when test="${users.sex}=='男'">
 												<input type="radio" id="profile_gender_0" name="gender"
 													required="required" value="男" checked="checked">
 												<label for="profile_gender_0" class="required">男</label>
@@ -125,6 +136,19 @@ var userid = '${users.userid}';
 								</div>
 							</div>
 
+
+							<div class="form-group">
+								<label class="col-md-2 control-label" for="usign">年龄</label>
+								<div class="col-md-7 controls">
+									<input type="text" id="profile_agesture" name="usign"
+										data-url="/sensitive/check" class="form-control"
+										value="${users.age}" data-widget-cid="widget-1"
+										data-explain="">
+									<div class="help-block" style="display: none;"></div>
+								</div>
+							</div>
+							
+							
 							<div class="form-group">
 								<label class="col-md-2 control-label" for="usign">个人签名</label>
 								<div class="col-md-7 controls">
@@ -135,12 +159,23 @@ var userid = '${users.userid}';
 									<div class="help-block" style="display: none;"></div>
 								</div>
 							</div>
+							
+							<div class="form-group">
+								<label class="col-md-2 control-label" for="usign">邮箱</label>
+								<div class="col-md-7 controls">
+									<input type="text" id="profile_emailture" name="usign"
+										data-url="/sensitive/check" class="form-control"
+										value="${users.email}" data-widget-cid="widget-1"
+										data-explain="">
+									<div class="help-block" style="display: none;"></div>
+								</div>
+							</div>
 
 							<div class="form-group">
 								<label class="col-md-2 control-label" for="introdution">自我介绍</label>
 								<div class="col-md-7 controls">
 									<textarea rows="10" id="profile_about" class="form-control"
-										data-url="/sensitive/check">${users.introdution}</textarea>
+										data-url="/sensitive/check">${users.introduce}</textarea>
 								</div>
 								<br>
 							</div>
@@ -148,7 +183,7 @@ var userid = '${users.userid}';
 								<div class="col-md-7 col-md-offset-2">
 									<button id="profile-save-btn" data-submiting-text="正在保存"
 										type="button" class="btn btn-primary"
-										 onclick="save('${users.userid}')">保存</button>
+										 onclick="save()">保存</button>
 								</div>
 							</div>
 
@@ -171,7 +206,7 @@ var userid = '${users.userid}';
 
 						<form id="settings-avatar-form" class="form-horizontal"
 							method="post"
-							action="${pageContext.request.contextPath}/userinfo/editPhoto"
+							action="${pageContext.request.contextPath}/userInfo/editPhoto"
 							enctype="multipart/form-data">
 
 							<div class="form-group">
@@ -179,17 +214,17 @@ var userid = '${users.userid}';
 									<b>当前头像</b>
 								</div>
 								<div class="controls col-md-8 controls" id="showimg">
-									<input name="userid" value="${users.userid}"
+									<input name="userid" value="${users.user_id}"
 										style="display: none;" />
 									<c:choose>
-										<c:when test="${users.photo==null}">
+										<c:when test="${users.pic==null}">
 											<img id="imgPrc" src="images/avatar.png"
 												style="width: 200px; height: 180px;">
 										</c:when>
 										<c:when test=""></c:when>
 									</c:choose>
-									<c:if test="${users.photo!=null}">
-										<img id="imgPrc" src="../img/headimg/${users.photo}"
+									<c:if test="${users.pic!=null}">
+										<img id="imgPrc" src="../img/headimg/${users.pic}"
 											style="width: 200px; height: 180px;">
 									</c:if>
 								</div>

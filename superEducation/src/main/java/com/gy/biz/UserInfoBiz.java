@@ -17,4 +17,13 @@ public interface UserInfoBiz {
 	//通过id查询用户信息
 	public List<UserInfo> getUserInfoByUserid(UserInfo userInfo);
 
+	//编辑信息
+	public int saveInfo(UserInfo user);
+	//获取头像
+	public UserInfo getUserPicByUserid(UserInfo userInfo);
+	//编辑头像
+	public int editPhoto(UserInfo user);
+	//修改密码
+	public void editPwd(UserInfo userInfo);
+
 }
