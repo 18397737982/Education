@@ -18,11 +18,12 @@
 		<script type="text/javascript" src="js/bootstrap.js"></script>
 		<script type="text/javascript" src="js/show.js"></script>
 		<script type="text/javascript" src="js/top.js"></script>
-	
 		<style>
 			.cke {
 				visibility: hidden;
 			}
+		.bar {width:0px;height:18px;border:0px;background:#00f;}
+		#box {width:400px;height:18px;border:1px solid;}
 		</style>
 	</head>
 
@@ -40,7 +41,7 @@
 
 					<div class="user-info">
 						<span class="user-name">${users.user_name}</span>
-						<p>“<a href="http://www.howzhi.com/settings">您还未设置签名哦</a> ”</p>
+						<p>${users.usign}</p>
 					</div>
 				</div>
 				<ul class="clearfix">
@@ -90,13 +91,11 @@
 						<div id="studying" style="display: block;">
 							<div class="hz-progress">
 								<p>
-									<span class="dash-icon"></span>学习计划综合进度：<span class="count">0%</span><span class="rule">( 已学课时数 / 所有课时数 * 100% ) </span>
+									<span class="dash-icon"></span>学习计划综合进度：<span class="count"></span><span class="rule">( 已学课时数 / 所有课时数 * 100% ) </span>
 								</p>
 								<!--------------------学习进度条------------------------------->
-								<div class="progress">
-									<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:0%">
-										<span class="sr-only">40% Complete (success)</span>
-									</div>
+								<div id="box">
+									<div class="bar"></div>
 								</div>
 							</div>
 	
@@ -136,7 +135,7 @@
 									</div>
 									<!-------------------------如果没有正在学习的课程，则显示这个--------------------------------------->
 									<div class="row" style="display: block;">
-			                            <div class="empty"><i class="es-icon es-icon-locallibrary"></i>您还未开始学习课程，去<a href="http://www.howzhi.com/courses">发现</a>好课</div>
+			                            <div class="empty"><i class="es-icon es-icon-locallibrary"></i>您还未开始学习课程，去<a href="getAllCourseInformation.action">发现</a>好课</div>
 			                        </div>
 								</div>
 							</div>
@@ -149,7 +148,7 @@
 								<div class="section-body">
 									<!--------------还未学完任何一门课程时------------------->
 									<div class="row" id="notStudy" style="display: block;">
-										<div class="empty"><i class="es-icon es-icon-locallibrary"></i>您还未开始学习课程，去<a href="http://www.howzhi.com/courses">发现</a>好课</div>
+										<div class="empty"><i class="es-icon es-icon-locallibrary"></i>您还未开始学习课程，去<a href="getAllCourseInformation.action">发现</a>好课</div>
 									</div>
 									
 									<!----------------有学完课程时的显示样式----------------------------------->

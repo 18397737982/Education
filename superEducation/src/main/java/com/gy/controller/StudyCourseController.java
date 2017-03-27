@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,10 +17,17 @@ import com.gy.beans.StudyCourse;
 import com.gy.beans.TeachCourse;
 import com.gy.beans.UserInfo;
 import com.gy.biz.StudyCourseBiz;
+import com.gy.biz.TeachCourseBiz;
 
 @Controller
 public class StudyCourseController {
 	private StudyCourseBiz studyCourseBiz;
+	private TeachCourseBiz teachCourseBiz;
+	
+	@Resource(name = "teachCourseBizImpl")
+	public void setTeachCourseBiz(TeachCourseBiz teachCourseBiz) {
+		this.teachCourseBiz = teachCourseBiz;
+	}
 
 	public StudyCourseBiz getStudyCourseBiz() {
 		return studyCourseBiz;
@@ -32,14 +40,14 @@ public class StudyCourseController {
 
 	@ResponseBody
 	@RequestMapping(value = "/studyingByUserid", method = RequestMethod.POST)
-	public List<StudyCourse> studyingByUserid(Integer user_id, String p) {
+	public List<Course> studyingByUserid(Integer user_id, String p) {
 		int pagesize = 2;
 		int pagenumber = Integer.parseInt(p);
 		UserInfo userInfo = new UserInfo();
 		userInfo.setUser_id(user_id);
-		userInfo.setPageSize(pagesize);
-		userInfo.setBeginRow(pagenumber);
-		List<StudyCourse> courselist = studyCourseBiz.showStudyCourse(userInfo);
+		userInfo.setPagesize(pagesize);
+		userInfo.setPagenumber((pagenumber-1)*pagesize);
+		List<Course> courselist = studyCourseBiz.showStudyCourse(userInfo);
 		return courselist;
 	}
 
@@ -102,12 +110,27 @@ public class StudyCourseController {
 	// 获取用户的在教课程
 	@RequestMapping("/studyCourse/teachingCourse")
 	@ResponseBody
-	public List<TeachCourse> teachCourse(Integer user_id) {
+	public List<TeachCourse> teachCourse( Integer user_id,Integer status) {
 		TeachCourse teachCourse=new TeachCourse();
 		UserInfo userInfo = new UserInfo();
 		userInfo.setUser_id(user_id);
+		Course course=new Course();
+		course.setStatus(status);
 		teachCourse.setUserInfo(userInfo);
+		teachCourse.setCourse(course);
 		List<TeachCourse> teachcourse = studyCourseBiz.getTeachByUsid(teachCourse);
 		return teachcourse;
 	}
+	
+	// 得到用户在教的数量
+		@RequestMapping("/studyCourse/teachCount")
+		@ResponseBody
+		public String getTeachCount(Integer user_id) {
+			TeachCourse teach = new TeachCourse();
+			UserInfo userInfo = new UserInfo();
+			userInfo.setUser_id(user_id);
+			teach.setUserInfo(userInfo);
+			String teachCount = teachCourseBiz.getTeachCourseCount(teach);
+			return teachCount;
+		}
 }

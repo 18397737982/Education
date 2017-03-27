@@ -11,7 +11,7 @@ import com.gy.beans.UserInfo;
 
 public interface StudyCourseBiz {
 	
-	public List<StudyCourse> showStudyCourse(UserInfo userInfo);
+	public List<Course> showStudyCourse(UserInfo userInfo);
 
 	//所有学习了某一门课程的总数
 	public List<StudyCourse> studyCourseOfCourse (Course course);

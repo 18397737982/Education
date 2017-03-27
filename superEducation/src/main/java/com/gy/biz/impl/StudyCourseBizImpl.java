@@ -26,7 +26,7 @@ public class StudyCourseBizImpl implements StudyCourseBiz {
 		this.baseDao = baseDao;
 	}
 	@Override
-	public List<StudyCourse> showStudyCourse(UserInfo userInfo) {
+	public List<Course> showStudyCourse(UserInfo userInfo) {
 		StudyCourse studyCourse=new StudyCourse();
 		studyCourse.setUserInfo(userInfo);
 		return this.baseDao.findAll(studyCourse, "showStudyCourse");

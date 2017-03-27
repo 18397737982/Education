@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,10 +33,12 @@ import com.gy.beans.Class_category;
 import com.gy.beans.Class_hour;
 import com.gy.beans.Course;
 import com.gy.beans.StudyCourse;
+import com.gy.beans.TeachCourse;
 import com.gy.beans.UserInfo;
 import com.gy.biz.CategoryBiz;
 import com.gy.biz.CourseBiz;
 import com.gy.biz.StudyCourseBiz;
+import com.gy.biz.TeachCourseBiz;
 import com.gy.biz.UserInfoBiz;
 
 @Controller
@@ -44,7 +48,15 @@ public class CourseController {
 	private CourseBiz courseBiz;
 	private CategoryBiz categoryBiz;
 	private StudyCourseBiz studyCourseBiz;
+	private TeachCourseBiz teachCourseBiz;
 
+	public TeachCourseBiz getTeachCourseBiz() {
+		return teachCourseBiz;
+	}
+	@Resource(name = "teachCourseBizImpl")
+	public void setTeachCourseBiz(TeachCourseBiz teachCourseBiz) {
+		this.teachCourseBiz = teachCourseBiz;
+	}
 	@Resource(name = "studyCourseBizImpl")
 	public void setCategoryBiz(StudyCourseBiz studyCourseBiz) {
 		this.studyCourseBiz = studyCourseBiz;
@@ -237,11 +249,8 @@ public class CourseController {
 	@RequestMapping("course/editor.action")
 	public Object uploadApk(@RequestParam(value = "upload-file") MultipartFile apkFile, HttpServletRequest request,
 			HttpServletResponse response) {
-
-		System.out.println("yesyse");
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		String str = "";
-
 		if (apkFile != null) {
 			// 获取保存的路径，
 			String realPath = request.getServletContext().getRealPath("../img/headimg");
@@ -250,7 +259,6 @@ public class CourseController {
 				// 未选择文件
 			} else {
 				System.out.println("yes");
-
 				// 文件原名称
 				String originFileName = apkFile.getOriginalFilename();
 				long temp = System.currentTimeMillis() + new Random().nextInt(100000);
@@ -259,19 +267,15 @@ public class CourseController {
 				try {
 					// 这里使用Apache的FileUtils方法来进行保存
 					FileUtils.copyInputStreamToFile(apkFile.getInputStream(), new File(realPath, str));
-
 				} catch (IOException e) {
 					System.out.println("文件上传失败");
-
 					e.printStackTrace();
 				}
 			}
-
 		}
 		try {
 			request.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		HttpSession session = request.getSession();
@@ -286,7 +290,6 @@ public class CourseController {
 			String courseting = (String) session.getAttribute("courseting");
 			BigDecimal price=(BigDecimal) session.getAttribute("price");
 			UserInfo user = (UserInfo) session.getAttribute("users");
-
 			course.setCourse_name(course_name);
 			course.setClass_id(class_id);
 			course.setCourse_description(course_description);
@@ -294,13 +297,19 @@ public class CourseController {
 			course.setPrice(price);
 			course.setCoursephoto("../img/headimg/" + str);
 			course.setUserInfo(user);
-			System.out.println(course.toString());
-
 			Course courses = this.courseBiz.save(course);
+			
+			TeachCourse teachCourse=new TeachCourse();
+			teachCourse.setUserInfo(user);
+			teachCourse.setCourse(courses);
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String date=sdf.format(new Date());
+			teachCourse.setTeachPeriod(date);
+			teachCourse.setAssess(null);
+			this.teachCourseBiz.addTeachCourse(teachCourse);
 			resMap.put("filename", str);
 		}
 
-		System.out.println("yes");
 		return resMap;
 	}
 

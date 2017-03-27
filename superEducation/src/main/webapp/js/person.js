@@ -1,11 +1,51 @@
 $(function(){
 	var userid=$('#toggle img').attr("id");
-	/*var userid=window.location.href.split('=')[1];
-	if(userid != null || userid != undefined || userid != ''){
-		userid=window.location.href.split('=')[1];
-	}else{
-		userid=$('#toggle img').attr("id");
-	}*/
+	
+	$("#showImg").bind("click",function(){
+		$("#showImg")[0].style.display="none";
+		$("#showLook")[0].style.display="block";
+	});
+	
+	$("#showLook img").click(function(){
+		var content= $("#scontent").val();
+		var alt=$(this).attr("alt");
+		$("#scontent").val(content+"[["+alt+"]]");
+	});
+	
+	$("#comment-btns").click(function(){
+		var receiveman=$("#receiveman").val();
+		var sendType=$("#receiveman").val();
+		var scontent=$("#scontent").val();
+		$.post("message/addMessage.action",{"_method":"POST","user_id":user_id,"receiveman":receiveman,"sendType":sendType,"scontent":scontent},function(data){
+			var listStr="";
+			listStr+="<p><h2>";
+			listStr+="我的留言板";
+			listStr+="</h2><p>"
+			if(data.length!=0){
+				for(var i=0;i<data.length;i++){
+					listStr+='<div class="userimg">';
+					listStr+='<img class="img-responsive" src="'+data[i].userInfo.pic+'" alt="'+data[i].userInfo.user_name+'">';
+					listStr+='</a>';
+					listStr+='</div>';
+					listStr+='<div class="userInfo">';
+					listStr+='<a href="/u/2419296/">天降大任</a>';
+					listStr+='<span>刚刚</span>';
+					listStr+='</p>';
+					listStr+='<div class="body">';
+					listStr+=data[i].scontent;
+					listStr+='</div>';
+					listStr+='<div class="pull-right ">';
+					listStr+='<a class="con" href="javascript:;" data-role="revert" data-url="/comment/96043/post" data-revertto="天降大任">回复</a>';
+					listStr+='<a class="con" href="javascript:;" data-role="delete" data-target="item96043" data-url="/comment/96043/delete">删除</a>';
+					listStr+='</div></div></li>';
+				}
+			}
+			$("#commentList").html(listStr);
+		},"json");
+	});
+
+
+	
 	
 	$.post("studyCourse/personCourse",{"_method":"POST","user_id":user_id},function(data){
 		var listStr="";
@@ -15,15 +55,15 @@ $(function(){
 				listStr+='<div class="course-item">';
 				listStr+='<div class="course-img">';
 				listStr+='<img src="'+data[i].coursephoto+'" alt="'+data[i].course_name+'" class="">';
-				listStr+='<div class="mask"><a href="page/joinproject.jsp?courseid='+data[i].course_id+'"> <span class="btn btn-primary">开始学习</span></a></div></div>';
+				listStr+='<div class="mask"><a href="toOneCourse.action/'+data[i].course_id+'"> <span class="btn btn-primary">开始学习</span></a></div></div>';
 				listStr+='<div class="course-info">';
 				listStr+='<div class="title">';
-				listStr+='<span class="label label-p">'+data[i].typename+'</span> <a class="transition" href="page/joinproject.jsp?courseid='+data[i].courseid+'">'+data[i].ctitle+'</a></div>';
-				listStr+='<div class="metas"><span>'+data[i].cview+'浏览</span>/ <span>'+data[i].memberCount+'学员</span>/ <span>'+data[i].assessAvg+'评分</span></div>';
+				listStr+='<span class="label label-p">'+data[i].lass_category.class_categorys+'</span> <a class="transition" href="page/joinproject.jsp?courseid='+data[i].course_id+'">'+data[i].course_name+'</a></div>';
+				listStr+='<div class="metas"><span>'+data[i].course_view+'浏览</span>/ <span>'+data[i].memberCount+'学员</span>/ <span>'+data[i].assessAvg+'评分</span></div>';
 				listStr+='<div class="teacher text-o-show">';
 				listStr+='<a class=" js-user-card" href="javaScript:void(0);"';
-				listStr+='data-card-url="/user/1931873/card/show" data-user-id="'+data[i].user.userid+'">';
-				listStr+='<img class="avatar-ss " src="'+data[i].user.photo+'" alt="'+data[i].user.uname+'"> '+data[i].user.uname+'</a>';
+				listStr+='data-card-url="/user/1931873/card/show" data-user-id="'+data[i].userInfo.user_id+'">';
+				listStr+='<img class="avatar-ss " src="'+data[i].userInfo.pic+'" alt="'+data[i].userInfo.user_name+'"> '+data[i].userInfo.user_uname+'</a>';
 				listStr+='<div class="price free pull-right"><span>免费</span></div></div></div></div></div>';
 			}
 		}else{
@@ -68,6 +108,10 @@ $(function(){
 		$("#courseCount").html(data);
 	},"json");
 	
+	$.post("studyCourse/teachCount",{"_method":"POST","user_id":user_id},function(data){
+		$("#teachCount").html(data);
+	},"json");
+	
 	$.post("studyCourse/noteCount",{"_method":"POST","userid":user_id},function(data){
 		$("#noteCount").html(data);
 	},"json");
@@ -76,7 +120,7 @@ $(function(){
 		$("#attentionCount").html("关注（"+data+"）");
 	},"json");
 	
-	$.post("attention/fansCount",{"_method":"POST","userid":userid},function(data){
+	$.post("attention/fansCount",{"_method":"POST","user_id":user_id},function(data){
 		$("#fansCount").html("粉丝（"+data+"）");
 	},"json");
 	
@@ -117,7 +161,8 @@ $(function(){
 	$("#teaching").bind("click",function(){
 		$("#nav-mian").children().removeClass("active");
 		$(this).addClass("active");
-		$.post("studyCourse/teachingCourse",{"_method":"POST","userid":userid},function(data){
+		var status=1;
+		$.post("studyCourse/teachingCourse",{"_method":"POST","user_id":user_id,"status":status},function(data){
 			var listStr="";
 			listStr+='<div class="flat myhz-course"> '; 
 			listStr+='<h3>我的在教课程</h3>';
@@ -178,11 +223,11 @@ $(function(){
 					}
 					listStr+='<span class="pere">'+(data[i].studyPeriodcount/data[i].totalCm).toFixed(2)*100+'%</span></div>';
 					listStr+='<div class="course-info">';
-					listStr+='<div class="title"><span class="label label-p">'+data[i].typename+'</span>';
-					listStr+='<a class="transition" href="page/joinproject.jsp?courseid='+data[i].courseid+'">'+data[i].ctitle+'</a></div>';
-					listStr+='<div class="metas"><span><a>'+data[i].cview+'</a>浏览</span>/<span><a>'+data[i].memberCount+'</a>学员</span>/<span><a>'+data[i].assessAvg+'</a>评分</span></div>';
-					listStr+='<div class="teacher"><a class=" js-user-card" href="http://www.howzhi.com/u/1400247/" data-card-url="/user/1400247/card/show" data-user-id="'+data[i].user.user_id+'">';
-					listStr+='<img class="avatar-ss " src="'+data[i].user.photo+'" 　alt="'+data[i].user.user_name+'">'+data[i].user.user_name+'</a></div></div></div></div>';
+					listStr+='<div class="title"><span class="label label-p">'+data[i].lass_category.class_categorys+'</span>';
+					listStr+='<a class="transition" href="page/joinproject.jsp?courseid='+data[i].course_id+'">'+data[i].course_name+'</a></div>';
+					listStr+='<div class="metas"><span><a>'+data[i].course_view+'</a>浏览</span>/<span><a>'+data[i].memberCount+'</a>学员</span>/<span><a>'+data[i].assessAvg+'</a>评分</span></div>';
+					listStr+='<div class="teacher"><a class=" js-user-card" href="http://www.howzhi.com/u/1400247/" data-card-url="/user/1400247/card/show" data-user-id="'+data[i].userInfo.user_id+'">';
+					listStr+='<img class="avatar-ss " src="'+data[i].userInfo.photo+'" 　alt="'+data[i].userInfo.user_name+'">'+data[i].userInfo.user_name+'</a></div></div></div></div>';
 				}
 			}else{
 				listStr+='<div class="empty"><i class="es-icon es-icon-locallibrary"></i>ta还没有参加任何课程</div>';
@@ -209,11 +254,9 @@ $(function(){
 					var groupnumber=data[i].groupnumber;
 					strs=groupnumber.split(",")
 					for(var j=0;j<strs.length;j++){
-						if(strs[j]==userid){
 							listStr+='<li>';
 							listStr+='<a href="toGroupIntroduce.action?groupname='+data[i].groupname+'&user_id='+user_id+'"><img src="'+data[i].pic+'"></a>';
 							listStr+='<p><a href="toGroupIntroduce.action?groupname='+data[i].groupname+'&userid='+user_id+'">'+data[i].groupname+'</a></p></li>';
-						}
 					}
 					
 				}
@@ -309,6 +352,8 @@ function showquestion(){
 			listStr+='</ul></div></div>';
 		$("#replaceable").html(listStr);
 	},"json");
-	
-	
+		
+		
 }
+
+

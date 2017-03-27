@@ -25,7 +25,14 @@ public class Course  implements Serializable{
 	private Integer totalCm;//课程课时数
 	private String studyPeriod;//个人学习进度
 	private int studyPeriodcount;
+	private int status;
 
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
 	public int getStudyPeriodcount() {
 		return studyPeriodcount;
 	}
@@ -130,8 +137,9 @@ public class Course  implements Serializable{
 				+ ", courseting=" + courseting + ", course_description=" + course_description + ", userInfo=" + userInfo
 				+ ", class_id=" + class_id + ", course_view=" + course_view + ", price=" + price + ", lass_category="
 				+ lass_category + ", memberCount=" + memberCount + ", assessAvg=" + assessAvg + ", assessCount="
-				+ assessCount + ", totalCm=" + totalCm + ", studyPeriod=" + studyPeriod + "]";
+				+ assessCount + ", totalCm=" + totalCm + ", studyPeriod=" + studyPeriod + ", studyPeriodcount="
+				+ studyPeriodcount + ", status=" + status + "]";
 	}
-
+	
 	
 }

@@ -33,7 +33,6 @@ public class UserInfoController {
 		@ResponseBody
 		@RequestMapping(value="userinfo/save",method=RequestMethod.POST)
 		public String saveInfo(int user_id,String user_name,String sex,int age,String realname,String email,String usign,String introduce,ModelMap map,HttpServletRequest request,Model model){
-			System.out.println("save进来了");
 			String flag="";
 			UserInfo user=new UserInfo();
 			user.setUser_id(user_id);

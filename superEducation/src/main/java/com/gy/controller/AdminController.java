@@ -74,6 +74,7 @@ public class AdminController {
 			list = userInfoBiz.getUserInfoByUserName(userInfo);
 			if (list.size() > 0 && list != null) {
 				map.put("users", list.get(0));
+				System.out.println(list.get(0));
 				model.addAttribute("users", list.get(0));
 			}
 		}

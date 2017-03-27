@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.mapper.SelfMessageMapper">
+	
+	<insert id="addSelfMessage" parameterType="SelfMessage" >
+		insert into selfMessage(sendman,receiveman,scontent,smtime,sendType,sreadstatus,temp03) 
+		values(#{user_id},#{receiveman},#{scontent},#{smtime},#{sendType},#{sreadstatus},null)
+	</insert>
+	
+
+	<resultMap id="allUserInfo" type="SelfMessage">
+		<id column="smid" property="smid"/>
+		<result property="scontent" column="scontent"/>
+		<collection property="userInfo" ofType="UserInfo">
+			<id column="user_id" property="user_id"/>
+			<result column="user_name" property="user_name" />
+			<result column="pic" property="pic" />
+		</collection>
+	</resultMap>
+	<select id="getInfoByreceiveman" parameterType="SelfMessage" resultMap="allUserInfo">
+		select user_name,pic,scontent from selfMessage s
+		inner join userInfo u
+		on s.sendman=u.user_id
+		where s.sendman in (select sendman from selfMessage where receiveman=#{user_id})
+	</select>
+</mapper>
