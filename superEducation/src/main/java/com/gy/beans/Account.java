@@ -10,6 +10,8 @@ public class Account implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private UserInfo stu_user;
 	private BigDecimal balance;
+	
+	
 	public UserInfo getStu_user() {
 		return stu_user;
 	}
@@ -27,5 +29,5 @@ public class Account implements Serializable {
 		return "Account [stu_user=" + stu_user + ", balance=" + balance + "]";
 	}
 	
-
+	                                  
 }

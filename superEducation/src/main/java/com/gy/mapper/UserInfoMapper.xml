@@ -66,7 +66,7 @@
 	</select>
 	
 	<update id="updateUserInfo" parameterType="UserInfo">
-		update userinfo set user_name=#{user_name},realname=#{realname},email=#{email},sex=#{sex},usign=#{usign},email=#{email},introduce=#{introduce}
+		update userinfo set user_name=#{user_name},realname=#{realname},age=#{age},email=#{email},sex=#{sex},usign=#{usign},email=#{email},introduce=#{introduce}
 		where user_id=#{user_id}
 	</update>
 	

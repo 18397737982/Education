@@ -1,12 +1,25 @@
 package com.gy.controller;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.gy.beans.AccountNotes;
+import com.gy.biz.AccountNotesBiz;
+
 @Controller
 public class PageSkip {
-
+	private AccountNotesBiz accountNotesBiz;
+	@Resource(name="accountNotesBizImpl")
+	public void setAccountNotesBiz(AccountNotesBiz accountNotesBiz) {
+		this.accountNotesBiz = accountNotesBiz;
+	}
+	
 	@RequestMapping(value = "/skip_index.action")
 	public String toIndex() {
 		return "page/index";
@@ -120,11 +133,23 @@ public class PageSkip {
 		return "page/person";
 	}
 
-	// 进入个人主页界面
+	// 进入个人设置界面
 	@RequestMapping(value = "/toInfo.action")
 	public String toInfo() {
 		return "page/info";
 	}
+	
+	// 进入个人账户界面
+		@RequestMapping(value = "/toCoin.action/{user_id}")
+		public String toCoin(Model model,@PathVariable int user_id) {
+			AccountNotes accountNotes=new AccountNotes();
+			accountNotes.setUser_id(user_id);
+			List<AccountNotes> accountList = this.accountNotesBiz.findAll(accountNotes);
+			
+			System.out.println(accountList);
+			model.addAttribute("accountList",accountList);
+			return "page/coin";
+		}
 
 	// 进入小组介绍
 	@RequestMapping(value = "/toGroupIntroduce.action")

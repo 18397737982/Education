@@ -2,11 +2,11 @@ create database mydate;
 --1管理员表
 create table admin(
 	admin_id int primary key auto_increment,
+	admin_name varchar(50),
 	admin_password varchar(50),
-	email varchar2(20), 
-	temp01 varchar2(200),--备用字段
-    temp02 varchar2(200)--备用字段
+	email varchar(20)
 );
+
 drop table admin;
 --2学员表
 select user_name from userInfo where user_name='a';
@@ -49,7 +49,7 @@ create table course(
 	courseting varchar(100),   --//标签
 	price numeric(8,2)
 );
-<<<<<<< HEAD
+select * from class_hour;
 
 select course_id,course_name,c.user_id,class_id,course_view,course_description,coursephoto,price,u.user_id,u.user_name from course c , userInfo u where c.user_id=u.user_id and c.class_id=1 ORDER BY course_view DESC
 
@@ -170,7 +170,6 @@ create table stu_count(
 	course_id int,
 	stu_id int
 );
-<<<<<<< HEAD
 insert into  stu_count(course_id,stu_id) values(41,1);
 insert into  stu_count(course_id,stu_id) values(51,2);
 insert into  stu_count(course_id,stu_id) values(1,4);
@@ -207,14 +206,27 @@ alter table stu_count
 	add constraint sc_stu_id foreign key(stu_id) references stu_user(stu_id);
 
 --账户表
-=======
 --8账户表
->>>>>>> branch 'master' of git@github.com:18397737982/Education.git
+drop table account;
  学生id  账户余额  
 create table account(
-	user_id int,--学员id 
+	user_id int,
 	balance decimal
 );
+select * from accountnotes where user_id=2
+delete from accountnotes;
+insert into account(user_id,balance) values(2,100);
+select count(balance) from account where user_id=2;
+
+create table accountnotes(
+	user_id int,
+	money decimal,
+	payment varchar(50),
+	times  date
+); 
+
+
+
 -----------------9.课程评价表
 create table courseAssess(
        caid int primary key auto_increment,

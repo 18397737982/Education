@@ -1,11 +1,12 @@
 <%@page import="com.gy.util.SessionAttributeInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page isELIgnored="false"  %> 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-	<base href="/newhaozhiwang/"/>
+	<base href="/superEducation/"/>
 	<meta charset="UTF-8"> 
 	<title>好知网</title>
 	<link href="http://f1.howzhi.com/system/2016/03-31/113613d6a857327741.ico" rel="shortcut icon">
@@ -50,7 +51,7 @@
 			 if(rs){
 				 $.post("back/manager/doExit.jsp",function(data){
 						if(data>0){
-							location.href = "back/login.html";
+							location.href = "toAdmin.action";
 						}
 					});
 			 }else{
@@ -104,7 +105,7 @@
 	<span id="Date" style="margin-left:10px;width:215px;"></span>
 	<span id="titlespan" style="font-size:30px;letter-spacing:14px;margin-left:300px;position:fixed;">好知网后台管理</span>
 	<div id="toplogo">
-		<span style="float:left;font-size:14px;">当前管理员:${myself.aname}</span>
+		<span style="float:left;font-size:14px;">当前管理员:${myself.admin_name}</span>
 		<a href="javascript:exit()" style="float:left;font-size:14px;margin-left:20px;text-decoration:none;" id="tuichu">[安全退出]</a>
 	</div>
 	</div>

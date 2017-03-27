@@ -31,6 +31,8 @@
 	<mvc:resources mapping="/icons/**" location="/icons/" />
 	<mvc:resources mapping="/face/**" location="/face/" />
 	<mvc:resources mapping="/easyui/**" location="/easyui/" />
+	<mvc:resources mapping="/back/**" location="/back/" />
+	
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="20000000" />

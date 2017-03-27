@@ -1,7 +1,7 @@
 $(function(){
 	$('#center_area').tabs('add',{
 		title:'首页',
-		href:"/newhaozhiwang/back/manager/zc.html"
+		href:"/superEducation/back/manager/zc.html"
 	});
 	
 	$('.easyui-tree').tree({
@@ -35,7 +35,7 @@ $(function(){
 					$('#center_area').tabs('add',{
 						title:'管理员管理',
 						closable:true,
-						href:"back/manager/admins.html"
+						href:"/superEducation/back/manager/admins.action"
 					});
 				}
 			}else if(text=="会员管理"){

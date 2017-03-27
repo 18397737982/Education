@@ -39,13 +39,12 @@ public interface CourseBiz {
 
 	public List<Class_hour> findAllcourseseq(Course course);
 
-<<<<<<< HEAD
+
 	public int deletelesson(Class_hour class_hour);
-=======
+
 	public Course findOneCourse(Course course);
 
 	public int findAttentionCount(Course course);
 
 	public List<Class_hour> findNowclasshour(Class_hour class_hour);
->>>>>>> branch 'master' of ssh://git@github.com/18397737982/Education.git
 }

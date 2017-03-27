@@ -35,7 +35,7 @@
 		            <li> <a href="learnCenter.action" ><i style="color:#666;" class="glyphicon glyphicon-home" ></i>学习中心</a> </li>
 		            <li><a href="toPerson.action"><i style="color:#666;" class="glyphicon glyphicon-user" ></i>个人主页</a></li>
 		            <li><a href="toInfo.action"><i style="color:#666;" class="glyphicon glyphicon-cog" ></i>个人设置</a></li>
-		            <li><a href="javaScript:void(0);"><i style="color:#666;" class="glyphicon glyphicon-credit-card" ></i>账户中心</a></li>
+		            <li><a href="toCoin.action/${users.user_id}"><i style="color:#666;" class="glyphicon glyphicon-credit-card" ></i>账户中心</a></li>
 		            <li id="loginOut"><a href="javaScript:void(0);"><i style="color:#666;" class="glyphicon glyphicon-log-out" ></i>退出登录</a></li>
 		        </ul>
         	</li>

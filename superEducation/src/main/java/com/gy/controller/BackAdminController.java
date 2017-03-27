@@ -1,6 +1,9 @@
 package com.gy.controller;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.google.gson.Gson;
 import com.gy.beans.Admin;
 import com.gy.biz.AdminBiz;
 @Controller
@@ -75,6 +79,30 @@ public class BackAdminController {
 			out.flush();
 			out.close();
 		}
+		//进入index
+		@RequestMapping(value = "back/index.action")
+		public String showIndex() {
+			return "back/manager/index";
+		}
 		
+		//进入管理员模块
+		@RequestMapping(value = "back/manager/admins.action")
+		public String showAdmin() {
+			return "back/manager/admins";
+		}
 		
+		//查询所有管理员
+		@RequestMapping(value ="admin/findAll")
+		public String findAll(){
+			Admin admin = new Admin();
+			List<Admin> admins=this.adminBiz.findAll(admin);
+			int count=this.adminBiz.count();
+			System.out.println(admins);
+			
+			Map<String, Object> result = new HashMap<String, Object>();
+			result.put("rows", admins);
+			result.put("total",count);			
+			Gson gson=new Gson();
+			return gson.toJson(result);
+		}
 }
