@@ -13,4 +13,6 @@ public interface CgroupBiz {
 	public List<Cgroup> getAllgroupBypage(Cgroup cgroup);
 	//得到全部组的信息
 	public List<Cgroup> getAllGroupInfo();
+
+	public Cgroup searchGroup(Cgroup group);
 }

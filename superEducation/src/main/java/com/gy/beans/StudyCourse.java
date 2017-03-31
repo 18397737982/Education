@@ -11,9 +11,9 @@ public class StudyCourse implements Serializable{
 	private Integer scid;
 	private UserInfo userInfo;
 	private Course course;
-	private Date begintime;
-	private String assess;
-	private String studyPeriod;
+	private String begintime;
+	private String assess;//评论总数
+	private String studyPeriod;//以学课时数
 	@Override
 	public String toString() {
 		return "StudyCourse [scid=" + scid + ", userInfo=" + userInfo + ", course=" + course + ", begintime="
@@ -37,10 +37,11 @@ public class StudyCourse implements Serializable{
 	public void setCourse(Course course) {
 		this.course = course;
 	}
-	public Date getBegintime() {
+	
+	public String getBegintime() {
 		return begintime;
 	}
-	public void setBegintime(Date begintime) {
+	public void setBegintime(String begintime) {
 		this.begintime = begintime;
 	}
 	public String getAssess() {

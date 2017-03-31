@@ -1,14 +1,15 @@
 $(function(){
-	var userid=$('#toggle img').attr("id");
+	var user_id=$('#toggle img').attr("id");
 	var groupname=$("#status").val();
+	var a='abc';
 	//热门小组
-	$.get("groups/hostgroups",function(data){
+	$.get("groups/getAllGroup",function(data){
 		var listStr="";
 		for(var i=0;i<data.length;i++){		
-			url = encodeURI('page/groupIntroduce.jsp?groupname='+data[i].groupname+'&userid='+userid+'');
+			url = encodeURI('groups/groupIntroduce.action/'+user_id+'/'+data[i].groupname+'');
 			listStr+='<div class="col-lg2 col-md-2 col-sm-2 col-xs-4 grid">';
 			listStr+='<p>';
-			listStr+='<a href="'+url+'" title="'+data[i].groupname+'">';
+			listStr+='<a href="'+url+'" title="'+data[i].groupname+'">'+data[i].groupname+'</a></p>';
 			listStr+='<img src="'+data[i].pic+'" alt="'+data[i].groupname+'" class="group-avatar-sm"></a>';
 			listStr+='<p>';
 			listStr+='<p class="title"><a class="link-light" href="'+url+'" title="'+data[i].groupname+'">'+data[i].groupname+'</a></p>';
@@ -18,10 +19,10 @@ $(function(){
 	},"json");
 	
 	//新晋小组
-	$.get("groups/newgroups",function(data){
+	$.get("groups/getAllGroup",function(data){
 		var listStr="";
 		for(var i=0;i<data.length;i++){	
-			url = encodeURI('page/groupIntroduce.jsp?groupname='+data[i].groupname+'&userid='+userid+'');
+			url = encodeURI('groups/groupIntroduce.action/'+user_id+'/'+data[i].groupname+'');
 			listStr+='<div class="media media-group">';
 			listStr+='<div class="media-left">';
 			listStr+='<a href="'+url+'" title="'+data[i].groupname+'">';
@@ -33,7 +34,7 @@ $(function(){
 			listStr+='<a class="gray-darker" href="'+url+'" title="'+data[i].groupname+'">'+data[i].groupname+'</a>';
 			listStr+='</div>';
 			listStr+='<div class="metas">';
-			listStr+='<span><i class="glyphicon glyphicon-user"></i>'+data[i].peoplecount+'</span>';
+			listStr+='<span><i class="glyphicon glyphicon-user"></i></span>';
 			listStr+='<span><i class="glyphicon glyphicon-envelope"></i>1433</span>';
 			listStr+='</div></div></div>';
 			}

@@ -51,6 +51,15 @@
 		select count(1) from studyCourse where user_id =
 		#{userInfo.user_id}
 	</select>
+	
+	<insert id="addStudyCourse" parameterType="StudyCourse" useGeneratedKeys="true" > 
+		insert into studyCourse(user_id,course_id,begintime,assess)	
+		values(#{userInfo.user_id},#{course.course_id},#{begintime},#{assess})
+	</insert>
+	
+	<select id="getOneCourseCount" parameterType="StudyCourse" resultType="StudyCourse">
+		select * from studyCourse where user_id=#{userInfo.user_id} and course_id=#{course.course_id}
+	</select>
 
 <update id="pinglunCourse" parameterType="StudyCourse">
 update studyCourse set assess=#{assess} where user_id=#{userInfo.user_id} and course_id=#{course.course_id}

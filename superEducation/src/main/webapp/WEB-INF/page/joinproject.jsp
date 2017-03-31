@@ -26,6 +26,7 @@
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="js/joinproject.js"></script>
+<script type="text/javascript" src="js/joinproject2.js"></script>
 <style>
 .form-group {
 	margin-top: 14px;
@@ -124,8 +125,7 @@
 			);
 			
 		}
-	}
-	
+	}	
 function myAssess(){
 	if(userid!=null&&userid!=''){
 		mystar=$("#mystar").val();
@@ -160,7 +160,7 @@ function myAssess(){
 		alert("温馨提示：你还没有 登陆....");
 	}
 }
-	
+
 </script>
 </head>
 
@@ -244,7 +244,7 @@ function myAssess(){
 							<p id="c3"></p>关注：${stu_count}</li>
 						<li class="join"><a class="btn btn-primary"
 							data-toggle="modal" href="javascript:void(0);"
-							data-url="/course/9573/buy?targetType=course" id="joinCourse">加入课程</a>
+							data-url="/course/9573/buy?targetType=course" onclick="tojoinCOurse()" id="joinCourse">加入课程</a>
 							
 							<a class="btn btn-primary"
 							data-toggle="modal" href="javascript:void(0);"

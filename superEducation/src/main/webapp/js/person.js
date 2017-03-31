@@ -23,21 +23,25 @@ $(function(){
 			listStr+="</h2><p>"
 			if(data.length!=0){
 				for(var i=0;i<data.length;i++){
-					listStr+='<div class="userimg">';
+					listStr+='<div class="imgtest">';
+					listStr+='<figure>';
+					listStr+='<div>';
 					listStr+='<img class="img-responsive" src="'+data[i].userInfo.pic+'" alt="'+data[i].userInfo.user_name+'">';
-					listStr+='</a>';
 					listStr+='</div>';
-					listStr+='<div class="userInfo">';
-					listStr+='<a href="/u/2419296/">天降大任</a>';
+					listStr+='</figure>';
+					listStr+='</div>';
+					listStr+='<div class="userInfos">';
+					listStr+='<a href="/u/2419296/">'+data[i].userInfo.user_name+'</a>';
 					listStr+='<span>刚刚</span>';
 					listStr+='</p>';
 					listStr+='<div class="body">';
 					listStr+=data[i].scontent;
 					listStr+='</div>';
 					listStr+='<div class="pull-right ">';
-					listStr+='<a class="con" href="javascript:;" data-role="revert" data-url="/comment/96043/post" data-revertto="天降大任">回复</a>';
+					listStr+='<a class="con" href="javascript:;" data-role="revert" data-url="/comment/96043/post" data-revertto="天降大任">回复</a>&nbsp;&nbsp;';
 					listStr+='<a class="con" href="javascript:;" data-role="delete" data-target="item96043" data-url="/comment/96043/delete">删除</a>';
-					listStr+='</div></div></li>';
+					listStr+='</div></div>';
+					listStr+='</br></br>';
 				}
 			}
 			$("#commentList").html(listStr);

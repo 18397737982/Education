@@ -4,8 +4,8 @@
 <mapper namespace="com.gy.mapper.UserInfoMapper">
 	<insert id="addAdmin" parameterType="UserInfo">
 		insert into
-		userInfo(user_name,realname,age,sex,pic,password,usign,introduce,email,status,user_category,tel,qq,time,temp02,temp03)
-		values(#{user_name},#{realname},#{age},#{sex},#{pic},#{password},#{usign},#{introduce},#{email},#{status},#{user_category},#{tel},#{qq},#{time},null,null)
+		userInfo(user_name,realname,age,sex,pic,password,usign,introduce,email,status,tel,qq,time,temp02,temp03)
+		values(#{user_name},#{realname},#{age},#{sex},#{pic},#{password},#{usign},#{introduce},#{email},#{status},#{tel},#{qq},#{time},null,null)
 	</insert>
 	
 	<select id="findUsername" parameterType="UserInfo" resultType="UserInfo">
@@ -80,6 +80,12 @@
 		where user_id=#{user_id}
 	</update>
 	
+
+	<select id="findPicByUsername" parameterType="UserInfo" resultType="UserInfo">
+		select * from userInfo where user_name=#{user_name}
+	</select>
+	
+
 	<select id="findAllUsers" resultType="UserInfo">
 		select * from userInfo limit #{pagenumber},#{pagesize}
 	</select>

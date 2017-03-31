@@ -1,5 +1,6 @@
 package com.gy.controller;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.gy.beans.Account;
 import com.gy.beans.UserInfo;
+import com.gy.biz.AccountBiz;
+import com.gy.biz.AccountNotesBiz;
 import com.gy.biz.CategoryBiz;
 import com.gy.biz.UserInfoBiz;
 import com.gy.util.UsuallyUtil;
@@ -28,6 +32,13 @@ import com.gy.util.UsuallyUtil;
 public class AdminController {
 	private UserInfoBiz userInfoBiz;
 	private CategoryBiz categoryBiz;
+	private AccountBiz accountBiz;
+
+	
+	@Resource(name="accountBizImpl")
+	public void setAccountBiz(AccountBiz accountBiz) {
+		this.accountBiz = accountBiz;
+	}
 	@Resource(name="categoryBizImpl")
 	public void setCategoryBiz(CategoryBiz categoryBiz) {
 		this.categoryBiz = categoryBiz;
@@ -51,6 +62,13 @@ public class AdminController {
 	public String register(@ModelAttribute("user") UserInfo userInfo, ModelMap map) {
 		userInfo.setTime(new Date());
 		userInfoBiz.addAdmin(userInfo);
+		
+		Account account=new Account();
+		BigDecimal moneys=new BigDecimal("0");
+		account.setStu_user(userInfo);
+		account.setBalance(moneys);
+		this.accountBiz.addAccount(account);
+		
 		return "page/login";
 	}
 

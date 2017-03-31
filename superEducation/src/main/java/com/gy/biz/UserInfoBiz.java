@@ -26,10 +26,13 @@ public interface UserInfoBiz {
 	public int saveInfo(UserInfo user);
 	//获取头像
 	public UserInfo getUserPicByUserid(UserInfo userInfo);
+	
+	public UserInfo getUserPicByUsername(UserInfo user);
 	//编辑头像
 	public int editPhoto(UserInfo user);
 	//修改密码
 	public void editPwd(UserInfo userInfo);
+
 	//得到用户的个数
 	public int getTotal(UserInfo userInfo);
 	//删除用户

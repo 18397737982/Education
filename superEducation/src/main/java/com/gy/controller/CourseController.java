@@ -29,6 +29,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.gy.beans.Account;
+import com.gy.beans.AccountNotes;
 import com.gy.beans.Class_category;
 import com.gy.beans.Class_hour;
 import com.gy.beans.Course;
@@ -37,6 +39,8 @@ import com.gy.beans.Notes;
 import com.gy.beans.StudyCourse;
 import com.gy.beans.TeachCourse;
 import com.gy.beans.UserInfo;
+import com.gy.biz.AccountBiz;
+import com.gy.biz.AccountNotesBiz;
 import com.gy.biz.CategoryBiz;
 import com.gy.biz.CourseAssessBiz;
 import com.gy.biz.CourseBiz;
@@ -52,29 +56,50 @@ public class CourseController {
 	private CategoryBiz categoryBiz;
 	private StudyCourseBiz studyCourseBiz;
 	private TeachCourseBiz teachCourseBiz;
+	private AccountBiz accountBiz;
+	private AccountNotesBiz accountNotesBiz;
+
+	@Resource(name = "accountNotesBizImpl")
+	public void setAccountNotesBiz(AccountNotesBiz accountNotesBiz) {
+		this.accountNotesBiz = accountNotesBiz;
+	}
+
+	@Resource(name = "accountBizImpl")
+	public void setAccountBiz(AccountBiz accountBiz) {
+		this.accountBiz = accountBiz;
+	}
+
+	@Resource(name = "userInfoBizImpl")
+	public void setUserInfoBiz(UserInfoBiz userInfoBiz) {
+		this.userInfoBiz = userInfoBiz;
+	}
 
 	public TeachCourseBiz getTeachCourseBiz() {
 		return teachCourseBiz;
 	}
+
 	@Resource(name = "teachCourseBizImpl")
 	public void setTeachCourseBiz(TeachCourseBiz teachCourseBiz) {
 		this.teachCourseBiz = teachCourseBiz;
 	}
-	private CourseAssessBiz courseAssessBiz; 
-	
-	@Resource(name="courseAssessBizImpl")
+
+	private CourseAssessBiz courseAssessBiz;
+
+	@Resource(name = "courseAssessBizImpl")
 	public void setCourseAssessBiz(CourseAssessBiz courseAssessBiz) {
 		this.courseAssessBiz = courseAssessBiz;
 	}
+
 	@Resource(name = "userInfoBizImpl")
 	public void setuserInfoBiz(UserInfoBiz userInfoBiz) {
 		this.userInfoBiz = userInfoBiz;
 	}
+
 	@Resource(name = "studyCourseBizImpl")
 	public void setCategoryBiz(StudyCourseBiz studyCourseBiz) {
 		this.studyCourseBiz = studyCourseBiz;
 	}
-	
+
 	@Resource(name = "categoryBizImpl")
 	public void setCategoryBiz(CategoryBiz categoryBiz) {
 		this.categoryBiz = categoryBiz;
@@ -140,66 +165,71 @@ public class CourseController {
 		System.out.println("getAllCourseInformation...........");
 		Gson gson = new Gson();
 		List<Course> list = this.courseBiz.findAllCourse();
-//		System.out.println(gson.toJson(list).toString());
-		String x=String.valueOf(gson.toJson(list).toString());
-		model.addAttribute("course",x);
-		model.addAttribute("courses",list);
+		// System.out.println(gson.toJson(list).toString());
+		String x = String.valueOf(gson.toJson(list).toString());
+		model.addAttribute("course", x);
+		model.addAttribute("courses", list);
 		if (!model.containsAttribute("category")) {
 			model.addAttribute("category", this.categoryBiz.findAllCategory());
 		}
 		model.addAttribute("class_id", 0);
 		return "page/course";
 	}
+
 	/**
 	 * 跳转到具体的某一门课程的学习界面
+	 * 
 	 * @param model
 	 * @throws IOException
 	 */
 	@RequestMapping(value = "/getOneCourseInformation.action/{course_id}")
-	public String  getOneCourseInformation(Model model,@PathVariable int course_id,Course course) throws IOException {
+	public String getOneCourseInformation(HttpSession session, Model model, @PathVariable int course_id, Course course)
+			throws IOException {
 		course.setCourse_id(course_id);
 		System.out.println(course);
-		model.addAttribute("onecourse",this.courseBiz.findOneCourse(course));
-		
-		//评论的总数
-		List<StudyCourse> list=this.studyCourseBiz.studyCourseOfassess(course);
-		double grade=0;  //评论级别 一星  二星 .....
-		for(StudyCourse sc:list){
-			if(sc.getAssess()!=null){
-				grade+=Integer.parseInt(sc.getAssess());
+		Course courses = this.courseBiz.findOneCourse(course);
+		model.addAttribute("onecourse", courses);
+
+		session.setAttribute("onecourseforjoin", courses);
+		// 评论的总数
+		List<StudyCourse> list = this.studyCourseBiz.studyCourseOfassess(course);
+		double grade = 0; // 评论级别 一星 二星 .....
+		for (StudyCourse sc : list) {
+			if (sc.getAssess() != null) {
+				grade += Integer.parseInt(sc.getAssess());
 			}
 		}
-		if(list.size()>0){
-			grade=grade/list.size();
+		if (list.size() > 0) {
+			grade = grade / list.size();
 		}
-		model.addAttribute("assessCount",list.size());
-		model.addAttribute("assessGrade",grade);
-		//学习人数
-		model.addAttribute("all_study",this.studyCourseBiz.studyCourseOfCourse(course));
-		//关注人数
-		model.addAttribute("stu_count",this.courseBiz.findAttentionCount(course));
-		//课时
-		model.addAttribute("class_hour",this.courseBiz.findAllcourseseq(course));
-		//最新评论
-		Map<String,Object> map=new HashMap<>();
+		model.addAttribute("assessCount", list.size());
+		model.addAttribute("assessGrade", grade);
+		// 学习人数
+		model.addAttribute("all_study", this.studyCourseBiz.studyCourseOfCourse(course));
+		// 关注人数
+		model.addAttribute("stu_count", this.courseBiz.findAttentionCount(course));
+		// 课时
+		model.addAttribute("class_hour", this.courseBiz.findAllcourseseq(course));
+		// 最新评论
+		Map<String, Object> map = new HashMap<>();
 		map.put("course", course);
-		map.put("starpage",0);
+		map.put("starpage", 0);
 		map.put("page", CourseAssess.num);
 		model.addAttribute("assess", this.courseAssessBiz.findAssessBycourseid(map));
-		//最新笔记
+		// 最新笔记
 		model.addAttribute("notes", this.studyCourseBiz.getNoteByCourser_id(map));
 		return "page/joinproject";
-		
+
 	}
+
 	// 课程类
 	@ResponseBody
 	@RequestMapping(value = "/getCategoryInformation.action")
 	public List<Class_category> getCategoryInformation(Model model) throws IOException {
-		List<Class_category> list=this.categoryBiz.findAllCategory();
+		List<Class_category> list = this.categoryBiz.findAllCategory();
 		model.addAttribute("category", list);
 		return list;
 	}
-	
 
 	// 把title传过去
 	@RequestMapping(value = "course/sendtitle")
@@ -235,10 +265,12 @@ public class CourseController {
 	// 添加基本课程信息
 	@RequestMapping("course/basic")
 	public void savebasic(Class_category class_category, PrintWriter out, String course_name, String course_description,
-			int class_id, String courseting,BigDecimal price, HttpSession session) {
+			int class_id, String courseting, BigDecimal price, HttpSession session) {
 
 		class_category.setClass_id(class_id);
+
 		Class_category class_categorys = this.courseBiz.findbycalss_id(class_id);// 根据id课程类
+
 		// System.out.println(class_categorys);
 
 		session.setAttribute("course_name", course_name);
@@ -308,10 +340,10 @@ public class CourseController {
 			Course course = new Course();
 			String course_name = (String) session.getAttribute("course_name");
 			String course_description = (String) session.getAttribute("course_description");
-			Class_category class_category=(Class_category) session.getAttribute("Class_category");
+			Class_category class_category = (Class_category) session.getAttribute("Class_category");
 			int class_id = class_category.getClass_id();
 			String courseting = (String) session.getAttribute("courseting");
-			BigDecimal price=(BigDecimal) session.getAttribute("price");
+			BigDecimal price = (BigDecimal) session.getAttribute("price");
 			UserInfo user = (UserInfo) session.getAttribute("users");
 			course.setCourse_name(course_name);
 			course.setClass_id(class_id);
@@ -321,12 +353,12 @@ public class CourseController {
 			course.setCoursephoto("../img/headimg/" + str);
 			course.setUserInfo(user);
 			Course courses = this.courseBiz.save(course);
-			
-			TeachCourse teachCourse=new TeachCourse();
+
+			TeachCourse teachCourse = new TeachCourse();
 			teachCourse.setUserInfo(user);
 			teachCourse.setCourse(courses);
-			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String date=sdf.format(new Date());
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String date = sdf.format(new Date());
 			teachCourse.setTeachPeriod(date);
 			teachCourse.setAssess(null);
 			this.teachCourseBiz.addTeachCourse(teachCourse);
@@ -345,8 +377,7 @@ public class CourseController {
 		Course course = this.courseBiz.findcourse_id();
 		int course_id = course.getCourse_id();
 		System.out.println(course_id);
-		
-		
+
 		Class_hour list = this.courseBiz.findcourseseq(course);
 		Integer courseseqs = null;
 		if (list != null && !"".equals(list)) {
@@ -375,7 +406,7 @@ public class CourseController {
 		class_hour.setCourse(course);
 		System.out.println(class_hour);
 		int result = this.courseBiz.addlession(class_hour);
-		
+
 		Gson gson = new Gson();
 		String cs = gson.toJson(class_hour);
 		if (result > 0) {
@@ -411,10 +442,10 @@ public class CourseController {
 			out.print(0);
 		}
 	}
-	
+
 	@RequestMapping("course/deletelession.action")
-	public void deletelesson(Class_hour class_hour,int courseseq,
-			PrintWriter out, HttpSession session, HttpServletRequest request) {
+	public void deletelesson(Class_hour class_hour, int courseseq, PrintWriter out, HttpSession session,
+			HttpServletRequest request) {
 		Course course = (Course) session.getAttribute("cousefordeltete");
 		class_hour.setCourseseq(courseseq);
 		class_hour.setCourse(course);
@@ -429,64 +460,145 @@ public class CourseController {
 		out.flush();
 		out.close();
 	}
-	
 
-	
-	//获取某一门课程的所有课时
-	@RequestMapping(value = "/findClasshourBycourseid.action", produces = "text/html;charset=UTF-8")
-	public @ResponseBody String  getNoteByClass_hour_id(Course course) throws IOException {
+	// 获取某一门课程的所有课时
+	@ResponseBody
+	@RequestMapping(value = "/findClasshourBycourseid.action")
+	public String getNoteByClass_hour_id(Course course) throws IOException {
 		Gson gson = new Gson();
-		List<Class_hour> list=this.courseBiz.findAllcourseseq(course);
+		List<Class_hour> list = this.courseBiz.findAllcourseseq(course);
 		return gson.toJson(list);
-		
+
 	}
-	//获取某一门课程的所有笔记
+
+	// 获取某一门课程的所有笔记
 	@RequestMapping(value = "/findNoteByCourser_id.action", produces = "text/html;charset=UTF-8")
-	public @ResponseBody String  getNoteByCourser_id(Course course,@RequestParam(value="starpage" ,required =false ) String starpage)throws IOException {
+	public @ResponseBody String getNoteByCourser_id(Course course,
+			@RequestParam(value = "starpage", required = false) String starpage) throws IOException {
 		Gson gson = new Gson();
-		Map<String,Object> map=new HashMap<>();
+		Map<String, Object> map = new HashMap<>();
 		map.put("course", course);
-		map.put("starpage",Integer.valueOf(starpage));
+		map.put("starpage", Integer.valueOf(starpage));
 		map.put("page", Notes.NOTESPAGE);
 		map.put("notes", this.studyCourseBiz.getNoteByCourser_id(map));
 		map.put("count", this.studyCourseBiz.getCountByCourser_id(map));
 		return gson.toJson(map);
-		
-	}
-	
-	
-	//获取某一门课程的所有学习人员
-		@RequestMapping(value = "/findstudentByCourser_id.action", produces = "text/html;charset=UTF-8")
-		public @ResponseBody String  findstudentByCourser_id(Course course)throws IOException {
-			Gson gson = new Gson();
-			Map<String,Object> map=new HashMap<>();
-			map.put("course", course);
-			map.put("page", Notes.NOTESPAGE);
-			map.put("student", this.userInfoBiz.getUserInfoByCourseid(course));
 
-			return gson.toJson(map);
-			
-		}
-		//评价课程
-		@RequestMapping(value = "/toPingjiaCourse.action", produces = "text/html;charset=UTF-8")
-		public  @ResponseBody String  toPingjiaCourse(StudyCourse scourse,Course course,UserInfo userInfo) {
-			scourse.setCourse(course);scourse.setUserInfo(userInfo);
-			System.out.println(scourse);Gson gson = new Gson();
-			if(scourse.getAssess().equals("1")||scourse.getAssess().equals("2")||scourse.getAssess().equals("3")||scourse.getAssess().equals("4")||scourse.getAssess().equals("5")){
-				
-			
+	}
+
+	// 获取某一门课程的所有学习人员
+	@RequestMapping(value = "/findstudentByCourser_id.action", produces = "text/html;charset=UTF-8")
+	public @ResponseBody String findstudentByCourser_id(Course course) throws IOException {
+		Gson gson = new Gson();
+		Map<String, Object> map = new HashMap<>();
+		map.put("course", course);
+		map.put("page", Notes.NOTESPAGE);
+		map.put("student", this.userInfoBiz.getUserInfoByCourseid(course));
+
+		return gson.toJson(map);
+
+	}
+
+	// 评价课程
+	@RequestMapping(value = "/toPingjiaCourse.action", produces = "text/html;charset=UTF-8")
+	public @ResponseBody String toPingjiaCourse(StudyCourse scourse, Course course, UserInfo userInfo) {
+		scourse.setCourse(course);
+		scourse.setUserInfo(userInfo);
+		System.out.println(scourse);
+		Gson gson = new Gson();
+		if (scourse.getAssess().equals("1") || scourse.getAssess().equals("2") || scourse.getAssess().equals("3")
+				|| scourse.getAssess().equals("4") || scourse.getAssess().equals("5")) {
+
 			try {
 				this.studyCourseBiz.pinglunCourse(scourse);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return gson.toJson("false1");
 			}
-			
+
 			return gson.toJson("true");
-			}
-			return gson.toJson("false2");
 		}
-	
-	
-	
+		return gson.toJson("false2");
+	}
+
+	// 加载时判断课程是否已经
+	@RequestMapping("courseStudy/findCourse.action")
+	public void findCourse(int user_id, PrintWriter out, HttpSession session) {
+
+		Course course = (Course) session.getAttribute("onecourseforjoin");
+		UserInfo users = new UserInfo();
+		users.setUser_id(user_id);
+
+		StudyCourse studyCourse = new StudyCourse();
+		studyCourse.setCourse(course);
+		studyCourse.setUserInfo(users);
+		StudyCourse a = this.studyCourseBiz.getOneCourseCount(studyCourse);
+		if (a != null) {
+			out.println(1);
+		} else {
+			out.print(0);
+		}
+
+	}
+
+	// 加入课程
+	@RequestMapping("course/joinCourse")
+	public void joinCourse(PrintWriter out, HttpSession session, int user_id) {
+		// 课程
+		Course course = (Course) session.getAttribute("onecourseforjoin");
+
+		int course_id = course.getCourse_id();
+		// 价格
+		BigDecimal money = course.getPrice();
+
+		// 系统时间
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");
+		String date = sdf.format(new Date());
+
+		UserInfo users = new UserInfo();
+		users.setUser_id(user_id);
+		// 用户
+		UserInfo userInfo = userInfoBiz.getUserPicByUserid(users);
+		session.setAttribute("userInfoByStudyCourse", userInfo);
+		// 实现账户余额更改
+		Account account = new Account();
+		account.setStu_user(userInfo);
+		Account accounts = this.accountBiz.selectBalance(account);
+		if (accounts.getBalance().intValue() > money.intValue()) {
+			account.setBalance(accounts.getBalance().subtract(money));
+			this.accountBiz.addBalance(account);
+
+			// 扣费成功实现加入课程
+			StudyCourse studyCourse = new StudyCourse();
+			studyCourse.setUserInfo(userInfo);
+			studyCourse.setCourse(course);
+			studyCourse.setBegintime(date);
+			studyCourse.setAssess("0");
+			int result = this.studyCourseBiz.addStudyCourse(studyCourse);
+
+			if (result > 0) {
+				out.print(3);
+
+				// 添加账户记录
+				AccountNotes accountNotes = new AccountNotes();
+				BigDecimal moneys = new BigDecimal("0");
+				BigDecimal price = moneys.subtract(money);
+
+				accountNotes.setUser_id(user_id);
+				accountNotes.setMoney(price);
+				accountNotes.setPayment("quickpay");
+				accountNotes.setTimes(date);
+				this.accountNotesBiz.addnotes(accountNotes);
+
+			} else {
+				out.print(2);
+			}
+
+		} else {
+			out.println(1);
+		}
+		out.flush();
+		out.close();
+	}
+
 }

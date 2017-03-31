@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
  <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gy.mapper.CgroupMapper">
-
+	<!--  
 	<resultMap type="Cgroup" id="CgroupMap">		
 		<id property="gid" column="git"/>
 		<result property="groupname" column="groupname" />
@@ -16,7 +16,8 @@
 			<result property="user_name" column="user_name" />
 		</association>
 	</resultMap>
-	<select id="findAllgroupBypage" resultMap="CgroupMap" parameterType="Cgroup" >
+	-->
+	<select id="findAllgroupBypage"  parameterType="Cgroup" >
 			select cg.*,user_name,class_categorys from cgroup cg
 			inner join userInfo u
 			on u.user_id=cg.user_id
@@ -31,8 +32,13 @@
 	
 	
 	<!-- 获取到全部小组的信息 -->
-	<select id="getAllGroupInfo" resultType="Cgroup">
+	<select id="getAllGroupInfo" resultType="Cgroup" parameterType="Cgroup">
 		select * from cgroup
 	</select>
+
+	<select id="searchGroup" resultType="Cgroup"  parameterType="Cgroup">
+		select * from cgroup where groupname=#{groupname}
+	</select>
+	
 
 </mapper>

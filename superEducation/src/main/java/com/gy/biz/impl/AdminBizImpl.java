@@ -59,6 +59,18 @@ public class AdminBizImpl implements AdminBiz {
 	}
 
 	@Override
+	public List<Admin> findAll( Admin admin) {
+		List<Admin> list=this.baseDao.findAll(admin,"findAlladmin");
+		return list;
+	}
+
+	@Override
+	public int count() {
+		Admin admin=new Admin();
+		String s=this.baseDao.findString(admin, "findCount");
+		System.out.println(Integer.parseInt(s));
+		return Integer.parseInt(s);
+	}
 	public List<UserInfo> findAllUsers(UserInfo userInfo) {
 		return this.baseDao.findAll(userInfo, "findAllUsers");
 	}

@@ -3,6 +3,7 @@ package com.gy.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 
@@ -16,9 +17,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.gy.beans.UserInfo;
 import com.gy.biz.UserInfoBiz;
 
+import com.gy.beans.AccountNotes;
+import com.gy.biz.AccountNotesBiz;
+
 @Controller
 public class PageSkip {
+
+	private AccountNotesBiz accountNotesBiz;
+	@Resource(name="accountNotesBizImpl")
+	public void setAccountNotesBiz(AccountNotesBiz accountNotesBiz) {
+		this.accountNotesBiz = accountNotesBiz;
+	}
 	
+
 	private UserInfoBiz userInfoBiz;	
 	@Resource(name = "userInfoBizImpl")
 	public void setuserInfoBiz(UserInfoBiz userInfoBiz) {
@@ -144,7 +155,7 @@ public class PageSkip {
 		return "page/person";
 	}
 
-	// 进入个人主页界面
+	// 进入个人设置界面
 	@RequestMapping(value = "/toInfo.action")
 	public String toInfo(HttpSession session ,Model model) {
 		UserInfo userInfo=(UserInfo) session.getAttribute("users");
@@ -154,6 +165,18 @@ public class PageSkip {
 		}
 		return "page/info";
 	}
+	
+	// 进入个人账户界面
+		@RequestMapping(value = "/toCoin.action/{user_id}")
+		public String toCoin(Model model,@PathVariable int user_id) {
+			AccountNotes accountNotes=new AccountNotes();
+			accountNotes.setUser_id(user_id);
+			List<AccountNotes> accountList = this.accountNotesBiz.findAll(accountNotes);
+			
+			System.out.println(accountList);
+			model.addAttribute("accountList",accountList);
+			return "page/coin";
+		}
 
 	// 进入小组介绍
 	@RequestMapping(value = "/toGroupIntroduce.action")

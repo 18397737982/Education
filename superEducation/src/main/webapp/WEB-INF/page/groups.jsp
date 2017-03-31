@@ -30,18 +30,9 @@
 		</style>
 	</head>
 
-	<body class="group-page">
-		<!-------------------------我是头部------------------------------------------->
-		<c:set value="${users}" var="us"/>
-			<c:if test="${empty us}">
-				<jsp:include page="topf.jsp"></jsp:include>
-			</c:if>
-			<c:if test="${us!=null }">
-				<jsp:include page="topb.jsp"></jsp:include>
-			</c:if>
-		<!-------------------------我是头部分割线------------------------------------------->
-
-		<!--------------------------中间小组内容-------------------------------------->
+	<body class="group-page">	
+		<jsp:include page="topb.jsp"></jsp:include>
+		
 		<div class="container" id="content-container">
 			<div class="row">
 				<div class="col-md-8">
@@ -203,7 +194,7 @@
 					</div>
 
 
-					<!-----------------------小组搜索-------------------->
+					<!-----------------------小组搜索------------------
 					<form class="mbl" action="groups/search" method="get">
 						<div class="input-group group-search">
 							<input name="_csrf_token" value="2fbd468350a8348322e8aed780d7f3178511d79d" type="hidden">
@@ -214,7 +205,7 @@
 							</span>
 						</div>
 					</form>
-
+					-->
 					<!-----------------------新晋小组模块----------------------->
 					<div class="panel panel-default">
 						<div class="panel-heading">

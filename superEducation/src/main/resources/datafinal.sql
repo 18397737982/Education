@@ -21,16 +21,29 @@ create table userInfo(
 	email varchar(50),
 	tel varchar(11),
 	qq   varchar(11),
+	status int,
 	time datetime, 
 	temp02 varchar(200),
     temp03 varchar(200)
 );
+drop table userInfo;
 --3课程类别
 create table class_category(
 	class_id int primary key auto_increment,
 	class_categorys varchar(50),
 	temp01 varchar(200) 
 );
+
+insert into  class_category(class_categorys) values('摄影课堂');
+insert into  class_category(class_categorys) values('创意设计');
+insert into  class_category(class_categorys) values('声乐器乐');
+insert into  class_category(class_categorys) values('运动健身');
+insert into  class_category(class_categorys) values('IT互联网');
+insert into  class_category(class_categorys) values('兴趣爱好');
+insert into  class_category(class_categorys) values('语言学习');
+insert into  class_category(class_categorys) values('职场技能');
+insert into  class_category(class_categorys) values('公开课');
+
 --4课程表
 create table course(
 	course_id int primary key auto_increment,
@@ -55,6 +68,8 @@ create table class_hour(
 	courseseq int ,
 	content varchar(2000)	
 );
+alter table course alter column status set default 0;
+
 --6笔记
 create table notes(
 	notes_id int primary key auto_increment,
@@ -74,6 +89,7 @@ create table account(
 	user_id int,
 	balance decimal
 );
+insert into account(user_id,balance) values(1,'0');
 --9.账户记录表
 create table accountnotes(
 	user_id int,
@@ -81,7 +97,7 @@ create table accountnotes(
 	payment varchar(50),
 	times  date
 ); 
-
+commit;
 -----------------10.课程评价表
 create table courseAssess(
        caid int primary key auto_increment,
@@ -90,7 +106,7 @@ create table courseAssess(
        content varchar(500),
        time datetime,
        readstatus int,
-       temp03 varchar(200)--备用字段  
+       temp03 varchar(200)
 );
 --11学习课程表
 create table studyCourse(
@@ -112,6 +128,7 @@ create table teachCourse(
 	assess int ,
     temp01 varchar(200)
 );
+update course set status=1 where course_id=1;
 --------------------------13.关注表（保留意见）
 create table attention(
        atid  int  primary key auto_increment,  
@@ -151,6 +168,7 @@ create table cgroup(
 	user_name varchar(50),
 	createtime date	
 );
+
 --17加入小组表
 create table joingroup(
 	   jid int primary key auto_increment,
@@ -168,3 +186,7 @@ create table selfMessage(
        sreadstatus int,
        temp03 varchar(200)
 );
+commit;
+select * from cgroup;
+insert into cgroup(groupname,pic,introduction,createtime,user_name) value('strong','../img/headimg/148949695060214942.jpg','strong 是一个强大小组','2017-02-23 00:00:00','lgy');
+insert into cgroup(groupname,pic,introduction,createtime,user_name) value('strong','../img/headimg/148949695060214942.jpg','strong 是一个强大小组','2017-02-23 00:00:00','lgy');

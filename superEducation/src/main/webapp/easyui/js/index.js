@@ -24,7 +24,7 @@ $(function(){
 				}else{
 					tabs.tabs('add',{
 						title:'课程管理',
-						href:"/newhaozhiwang/back/manager/course.html",
+						href:"/newhaozhiwang/back/manager/course.action",
 						closable:true
 					});
 				}

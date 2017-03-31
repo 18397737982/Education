@@ -1,12 +1,14 @@
 <%@page import="com.gy.util.SessionAttributeInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page isELIgnored="false"  %> 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page isELIgnored="false"  %>
 <!DOCTYPE html>
 <html>
 <head>
 	<base href="/superEducation/"/>
+	<meta charset="UTF-8"> 
 	<meta charset=utf-8 />	
 	<title>好知网</title>
 	<link href="http://f1.howzhi.com/system/2016/03-31/113613d6a857327741.ico" rel="shortcut icon">
@@ -47,6 +49,8 @@
 			 if(rs){
 				 $.post("back/manager/doExit.jsp",function(data){
 						if(data>0){
+							location.href = "toAdmin.action";
+
 							location.href = "login1.jsp";
 						}
 					});

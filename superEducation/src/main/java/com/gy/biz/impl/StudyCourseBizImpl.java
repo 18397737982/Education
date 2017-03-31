@@ -98,5 +98,20 @@ public class StudyCourseBizImpl implements StudyCourseBiz {
 	public int pinglunCourse(StudyCourse scourse) {
 		return this.baseDao.update(scourse, "pinglunCourse");
 	}
+	@Override
+	public int addStudyCourse(StudyCourse studyCourse) {
+		return this.baseDao.add(studyCourse, "addStudyCourse");
+	}
+	@Override
+	public StudyCourse getOneCourseCount(StudyCourse studyCourse) {
+		List<StudyCourse> list=this.baseDao.findAll(studyCourse, "getOneCourseCount");
+		System.out.println(list);
+		if(list.size()>0){
+			return list.get(0);
+		}else{
+			return null;
+		}
+		
+	}
 
 }

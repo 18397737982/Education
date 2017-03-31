@@ -6,6 +6,9 @@ create table admin(
 	admin_password varchar(50),
 	email varchar(20)
 );
+
+select * from joingroup  where gid=1 order by jid desc
+select * from cgroup where groupname='super';
 drop table admin;
 select * from admin;
 --2学员表
@@ -56,9 +59,42 @@ create table course(
 	price numeric(8,2),
 	status int
 );
+<<<<<<< HEAD
 select *from course;
 select *from course where course_name like '%摄影%' or course_description like '%摄影%' or courseting like '%摄影%' ;
 select course_id,course_name,c.user_id,class_id,course_view,course_description,coursephoto,price,u.user_id,u.user_name from course c , userInfo u where c.user_id=u.user_id and c.class_id=1 ORDER BY course_view DESC
+=======
+<<<<<<< HEAD
+select * from class_hour;
+select * from userInfo;
+alter table course alter column status set default 0;
+drop table course;
+
+select * from course where user_id=2;
+select c.*,(select count(1) from teachCourse where user_id=2)
+		memberCount,u.*,
+		(select avg(assess) from teachCourse where course_id = c.course_id) assessAvg
+		from teachCourse t
+		inner join userInfo u
+		on u.user_id=t.user_id
+		inner join course c
+		on c.course_id=t.course_id
+		where t.user_id=2
+
+		select c.*,(select count(1) from teachCourse where user_id=2)
+		memberCount,u.*,
+		(select avg(assess) from teachCourse where course_id = c.course_id) assessAvg
+		from teachCourse t
+		inner join userInfo u
+		on u.user_id=t.user_id
+		inner join course c
+		on c.course_id=t.course_id
+		where t.user_id=2 and c.status=1
+select * from course;		
+select course_id,course_name,c.user_id,class_id,course_view,course_description,coursephoto,price,u.user_id,u.user_name from course c , userInfo u where c.user_id=u.user_id and c.class_id=1 ORDER BY course_view DESC
+=======
+>>>>>>> branch 'master' of ssh://git@github.com/18397737982/Education.git
+>>>>>>> branch 'master' of ssh://git@github.com/18397737982/Education.git
 
 select *from course;
 insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('java初级教学',1,5,0,'这门课程将会带领你初步的学会java语言编程','../img/headimg/1489496618068.jpg','23.88');
@@ -173,6 +209,7 @@ create table stu_count(
 	course_id int,
 	stu_id int
 );
+);
 --
 insert into  stu_count(course_id,stu_id) values(41,1);
 insert into  stu_count(course_id,stu_id) values(51,2);
@@ -208,22 +245,49 @@ alter table stu_count
 
 alter table stu_count 
 	add constraint sc_stu_id foreign key(stu_id) references stu_user(stu_id);
+<<<<<<< HEAD
 
 --账户表
 <<<<<<< HEAD
+=======
+>>>>>>> branch 'master' of ssh://git@github.com/18397737982/Education.git
 
 =======
 =======
 >>>>>>> branch 'master' of ssh://git@github.com/18397737982/Education.git
 --8账户表
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> branch 'master' of ssh://git@github.com/18397737982/Education.git
+=======
+drop table account;
+ 学生id  账户余额  
+
+select * from accountnotes where user_id=2 and money<0;
+delete from accountnotes;
+
+insert into account(user_id,balance) values(2,100);
+insert into accountnotes(user_id,money,times) value(2,-100,'2017-02-23');
+select count(balance) from account where user_id=2;
+commit
+
+>>>>>>> branch 'master' of ssh://git@github.com/18397737982/Education.git
 create table account(
-	user_id int,--学员id 
+	user_id int,
 	balance decimal
 );
+
+create table accountnotes(
+	user_id int,
+	money decimal,
+	payment varchar(50),
+	times  date
+); 
+
+
+
 -----------------9.课程评价表
 create table courseAssess(
        caid int primary key auto_increment,
@@ -260,8 +324,15 @@ create table studyCourse(
        temp01 varchar(200),
        temp02 varchar(200)
 );
+<<<<<<< HEAD
+
+
+select * from studyCourse;
+delete from studyCourse;
+=======
 drop table studyCourse;
 select * from teachCourse where user_id=8;
+>>>>>>> branch 'master' of ssh://git@github.com/18397737982/Education.git
 select * from course;
 insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(2,1,'2017-02-23 00:00:00',2,'10');
 insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(2,2,'2017-02-23 00:00:00',1,'10');
@@ -362,7 +433,10 @@ create table courseQuestion(
        qreadstatus int,
        temp03 varchar(200)
 );
+<<<<<<< HEAD
+=======
 
+>>>>>>> branch 'master' of ssh://git@github.com/18397737982/Education.git
 --小组表
 select cq.*,user_name,u.pic from courseQuestion cq,userInfo u
 		where (cq.class_hour_id in(
@@ -385,6 +459,14 @@ select ca.*,cqcontent,user_name from courseAnswer ca
 		where ca.user_id=2;
 -----------------14.小组表
 create table cgroup(
+<<<<<<< HEAD
+	gid int primary key auto_increment, 
+	groupname varchar(100),
+	pic varchar(100),
+	introduction varchar(500),
+	user_name varchar(50),
+	createtime date	
+=======
 	git int primary key auto_increment, 
 	groupname varchar(100),
 	pic varchar(100),
@@ -395,7 +477,34 @@ create table cgroup(
 create table joingroup(
        git int,
        user_id int,    
+>>>>>>> branch 'master' of ssh://git@github.com/18397737982/Education.git
 );
+insert into cgroup(groupname,pic,introduction,createtime,user_name) value('strong','../img/headimg/148949695060214942.jpg','strong 是一个强大小组','2017-02-23 00:00:00','t');
+insert into cgroup(groupname,pic,introduction,createtime,user_name) value('super','../img/headimg/148949695060214942.jpg','strong 是一个强大小组','2017-02-23 00:00:00','t');
+
+select * from userInfo;
+delete from joingroup
+drop table cgroup;
+-----------------14.小组表
+
+create table cgroup(
+	gid int primary key auto_increment, 
+	groupname varchar(100),
+	pic varchar(100),
+	introduction varchar(500),
+	user_name varchar(50),
+	createtime date	
+);
+create table joingroup(
+	   jid int primary key auto_increment,
+       gid int,          
+       user_id int
+);
+drop table joingroup;
+
+insert into joingroup(gid,user_id) values(1,2);
+insert into joingroup(gid,user_id) values(1,1);
+
 select * from class_category;
 
 insert into cgroup(groupname,user_id,createtime,groupnumber,peoplecount,pic,introduction,class_id) values('a',2,'2017-03-04 12:00:00','343',31,' ',null,3);

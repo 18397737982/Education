@@ -39,8 +39,9 @@ public interface CourseBiz {
 
 	public List<Class_hour> findAllcourseseq(Course course);
 
+
 	public int deletelesson(Class_hour class_hour);
-	
+
 	public Course findOneCourse(Course course);
 
 	public int findAttentionCount(Course course);
