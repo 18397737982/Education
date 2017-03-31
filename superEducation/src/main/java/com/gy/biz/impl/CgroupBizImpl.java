@@ -33,5 +33,16 @@ public class CgroupBizImpl implements CgroupBiz {
 		Cgroup cgroup=new Cgroup();
 		return this.baseDao.findAll(cgroup, "getAllGroupInfo");
 	}
+	@Override
+	public Cgroup searchGroup(Cgroup group) {
+		List<Cgroup> list=this.baseDao.findAll(group, "searchGroup");
+		System.out.println(list);
+		if(list.size()>0){
+			System.out.println(list.get(0));
+			return list.get(0);
+		}else{
+			return null;
+		}	
+	}
 
 }

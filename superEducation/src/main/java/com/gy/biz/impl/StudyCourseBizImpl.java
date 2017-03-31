@@ -26,7 +26,7 @@ public class StudyCourseBizImpl implements StudyCourseBiz {
 		this.baseDao = baseDao;
 	}
 	@Override
-	public List<StudyCourse> showStudyCourse(UserInfo userInfo) {
+	public List<Course> showStudyCourse(UserInfo userInfo) {
 		StudyCourse studyCourse=new StudyCourse();
 		studyCourse.setUserInfo(userInfo);
 		return this.baseDao.findAll(studyCourse, "showStudyCourse");
@@ -74,6 +74,21 @@ public class StudyCourseBizImpl implements StudyCourseBiz {
 	@Override
 	public List<TeachCourse> getTeachByUsid(TeachCourse teachCourse) {
 		return this.baseDao.findAll(teachCourse, "getTeachByUsid");
+	}
+	@Override
+	public int addStudyCourse(StudyCourse studyCourse) {
+		return this.baseDao.add(studyCourse, "addStudyCourse");
+	}
+	@Override
+	public StudyCourse getOneCourseCount(StudyCourse studyCourse) {
+		List<StudyCourse> list=this.baseDao.findAll(studyCourse, "getOneCourseCount");
+		System.out.println(list);
+		if(list.size()>0){
+			return list.get(0);
+		}else{
+			return null;
+		}
+		
 	}
 
 }

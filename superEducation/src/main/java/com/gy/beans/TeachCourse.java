@@ -12,10 +12,17 @@ public class TeachCourse implements Serializable{
 	private Integer tcid;
 	private UserInfo userInfo;
 	private Course course;
-	private Date teachPeriod;
+	private String teachPeriod;
 	private Integer assess;
 	private String memberCount;
 	private String assessAvg;
+	
+	public String getTeachPeriod() {
+		return teachPeriod;
+	}
+	public void setTeachPeriod(String teachPeriod) {
+		this.teachPeriod = teachPeriod;
+	}
 	public Integer getTcid() {
 		return tcid;
 	}
@@ -34,12 +41,7 @@ public class TeachCourse implements Serializable{
 	public void setCourse(Course course) {
 		this.course = course;
 	}
-	public Date getTeachPeriod() {
-		return teachPeriod;
-	}
-	public void setTeachPeriod(Date teachPeriod) {
-		this.teachPeriod = teachPeriod;
-	}
+	
 	public Integer getAssess() {
 		return assess;
 	}

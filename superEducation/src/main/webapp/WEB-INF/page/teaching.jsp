@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page isELIgnored="false" %>
 <!DOCTYPE html>
 
 <html class="">
 
 	<head>
-		<base href="/superEducation/"/>
+		<base href="/superEducation/">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
 		<title>在教 </title>
@@ -21,6 +23,13 @@
 				visibility: hidden;
 			}
 		</style>
+		
+		<script type="text/javascript">
+			var flag = "${(empty users)? false : true}";
+			var user_name = '${users.user_name}';
+			var user_id = '${users.user_id}';
+			
+		</script>
 	</head>
 
 	<body class="hzme">
@@ -32,12 +41,12 @@
 			<div class="container">
 				<div class="personImg">
 					<a class=" js-user-card" href="http://www.howzhi.com/u/2358985/" data-card-url="/user/2358985/card/show" data-user-id="2358985">
-						<img class="img-responsive" src="images/avatar.png" alt="The_free">
+						<img class="img-responsive" src="${users.pic}" alt="The_free">
 					</a>
 
 					<div class="user-info">
-						<span class="user-name">The_free</span>
-						<p>“<a href="http://www.howzhi.com/settings">您还未设置签名哦</a> ”</p>
+						<span class="user-name">${users.user_name}</span>
+						<p><a href="toInfo.action">${users.usign}</a></p>
 					</div>
 				</div>
 				<ul class="clearfix">
@@ -54,9 +63,9 @@
 		<nav class="home-nav">
 			<div class="container">
 				<ul class="nav nav-mian">
-					<li class=""><a href="learnCenter.action">首页</a></li>
-					<li class=""><a href="toStudying.action">在学</a></li>
-					<li class=" active  "><a href="toTeaching.action"> 在教</a></li>
+					<li class=" active "><a href="learnCenter.action">首页</a></li>
+					<li class=" "><a href="toStudying.action">在学</a></li>
+					<li class=" "><a href="toTeaching.action"> 在教</a></li>
 					<li class=""><a href="toMygroups.action">小组</a></li>
 					<li class=" "><a href="javascript:void(0)">好友</a></li>
 					<li class=" "><a href="javascript:void(0)">收藏夹</a></li>
@@ -86,10 +95,8 @@
 						<!--------------------已发布--------------------------------------->
 						<div class="course  phjoin-course" id="published" style="display: block;">
 							<div class="section-body">
-								<div class="row">
-									<div class="empty">
-										<i class="es-icon es-icon-locallibrary"></i> 您还没有发布任何课程
-									</div>
+								<div class="row" id="replaceable">
+									
 								</div>
 							</div>
 						</div>
@@ -97,10 +104,8 @@
 						<!--------------------审核中----------------------------------------->
 						<div class="course  phjoin-course" id="auditing" style="display: none;">
 							<div class="section-body">
-								<div class="row">
-									<div class="empty">
-										<i class="es-icon es-icon-locallibrary"></i> 您当前没有审核中的课程
-									</div>
+								<div class="row" id="replaceabling">
+									
 								</div>
 							</div>
 						</div>
@@ -108,10 +113,8 @@
 						<!--------------------未发布-------------------------------------------->
 						<div class="course  phjoin-course" id="unpublished" style="display: none;">
 							<div class="section-body">
-								<div class="row">
-									<div class="empty">
-										<i class="es-icon es-icon-locallibrary"></i> 您当前没有未发布的课程
-									</div>
+								<div class="row" id="replaceabled">
+									
 								</div>
 							</div>
 						</div>
@@ -120,9 +123,7 @@
 						<div class="course  phjoin-course" id="teachroom" style="display: none;">
 							<div class="section-body">
 								<div class="row">
-									<div class="empty">
-										<i class="es-icon es-icon-locallibrary"></i> 没有查询到数据
-									</div>
+									
 								</div>
 							</div>
 						</div>

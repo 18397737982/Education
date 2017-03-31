@@ -4,22 +4,36 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.gy.beans.UserInfo;
+import com.gy.biz.UserInfoBiz;
 
 import com.gy.beans.AccountNotes;
 import com.gy.biz.AccountNotesBiz;
 
 @Controller
 public class PageSkip {
+
 	private AccountNotesBiz accountNotesBiz;
 	@Resource(name="accountNotesBizImpl")
 	public void setAccountNotesBiz(AccountNotesBiz accountNotesBiz) {
 		this.accountNotesBiz = accountNotesBiz;
 	}
 	
+
+	private UserInfoBiz userInfoBiz;	
+	@Resource(name = "userInfoBizImpl")
+	public void setuserInfoBiz(UserInfoBiz userInfoBiz) {
+		this.userInfoBiz = userInfoBiz;
+	}
 	@RequestMapping(value = "/skip_index.action")
 	public String toIndex() {
 		return "page/index";
@@ -135,7 +149,12 @@ public class PageSkip {
 
 	// 进入个人设置界面
 	@RequestMapping(value = "/toInfo.action")
-	public String toInfo() {
+	public String toInfo(HttpSession session ,Model model) {
+		UserInfo userInfo=(UserInfo) session.getAttribute("users");
+		List<UserInfo> list=userInfoBiz.getUserInfoByUserid(userInfo);
+		if(list.size()>0){
+			model.addAttribute("users", list.get(0));
+		}
 		return "page/info";
 	}
 	

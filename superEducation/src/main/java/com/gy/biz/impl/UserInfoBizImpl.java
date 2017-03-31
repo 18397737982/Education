@@ -91,4 +91,14 @@ public class UserInfoBizImpl implements UserInfoBiz {
 		
 	}
 
+	@Override
+	public UserInfo getUserPicByUsername(UserInfo user) {
+		List<UserInfo> list=this.baseDao.findAll(user, "findPicByUsername");
+		if(list.size()>0){
+			return list.get(0);
+		}else{
+			return null;
+		}
+	}
+
 }

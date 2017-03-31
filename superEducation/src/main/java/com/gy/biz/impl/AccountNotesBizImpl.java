@@ -31,5 +31,15 @@ public class AccountNotesBizImpl implements AccountNotesBiz {
 		return this.baseDao.findAll(accountNotes, "findAll");
 	}
 
+	@Override
+	public List<AccountNotes> findBymoney(AccountNotes accountNotes) {
+		return this.baseDao.findAll(accountNotes, "findAllBymoney");
+	}
+
+	@Override
+	public List<AccountNotes> findBymoneys(AccountNotes accountNotes) {
+		return this.baseDao.findAll(accountNotes, "findAllBymoneys");
+	}
+
 
 }

@@ -6,7 +6,7 @@
 
 	<!-- //通过userid查课程信息 -->
 	<resultMap type="Course" id="CourseByUsidMap">
-		<id column="courseid" property="courseid"/>
+		<id column="course_id" property="course_id"/>
 		<result column="course_name" property="course_name"/>
 		<result column="course_view" property="course_view"/>
 		<result column="course_description" property="course_description"/>
@@ -16,7 +16,7 @@
 			<id column="user_id" property="user_id"/>
 			<result column="user_name" property="user_name"/>
 		</collection>
-		<collection property="class_category" ofType="Class_category" >
+		<collection property="lass_category" ofType="Class_category" >
 			<id column="class_id" property="class_id"/>
 			<result column="class_categorys" property="class_categorys"/>
 		</collection>
@@ -27,35 +27,38 @@
 		(select count(*) from class_hour ch where ch.course_id=s.course_id )totalCm,
 		(select studyPeriod from studyCourse sc where sc.user_id=#{userInfo.user_id} and sc.course_id=s.course_id)studyPeriod
 		 from course s
-		 inner join userInfo u
+		 left join userInfo u
 		 on s.user_id=u.user_id
-		 inner join class_category cl
+		 left join class_category cl
 		 on cl.class_id=s.class_id
 		 where s.course_id in(select course_id from studyCourse  where user_id =#{userInfo.user_id})
 	</select>
 
 	<select id="showStudyCourse" resultMap="MappingClass" parameterType="StudyCourse">
-		select c.*,begintime from course c,studyCourse s
-		where c.course_id=s.course_id and c.course_id in
-		(select course_id from
-		studyCourse where user_id=#{userInfo.user_id}) order by begintime desc
-		limit #{userInfo.beginRow},#{userInfo.pageSize};
+		select c.*,
+		(select begintime from studyCourse s where s.course_id=c.course_id) begintime
+		from course c where c.course_id in
+		(select course_id from studyCourse where user_id=#{userInfo.user_id}) order by begintime limit #{userInfo.pagenumber},#{userInfo.pagesize}
 	</select>
-	
-
-	<resultMap id="MappingClass" type="StudyCourse" >
-		<id property="scid" column="scid" />
-		<result property="begintime" column="begintime" />
-		<association property="course" javaType="Course">
-			<id property="course_id" column="course_id" />
-			<result property="course_name" column="course_name" />
-		</association>
+	<resultMap id="MappingClass" type="Course" >
+		<id column="course_id" property="course_id"/>
+		<result column="course_name" property="course_name"/>
+		<result column="begintime" property="studyPeriod"/>
 	</resultMap>
 
 	<select id="getCourseCount" parameterType="StudyCourse"
 		resultType="string">
 		select count(1) from studyCourse where user_id =
 		#{userInfo.user_id}
+	</select>
+	
+	<insert id="addStudyCourse" parameterType="StudyCourse" useGeneratedKeys="true" > 
+		insert into studyCourse(user_id,course_id,begintime,assess)	
+		values(#{userInfo.user_id},#{course.course_id},#{begintime},#{assess})
+	</insert>
+	
+	<select id="getOneCourseCount" parameterType="StudyCourse" resultType="StudyCourse">
+		select * from studyCourse where user_id=#{userInfo.user_id} and course_id=#{course.course_id}
 	</select>
 
 </mapper>

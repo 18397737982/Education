@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
- <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 使用映射接口的方式， 命名空间的值必须与映射接口的全限定名一致 -->
 <mapper namespace="com.gy.mapper.TeachCourseMapper">
-
+	<insert id="addTeachCourse" parameterType="TeachCourse">
+		insert into teachCourse(user_id,course_id,begintime,assess,temp01) values(#{userInfo.user_id},#{course.course_id},#{teachPeriod},#{assess},null)
+	</insert>
+	
 	<!-- //通过userid查在教的课程信息 -->
 	<resultMap type="TeachCourse" id="TeachCourseByUsidMap">
 		<id column="tcid" property="tcid" />
@@ -24,7 +29,7 @@
 		</collection>
 	</resultMap>
 	<select id="getTeachByUsid" resultMap="TeachCourseByUsidMap" parameterType="TeachCourse">
-		select c.*,(select count(1) from teachCourse where course_id = c.course_id )
+		select c.*,(select count(1) from teachCourse where user_id=#{userInfo.user_id})
 		memberCount,u.*,
 		(select avg(assess) from teachCourse where course_id = c.course_id) assessAvg
 		from teachCourse t
@@ -32,7 +37,12 @@
 		on u.user_id=t.user_id
 		inner join course c
 		on c.course_id=t.course_id
-		where t.user_id=#{userInfo.user_id}
+		where t.user_id=#{userInfo.user_id} and c.status=#{course.status}
 	</select>
 	
+	<select id="getTeachCourseCount" parameterType="TeachCourse"
+		resultType="string">
+		select count(1) from teachCourse where user_id =
+		#{userInfo.user_id}
+	</select>
 </mapper>

@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@page isELIgnored="false" %>
 <!DOCTYPE html>
 
 <html class="">
@@ -286,20 +286,10 @@
 				
 					<div class="panel-heading">最近加入</div>
 					<!--最近加入成员，从数据库获取-->
+					
 					<div class="panel-body">
 						<ul class="user-avatar-list clearfix" id="addMemberNow">
-							<%-- 	
-							<c:forEach items="${groupUser}" var="item">
-								<li><a title="" data-original-title="" class=" js-user-card"
-									href="http://www.howzhi.com/u/2364063/"
-									data-card-url="/user/2364063/card/show" data-user-id="2364063">
-									<img class="avatar-sm" src="images/person02.jpg" alt="${item.uname}"></a>
-									<div class="name">
-										<a class="link-light " href="http://www.howzhi.com/u/2364063/">${item.uname}</a>
-									</div>
-								</li>
-							</c:forEach>
-						 --%>
+							
 						</ul>
 					</div>
 				</div>

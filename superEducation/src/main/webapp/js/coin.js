@@ -12,11 +12,6 @@ $(function() {
 			}
 	}); 
 	
-//	$.post("accountNotes/listAccount", {"_method" : "POST",user_id:user_id},function(data){
-//		
-//		
-//		alert();
-//	}); 
 
 	$(".list-group-item a").bind("click", function() {
 		var str = this.innerText;
@@ -29,8 +24,7 @@ $(function() {
 				}else{
 					document.getElementById("yue").value="0.00";
 					}
-			}); 
-			
+			}); 	
 			
 		}else if(str.trim() == "充值中心"){
 			$("#dingdan")[0].style.display = "block";

@@ -11,5 +11,11 @@
 		select *  from accountnotes where user_id=#{user_id}
 	</select>
 	
+	<select id="findAllBymoney" parameterType="AccountNotes" resultType="AccountNotes">
+		select *  from accountnotes where user_id=#{user_id} and money>0
+	</select>
 	
+	<select id="findAllBymoneys" parameterType="AccountNotes" resultType="AccountNotes">
+		select *  from accountnotes where user_id=#{user_id}
+	</select>
 </mapper>

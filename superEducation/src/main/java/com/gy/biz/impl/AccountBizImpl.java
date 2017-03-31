@@ -41,4 +41,10 @@ public class AccountBizImpl implements AccountBiz {
 		return this.baseDao.add(accounts,"addBalance");
 	}
 
+	@Override
+	public void addAccount(Account account) {
+		this.baseDao.add(account, "addAcount");
+		
+	}
+
 }

@@ -17,6 +17,13 @@ public class Notes implements Serializable{
 	private String notesCount;
 	
 	
+	@Override
+	public String toString() {
+		return "Notes [notes_id=" + notes_id + ", notes_content=" + notes_content + ", course=" + course
+				+ ", comment_time=" + comment_time + ", class_hour=" + class_hour + ", stu_user=" + stu_user
+				+ ", notesCount=" + notesCount + "]";
+	}
+	
 	public String getNotesCount() {
 		return notesCount;
 	}
@@ -39,11 +46,7 @@ public class Notes implements Serializable{
 	public Date getComment_time() {
 		return comment_time;
 	}
-	@Override
-	public String toString() {
-		return "Notes [notes_id=" + notes_id + ", notes_content=" + notes_content + ", comment_time=" + comment_time
-				+ ", class_hour=" + class_hour + ", stu_user=" + stu_user + "]";
-	}
+	
 	public Class_hour getClass_hour() {
 		return class_hour;
 	}

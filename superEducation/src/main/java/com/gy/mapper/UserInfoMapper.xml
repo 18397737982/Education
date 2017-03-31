@@ -2,7 +2,7 @@
  <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.gy.mapper.UserInfoMapper">
-	<insert id="addAdmin" parameterType="Admin">
+	<insert id="addAdmin" parameterType="UserInfo">
 		insert into
 		userInfo(user_name,realname,age,sex,pic,password,usign,introduce,email,status,user_category,tel,qq,time,temp02,temp03)
 		values(#{user_name},#{realname},#{age},#{sex},#{pic},#{password},#{usign},#{introduce},#{email},#{status},#{user_category},#{tel},#{qq},#{time},null,null)
@@ -18,12 +18,12 @@
 	
 	<!-- 通过密码和用户名登录 -->
 	<select id="findUserInfoByUserName" parameterType="UserInfo" resultType="UserInfo">
-		select user_id,user_name,password,email from userInfo where user_name=#{user_name} and password=#{password}
+		select * from userInfo where user_name=#{user_name} and password=#{password}
 	</select>
 	
 	<!-- 通过密码和邮箱登录登录 -->
 	<select id="findUserInfoByUserEmail" parameterType="UserInfo" resultType="UserInfo">
-		select user_id,user_name,email,password from userInfo where email=#{user_name} and password=#{password}
+		select * from userInfo where email=#{user_name} and password=#{password}
 	</select>
 	
 	<!-- 通过ID查询用户信息 -->
@@ -79,6 +79,10 @@
 		update userinfo set password=#{password}
 		where user_id=#{user_id}
 	</update>
+	
+	<select id="findPicByUsername" parameterType="UserInfo" resultType="UserInfo">
+		select * from userInfo where user_name=#{user_name}
+	</select>
 	
 	
 </mapper>

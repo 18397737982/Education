@@ -9,4 +9,6 @@ public interface AccountBiz {
 
 	public int addBalance(Account accounts);
 
+	public void addAccount(Account account);
+
 }

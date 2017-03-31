@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,14 +29,20 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.gy.beans.Account;
+import com.gy.beans.AccountNotes;
 import com.gy.beans.Class_category;
 import com.gy.beans.Class_hour;
 import com.gy.beans.Course;
 import com.gy.beans.StudyCourse;
+import com.gy.beans.TeachCourse;
 import com.gy.beans.UserInfo;
+import com.gy.biz.AccountBiz;
+import com.gy.biz.AccountNotesBiz;
 import com.gy.biz.CategoryBiz;
 import com.gy.biz.CourseBiz;
 import com.gy.biz.StudyCourseBiz;
+import com.gy.biz.TeachCourseBiz;
 import com.gy.biz.UserInfoBiz;
 
 @Controller
@@ -44,7 +52,30 @@ public class CourseController {
 	private CourseBiz courseBiz;
 	private CategoryBiz categoryBiz;
 	private StudyCourseBiz studyCourseBiz;
-
+	private TeachCourseBiz teachCourseBiz;
+	private UserInfoBiz userInfoBiz;
+	private AccountBiz accountBiz;
+	private AccountNotesBiz accountNotesBiz;
+	
+	@Resource(name = "accountNotesBizImpl")
+	public void setAccountNotesBiz(AccountNotesBiz accountNotesBiz) {
+		this.accountNotesBiz = accountNotesBiz;
+	}
+	@Resource(name = "accountBizImpl")
+	public void setAccountBiz(AccountBiz accountBiz) {
+		this.accountBiz = accountBiz;
+	}
+	@Resource(name = "userInfoBizImpl")
+	public void setUserInfoBiz(UserInfoBiz userInfoBiz) {
+		this.userInfoBiz = userInfoBiz;
+	}
+	public TeachCourseBiz getTeachCourseBiz() {
+		return teachCourseBiz;
+	}
+	@Resource(name = "teachCourseBizImpl")
+	public void setTeachCourseBiz(TeachCourseBiz teachCourseBiz) {
+		this.teachCourseBiz = teachCourseBiz;
+	}
 	@Resource(name = "studyCourseBizImpl")
 	public void setCategoryBiz(StudyCourseBiz studyCourseBiz) {
 		this.studyCourseBiz = studyCourseBiz;
@@ -131,11 +162,13 @@ public class CourseController {
 	 * @throws IOException
 	 */
 	@RequestMapping(value = "/getOneCourseInformation.action/{course_id}")
-	public String  getOneCourseInformation(Model model,@PathVariable int course_id,Course course) throws IOException {
+	public String  getOneCourseInformation(HttpSession session,Model model,@PathVariable int course_id,Course course) throws IOException {
 		course.setCourse_id(course_id);
 		System.out.println(course);
-		model.addAttribute("onecourse",this.courseBiz.findOneCourse(course));
+		Course courses=this.courseBiz.findOneCourse(course);
+		model.addAttribute("onecourse",courses);
 		
+		session.setAttribute("onecourseforjoin", courses);
 		//评论的总数
 		List<StudyCourse> list=this.studyCourseBiz.studyCourseOfassess(course);
 		double grade=0;  //评论级别 一星  二星 .....
@@ -203,7 +236,9 @@ public class CourseController {
 			int class_id, String courseting,BigDecimal price, HttpSession session) {
 
 		class_category.setClass_id(class_id);
+		
 		Class_category class_categorys = this.courseBiz.findbycalss_id(class_id);// 根据id课程类
+		
 		// System.out.println(class_categorys);
 
 		session.setAttribute("course_name", course_name);
@@ -237,11 +272,8 @@ public class CourseController {
 	@RequestMapping("course/editor.action")
 	public Object uploadApk(@RequestParam(value = "upload-file") MultipartFile apkFile, HttpServletRequest request,
 			HttpServletResponse response) {
-
-		System.out.println("yesyse");
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		String str = "";
-
 		if (apkFile != null) {
 			// 获取保存的路径，
 			String realPath = request.getServletContext().getRealPath("../img/headimg");
@@ -250,7 +282,6 @@ public class CourseController {
 				// 未选择文件
 			} else {
 				System.out.println("yes");
-
 				// 文件原名称
 				String originFileName = apkFile.getOriginalFilename();
 				long temp = System.currentTimeMillis() + new Random().nextInt(100000);
@@ -259,19 +290,15 @@ public class CourseController {
 				try {
 					// 这里使用Apache的FileUtils方法来进行保存
 					FileUtils.copyInputStreamToFile(apkFile.getInputStream(), new File(realPath, str));
-
 				} catch (IOException e) {
 					System.out.println("文件上传失败");
-
 					e.printStackTrace();
 				}
 			}
-
 		}
 		try {
 			request.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		HttpSession session = request.getSession();
@@ -281,11 +308,11 @@ public class CourseController {
 			Course course = new Course();
 			String course_name = (String) session.getAttribute("course_name");
 			String course_description = (String) session.getAttribute("course_description");
-			int class_id = (int) session.getAttribute("class_id");
+			Class_category class_category=(Class_category) session.getAttribute("Class_category");
+			int class_id = class_category.getClass_id();
 			String courseting = (String) session.getAttribute("courseting");
 			BigDecimal price=(BigDecimal) session.getAttribute("price");
 			UserInfo user = (UserInfo) session.getAttribute("users");
-
 			course.setCourse_name(course_name);
 			course.setClass_id(class_id);
 			course.setCourse_description(course_description);
@@ -293,13 +320,19 @@ public class CourseController {
 			course.setPrice(price);
 			course.setCoursephoto("../img/headimg/" + str);
 			course.setUserInfo(user);
-			System.out.println(course.toString());
-
 			Course courses = this.courseBiz.save(course);
+			
+			TeachCourse teachCourse=new TeachCourse();
+			teachCourse.setUserInfo(user);
+			teachCourse.setCourse(courses);
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String date=sdf.format(new Date());
+			teachCourse.setTeachPeriod(date);
+			teachCourse.setAssess(null);
+			this.teachCourseBiz.addTeachCourse(teachCourse);
 			resMap.put("filename", str);
 		}
 
-		System.out.println("yes");
 		return resMap;
 	}
 
@@ -397,8 +430,87 @@ public class CourseController {
 		out.close();
 	}
 	
-
+//加入课程
+	@RequestMapping("course/joinCourse")
+	public void joinCourse(PrintWriter out, HttpSession session,int user_id) {
+		//课程
+		Course course=(Course) session.getAttribute("onecourseforjoin");
+		
+		int course_id=course.getCourse_id();
+		//价格
+		BigDecimal money=course.getPrice();
+		
+		//系统时间
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd ");
+		String date=sdf.format(new Date());
+		
+		UserInfo users=new UserInfo();
+		users.setUser_id(user_id);
+		//用户
+		UserInfo userInfo=userInfoBiz.getUserPicByUserid(users);
+		
+		//session.setAttribute("userInfoByStudyCourse", userInfo);
 	
+		
+		//实现账户余额更改
+		Account account =new Account();
+		account.setStu_user(userInfo);
+		Account accounts=this.accountBiz.selectBalance(account);
+		if(accounts.getBalance().intValue()>money.intValue()){
+			account.setBalance(accounts.getBalance().subtract(money));
+			this.accountBiz.addBalance(account);
+			
+			
+			//扣费成功实现加入课程
+			StudyCourse studyCourse=new StudyCourse();
+			studyCourse.setUserInfo(userInfo);
+			studyCourse.setCourse(course);
+			studyCourse.setBegintime(date);
+			studyCourse.setAssess("0");
+			int result=this.studyCourseBiz.addStudyCourse(studyCourse);	
+			
+			if(result>0){
+				out.print(3);
+				
+				//添加账户记录
+				AccountNotes accountNotes=new AccountNotes();
+				BigDecimal moneys=new BigDecimal("0");
+				BigDecimal price=moneys.subtract(money);
+			
+				accountNotes.setUser_id(user_id);
+				accountNotes.setMoney(price);
+				accountNotes.setPayment("quickpay");
+				accountNotes.setTimes(date);
+				this.accountNotesBiz.addnotes(accountNotes);
+				
+			}else{
+				out.print(2);
+			}
+			
+		}else{
+			out.println(1);
+		}                       
+		out.flush();
+		out.close();
+	}
+	//加载时判断课程是否已经
+	@RequestMapping("courseStudy/findCourse.action")
+	public void findCourse(int user_id,PrintWriter out, HttpSession session) {
+		
+		Course course=(Course) session.getAttribute("onecourseforjoin");
+		UserInfo users=new UserInfo();
+		users.setUser_id(user_id);
+		
+		StudyCourse studyCourse=new StudyCourse();
+		studyCourse.setCourse(course);
+		studyCourse.setUserInfo(users);
+		StudyCourse a=this.studyCourseBiz.getOneCourseCount(studyCourse);
+		if(a!=null){
+			out.println(1);
+		}else{
+			out.print(0);
+		}
 	
+	}
 	
 }

@@ -56,6 +56,39 @@
 <script type="text/javascript">
 	var user_id = '${users.user_id}';
 </script>
+<script type="text/javascript">	
+	 function findBymoney(){
+		$.post("findAccountBymoney", {"_method" : "POST",user_id:user_id},function(json){
+			var obj = $.parseJSON(json);
+			$("#accountList").html("");
+			for ( var i=0 ; i < obj.length ; i++ ){
+				var o = obj[i];
+				$("#accountList").append(
+					"<tr><td>" + o.user_id
+				   +"</td><td>" + o.money
+				   +"</td><td>" + o.payment
+				   +"</td><td>" + o.times);
+			}
+		});
+	}
+	 
+	 function findBymoneys(){
+			$.post("findAccountBymoneys", {"_method" : "POST",user_id:user_id},function(json){
+				var obj = $.parseJSON(json);
+				$("#accountList").html("");
+				for ( var i=0 ; i < obj.length ; i++ ){
+					var o = obj[i];
+					$("#accountList").append(
+						"<tr><td>" + o.user_id
+					   +"</td><td>" + o.money
+					   +"</td><td>" + o.payment
+					   +"</td><td>" + o.times);
+				}
+			});
+		}
+	 
+	 
+</script>
 </head>
 <body class="index">
 	<jsp:include page="topb.jsp"></jsp:include>
@@ -133,10 +166,10 @@
 					<hr>
 					<ul class="nav nav-pills" role="tablist">
 						<li class="active" role="presentation"><a
-							href="/my/coin?type=">全部记录</a></li>
-						<li role="presentation"><a href="/my/coin?type=inflow">充值记录</a>
+							href="">全部记录</a></li>
+						<li role="presentation"><a href="javascript:void(0);" onclick="findBymoney()">充值记录</a>
 						</li>
-						<li role="presentation"><a href="/my/coin?type=outflow">消费记录</a>
+						<li role="presentation"><a href="javascript:void(0);" onclick="findBymoneys()">消费记录</a>
 						</li>
 					</ul>
 					<br>
@@ -169,14 +202,16 @@
 								<th>支付方式</th>
 								<th>日期</th>
 							</tr>
-							<c:forEach items="${accountList }" var="accountNotes">
-								<tr>
-									<td>${accountNotes.user_id}</td>
-									<td>${accountNotes.money }</td>
-									<td>${accountNotes.payment }</td>
-									<td>${accountNotes.times }</td>	
-								</tr>
-							</c:forEach>
+							<tbody id="accountList">
+								<c:forEach items="${accountList }" var="accountNotes">
+									<tr>
+										<td>${accountNotes.user_id}</td>
+										<td>${accountNotes.money }</td>
+										<td>${accountNotes.payment }</td>
+										<td>${accountNotes.times }</td>	
+									</tr>
+								</c:forEach>
+							</tbody>
 						</table>
 					</div>
 					<nav class="text-center"></nav>

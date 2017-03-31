@@ -21,17 +21,30 @@ public class UserInfo implements Serializable{
 	private String introduce;
 	private String email;
 	private Integer status;
-	private int beginRow;
-	private int pageSize;
+	private int pagenumber;
+	private int pagesize;
 
+	
 	
 	@Override
 	public String toString() {
 		return "UserInfo [user_id=" + user_id + ", user_name=" + user_name + ", realname=" + realname + ", age=" + age
 				+ ", sex=" + sex + ", pic=" + pic + ", password=" + password + ", usign=" + usign + ", introduce="
-				+ introduce + ", email=" + email + ", status=" + status + ", beginRow=" + beginRow + ", pageSize="
-				+ pageSize + ", user_category=" + user_category + ", tel=" + tel + ", qq=" + qq + ", time=" + time
+				+ introduce + ", email=" + email + ", status=" + status + ", pagenumber=" + pagenumber + ", pagesize="
+				+ pagesize + ", user_category=" + user_category + ", tel=" + tel + ", qq=" + qq + ", time=" + time
 				+ ", code=" + code + ", sendCode=" + sendCode + "]";
+	}
+	public int getPagenumber() {
+		return pagenumber;
+	}
+	public void setPagenumber(int pagenumber) {
+		this.pagenumber = pagenumber;
+	}
+	public int getPagesize() {
+		return pagesize;
+	}
+	public void setPagesize(int pagesize) {
+		this.pagesize = pagesize;
 	}
 	public Integer getUser_id() {
 		return user_id;
@@ -99,18 +112,7 @@ public class UserInfo implements Serializable{
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	public int getBeginRow() {
-		return beginRow;
-	}
-	public void setBeginRow(int beginRow) {
-		this.beginRow = beginRow;
-	}
-	public int getPageSize() {
-		return pageSize;
-	}
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
-	}
+	
 	public String getUser_category() {
 		return user_category;
 	}

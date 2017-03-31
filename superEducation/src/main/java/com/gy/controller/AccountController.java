@@ -3,6 +3,7 @@ package com.gy.controller;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,10 +13,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.gy.beans.Account;
 import com.gy.beans.AccountNotes;
 import com.gy.beans.UserInfo;
@@ -91,20 +94,32 @@ public class AccountController {
 		out.close();
 		
 	}
-	
-	//查询账户记录
-//	@RequestMapping(value="accountNotes/listAccount" ,method=RequestMethod.POST)
-//	public String listBook( Model model,HttpSession session ,int user_id){
-//		
-//		AccountNotes accountNotes=new AccountNotes();
-//		accountNotes.setUser_id(user_id);
-//		List<AccountNotes> accountList = this.accountNotesBiz.findAll(accountNotes);
-//		System.out.println(accountList);
-//		model.addAttribute("accountList",accountList);
-//		return "page/coin";
-//	}
-	
-	
-	
-	
+	//只查询充值记录
+	@RequestMapping(value="/findAccountBymoney",method=RequestMethod.POST)
+	public  @ResponseBody  String indBookByCategory(Model model,int user_id){
+		AccountNotes accountNotes=new AccountNotes();
+		accountNotes.setUser_id(user_id);
+		List<AccountNotes>accountList=this.accountNotesBiz.findBymoney(accountNotes);
+		System.out.println(accountList);
+		Gson gson=new Gson();
+		return gson.toJson(accountList);
+	}
+	//查询消费记录
+	@RequestMapping(value="/findAccountBymoneys",method=RequestMethod.POST)
+	public  @ResponseBody  String findAccountBymoneys(Model model,int user_id){
+		List<AccountNotes>accountList=new ArrayList<AccountNotes>();
+		AccountNotes accountNotes=new AccountNotes();
+		accountNotes.setUser_id(user_id);
+		List<AccountNotes>accountLists=this.accountNotesBiz.findBymoneys(accountNotes);
+		for(AccountNotes accountNote:accountLists){
+			System.out.println(accountNote);
+			int money=accountNote.getMoney().intValue();
+				if(money<0){
+					accountList.add(accountNote);
+				}	
+			}
+		System.out.println(accountList);
+		Gson gson=new Gson();
+		return gson.toJson(accountList);
+	}
 }

@@ -33,4 +33,7 @@
 	</select>
 	
 	
+	<select id="findPicByUsername"  parameterType="Admin" resultType="Admin">
+		select count(*)  from Admin
+	</select>
 </mapper>

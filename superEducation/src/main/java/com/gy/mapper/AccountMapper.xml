@@ -13,4 +13,8 @@
 		where user_id=#{stu_user.user_id}
 	</update>
 	
+	<insert id="addAcount" parameterType="Account" useGeneratedKeys="true" >
+		insert into account(user_id,balance) values(#{stu_user.user_id},#{balance})
+	</insert>
+	
 </mapper>

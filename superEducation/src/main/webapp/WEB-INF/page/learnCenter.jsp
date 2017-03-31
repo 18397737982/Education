@@ -73,8 +73,8 @@
 
 				<!---------------------用户信息------------------------>
 				<div class="user-info">
-					<span class="user-name">仗剑画江湖</span>
-					<p>“天气正好 ”</p>
+					<span class="user-name">${users.user_name}</span>
+					<p>${users.usign}</p>
 				</div>
 			</div>
 			<ul class="clearfix">
@@ -99,14 +99,6 @@
 				<li class=" "><a href="toFriends.action">好友</a></li>
 				<li class=" "><a href="javascript:void(0)">笔记</a></li>
 				<li class=" "><a href="javascript:void(0)">任务</a></li>
-				<!--<li class="more dropdown" id="more-dropdown"> <a href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">更多<b class="caret"></b></a>
-						<ul class="dropdown-menu" id="dropdown-menu" role="menu">
-							<li class=" "><a href="javascript:void(0)">作业</a></li>
-							<li class=" "><a href="javascript:void(0)">笔记</a></li>
-							<li class=""><a href="javascript:void(0)">问答</a></li>
-							<li class="  "><a href="javascript:void(0)">任务</a></li>
-						</ul>
-					</li>-->
 			</ul>
 		</div>
 	</nav>
@@ -119,34 +111,6 @@
 				<div class="mestudying flat ">
 					<h3>正在学习</h3>
 					<div class="phl">
-						<!--还没有正在学习的课程时的样式-->
-						<!--<div class="empty"><i class="es-icon es-icon-locallibrary"></i>数千门有趣的课程正在等你发现，<a href="http://www.howzhi.com/courses">快去看看吧 &gt;&gt;</a></div>-->
-
-						<!--有正在学习的课程时的样式-->
-						<!-- <div class="clearfix studing-item ">
-							<div class="study-img">
-								<a href="http://www.howzhi.com/course/13339/"> <img
-									class="img-responsive" src="images/course01.jpg"
-									　alt="【古风人像】牛牛很忙教你打造穿越千年古风美人"> 学习进度百分比 <span
-									class="load" style="width: 0%"></span> <span
-									class="pere text-center">0%</span>
-								</a>
-							</div>
-							<div class="study-content">
-								<h4>
-									<a href="http://www.howzhi.com/course/13339/">【古风人像】牛牛很忙教你打造穿越千年古风美人</a>
-								</h4>
-
-								<p>
-									2016-08-22学习至 <a
-										href="http://www.howzhi.com/course/13339/lesson/83270"
-										class="plm active">L1 【已结束】牛牛很忙教你打造穿越千年的古风美女 </a>
-								</p>
-							</div>
-							<div class="study inter">
-								<a href="http://www.howzhi.com/course/13339/">继续学习</a>
-							</div>
-						</div> -->
 						
 					</div>
 					<div class="more center"><a href="javascript:;" id="get_more">加载更多</a></div>

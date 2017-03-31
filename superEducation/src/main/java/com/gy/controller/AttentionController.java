@@ -34,7 +34,7 @@ public class AttentionController {
 		List<UserInfo> attentionInfo =attentionBiz.getAttentionInfo(attention);
 		return attentionInfo;
 	}
-	
+	//关注的个数
 	@RequestMapping("/attention/attentionCount")
 	@ResponseBody
 	public String getAttentionCount(Integer user_id){
@@ -45,7 +45,7 @@ public class AttentionController {
 		String attentionCount=attentionBiz.getAttentionCount(attention);
 		return attentionCount;
 	}
-
+	//粉丝的个数
 	@RequestMapping("/attention/fansCount")
 	@ResponseBody
 	public String getFansCount(Integer user_id){

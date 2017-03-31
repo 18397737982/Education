@@ -10,6 +10,10 @@ public interface AccountNotesBiz {
 	public int addnotes(AccountNotes accountNotess);
 	//查询所有记录
 	public List<AccountNotes> findAll(AccountNotes accountNotes);
+	
+	//查询所有充值记录
+	public List<AccountNotes> findBymoney(AccountNotes accountNotes);
+	public List<AccountNotes> findBymoneys(AccountNotes accountNotes);
 
 	
 	

@@ -123,8 +123,6 @@
 			
 		}
 	}
-	
-	
 </script>
 </head>
 
@@ -164,26 +162,6 @@
 								style="color: rgb(0, 0, 0)"></i>分享
 							</a>
 
-	<!-- 						<div class=""
-								data-title="人像摄影高级教程"
-								data-summary="由摄影师杨最醉主讲的人像摄影高级教程，从人像摄影器材到主题策划、光线捕捉、后期调色、磨皮等各个角度讲..."
-								data-message="我发现了一门好课程《人像摄影高级教程》，一起来学习吧！"
-								data-url="http://www.howzhi.com/course/9573/"
-								data-picture="http://f1.howzhi.com/course/2015/07-09/065523b78450837537.jpg">
-								<a href="javascript:;" class="js-social-share weixin"
-									data-cmd="weixin" title="分享到微信" data-share="weixin"
-									data-qrcode-url="/common/qrcode?text=http%3A%2F%2Fwww.howzhi.com%2Fcourse%2F9573%2F"><i
-									class="es-icon es-icon-weixin"></i></a> <a href="javascript:;"
-									class="js-social-share weibo" data-cmd="tsina" title="分享到新浪微博"
-									data-share="weibo"><i class="es-icon es-icon-weibo"></i></a> <a
-									href="javascript:;" class="js-social-share qq" data-cmd="qq"
-									title="分享到QQ好友" data-share="qq"><i
-									class="es-icon es-icon-qq"></i></a> <a href="javascript:;"
-									class="js-social-share qzone" data-cmd="qzone" title="分享到QQ空间"
-									data-share="qzone"><i class="es-icon es-icon-qzone"></i></a>
-
-							</div> -->
-
 						</div>
 						<a class="favorite pull-right" href="javascript:"
 							id="favorite-btn" data-url="/course/9573/favorite"> <i
@@ -218,7 +196,7 @@
 							<p id="c3"></p>关注：${stu_count}</li>
 						<li class="join"><a class="btn btn-primary"
 							data-toggle="modal" href="javascript:void(0);"
-							data-url="/course/9573/buy?targetType=course" id="joinCourse">加入课程</a>
+							data-url="/course/9573/buy?targetType=course" onclick="tojoinCOurse()" id="joinCourse">加入课程</a>
 							
 							<a class="btn btn-primary"
 							data-toggle="modal" href="javascript:void(0);"

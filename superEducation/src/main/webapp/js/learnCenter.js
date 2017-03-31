@@ -12,26 +12,25 @@ $(function() {
 				$('.user-info span').html( data.user_name );
 				$('.user-info p').html( data.usign );
 				$('.personImg .img-responsive').attr("src",data.pic);
-				$('.personImg .img-responsive').attr("alt",data.uer_name);
+				$('.personImg .img-responsive').attr("alt",data.user_name);
 				//$('#score').html( data.score ); 
 			}
 		});
 	}
 	
-	$.post("studyingByUserid", {"_method" : "POST","p":2,"user_id" :user_id},function(data){
+	$.post("studyingByUserid", {"_method" : "POST","p":1,"user_id" :user_id},function(data){
 		var str="";
-		if(data=null){
+		if(data!=null){
 			$.each(data,function(index,item){
 			str+='<div class="clearfix studing-item "><div class="study-img">'
 				+'<a href="page/joinproject.jsp?id="'+item.course_id+'> <img class="img-responsive" '
-				+' src="images/160148ccf620140008.jpg" alt="'+item.course.course_name+'"> '
+				+' src="images/160148ccf620140008.jpg" alt="'+item.course_name+'"> '
 				+'<span class="load" style="width: 1%"></span> <span class="pere text-center">0%</span>'
-				+'</a></div><div class="study-content"><h4><a href="page/joinproject.jsp?id="'+item.courseid+'>'
-				+''+item.ctitle+'</a></h4><p>'+item.begintime+'学习至 <a href="page/play.jsp?cmid="'
+				+'</a></div><div class="study-content"><h4><a href="page/joinproject.jsp?id="'+item.course_id+'>'
+				+''+item.course_name+'</a></h4><p>'+item.studyPeriod+'学习至 <a href="page/play.jsp?cmid="'
 				+'class="plm active">L1：简易天空交换</a></p></div>'
-				+'<div class="study inter"><a href="toJoinProject?id="'+item.courseid+'>继续学习</a></div></div>';
+				+'<div class="study inter"><a href="toJoinProject?id="'+item.course_id+'>继续学习</a></div></div>';
 			});
-			/*'+item.courseManage.courseseq+''+item.courseManage.title+'   '+item.courseManage.cmid+'*/
 		}else{
 			str+='<div class="empty"><i class="es-icon es-icon-locallibrary"></i>数千门有趣的课程正在等你发现，<a href="toCourse.action">快去看看吧 &gt;&gt;</a></div>';
 		}
@@ -39,24 +38,24 @@ $(function() {
 	},"json");
 	
 	// 加载更多
-	 var p = 1;  
+	 var p = 0;  
 	 var str=""; 
      $('#get_more').click(function () {  
          p += 1;  
          $.ajax({  
              type: 'POST',  
              url: 'studyingByUserid',  
-             data: {p: p,"userid" :user_id},  
+             data: {p: p,"user_id" :user_id},  
              dataType: 'json',  
              success: function (data) {  
-            	 if(data){
+            	 if(data!=null){
          			$.each(data,function(index,item){
          			str+='<div class="clearfix studing-item "><div class="study-img">'
          				+'<a href="page/joinproject.jsp?id="'+item.course_id+'> <img class="img-responsive" '
-         				+' src="images/160148ccf620140008.jpg" alt="'+item.course.course_name+'"> '
+         				+' src="images/160148ccf620140008.jpg" alt="'+item.course_name+'"> '
          				+'<span class="load" style="width: 1%"></span> <span class="pere text-center">0%</span>'
          				+'</a></div><div class="study-content"><h4><a href="page/joinproject.jsp?id="'+item.course_id+'>'
-         				+''+item.course.course_name+'</a></h4><p>'+item.begintime+'学习至 <a href="page/play.jsp?cmid="'
+         				+''+item.course_name+'</a></h4><p>'+item.studyPeriod+'学习至 <a href="page/play.jsp?cmid="'
          				+'class="plm active">L1：简易天空交换</a></p></div>'
          				+'<div class="study inter"><a href="page/joinproject.jsp?id="'+item.course_id+'>继续学习</a></div></div>';
          			});
@@ -64,12 +63,13 @@ $(function() {
          		}else{
          			str+='<div class="empty"><i class="es-icon es-icon-locallibrary"></i>数千门有趣的课程正在等你发现，<a href="page/course.jsp">快去看看吧 &gt;&gt;</a></div>';
          		}
+            	 $('.phl').html("");
          		$('.phl').after( $(str) ); 
                  str="";  
              },  
          });  
      });  
-     /*
+    
      $.post("attentionByUserid", {"_method" : "POST","user_id" :user_id},function(data){
 		 $('.all-count').css("display","none");
     	 var str="";
@@ -147,18 +147,12 @@ $(function() {
     	 $('#attentionM #relation').html("").append( $(str) );
      });
      
-      */
+     
     
      
      $('.has-attent').click(function(){ 
     	 alert("elargkr");
     	 var attention = this.id;
-    	 alert(attention);
-    	 /*var str = this.innerHTML;
-    	 if(str.indexOf("已关注") >= 0){
-    		 alert("确定取消关注??");
-    		 
-    	 }*/
     	 alert("确定取消关注??");
     	 
      });

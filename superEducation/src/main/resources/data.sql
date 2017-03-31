@@ -7,6 +7,8 @@ create table admin(
 	email varchar(20)
 );
 
+select * from joingroup  where gid=1 order by jid desc
+select * from cgroup where groupname='super';
 drop table admin;
 --2学员表
 select user_name from userInfo where user_name='a';
@@ -29,7 +31,7 @@ create table userInfo(
 	temp02 varchar(200),
     temp03 varchar(200)
 );
-
+select * from userInfo;
 --3课程类别
 create table class_category(
 	class_id int primary key auto_increment,
@@ -46,11 +48,36 @@ create table course(
 	course_view int ,
 	course_description varchar(500),
 	coursephoto varchar(400),
-	courseting varchar(100),   --//标签
-	price numeric(8,2)
+	courseting varchar(100),   
+	price numeric(8,2),
+	status int
 );
 select * from class_hour;
+select * from userInfo;
+alter table course alter column status set default 0;
+drop table course;
 
+select * from course where user_id=2;
+select c.*,(select count(1) from teachCourse where user_id=2)
+		memberCount,u.*,
+		(select avg(assess) from teachCourse where course_id = c.course_id) assessAvg
+		from teachCourse t
+		inner join userInfo u
+		on u.user_id=t.user_id
+		inner join course c
+		on c.course_id=t.course_id
+		where t.user_id=2
+
+		select c.*,(select count(1) from teachCourse where user_id=2)
+		memberCount,u.*,
+		(select avg(assess) from teachCourse where course_id = c.course_id) assessAvg
+		from teachCourse t
+		inner join userInfo u
+		on u.user_id=t.user_id
+		inner join course c
+		on c.course_id=t.course_id
+		where t.user_id=2 and c.status=1
+select * from course;		
 select course_id,course_name,c.user_id,class_id,course_view,course_description,coursephoto,price,u.user_id,u.user_name from course c , userInfo u where c.user_id=u.user_id and c.class_id=1 ORDER BY course_view DESC
 
 select *from course;
@@ -94,7 +121,6 @@ alter table course
 --课时 
 
 --5课时 
->>>>>>> branch 'master' of git@github.com:18397737982/Education.git
 create table class_hour(
 	class_hour_id int primary key auto_increment,
 	course_id int,
@@ -112,10 +138,11 @@ insert into class_hour(course_id,type,title,introduction,courseseq,content) valu
 insert into class_hour(course_id,type,title,introduction,courseseq,content) values(40,1,'摄影第2讲','介绍各类摄影的历史',2,'http://tb-video.bdstatic.com/tieba-smallvideo/1252235_99b72d83e822d2f38b5b3820ea1097aa.mp4');
 insert into class_hour(course_id,type,title,introduction,courseseq,content) values(40,1,'摄影第3讲','拍摄基础',3,'http://tb-video.bdstatic.com/tieba-smallvideo/337_6f80ee8c53335a8b754f6d0c1400ae99.mp4');
 commit;
-
+select * from class_hour;
 alter table class_hour 
 	add constraint ch_course_id foreign key(course_id) references course(course_id);
-	
+select *from course;
+select * from class_category;
 --文件
 create table files(
 	files_id int primary key auto_increment,--文件id
@@ -142,19 +169,8 @@ create table comment_detail(
 )
 alter table comment 
 	add constraint cm_course_id foreign key(course_id) references course(course_id);
-=======
->>>>>>> branch 'master' of git@github.com:18397737982/Education.git
 
-select s.*,(select count(1) from studyCourse where course_id = s.course_id ) memberCount,
-		(select avg(assess) from studyCourse where course_id = s.course_id) assessAvg,
-		(select count(*) from class_hour ch where ch.course_id=s.course_id )totalCm,
-		(select studyPeriod from studyCourse sc where sc.user_id=2 and sc.course_id=s.course_id)studyPeriod
-		 from course s
-		 inner join userInfo u
-		 on s.user_id=u.user_id
-		 inner join class_category cl
-		 on cl.class_id=s.class_id
-		 where s.course_id in(select course_id from studyCourse  where user_id =2)
+
 --6笔记
 create table notes(
 	notes_id int primary key auto_increment,
@@ -169,6 +185,7 @@ create table stu_count(
 	user_count_id int primary key auto_increment,
 	course_id int,
 	stu_id int
+);
 );
 insert into  stu_count(course_id,stu_id) values(41,1);
 insert into  stu_count(course_id,stu_id) values(51,2);
@@ -205,18 +222,22 @@ alter table stu_count
 alter table stu_count 
 	add constraint sc_stu_id foreign key(stu_id) references stu_user(stu_id);
 
---账户表
 --8账户表
 drop table account;
  学生id  账户余额  
+
+select * from accountnotes where user_id=2 and money<0;
+delete from accountnotes;
+
+insert into account(user_id,balance) values(2,100);
+insert into accountnotes(user_id,money,times) value(2,-100,'2017-02-23');
+select count(balance) from account where user_id=2;
+commit
+
 create table account(
 	user_id int,
 	balance decimal
 );
-select * from accountnotes where user_id=2
-delete from accountnotes;
-insert into account(user_id,balance) values(2,100);
-select count(balance) from account where user_id=2;
 
 create table accountnotes(
 	user_id int,
@@ -248,29 +269,21 @@ create table studyCourse(
        temp01 varchar(200),
        temp02 varchar(200)
 );
-<<<<<<< HEAD
-insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,40,'2017-02-23 00:00:00',2,'10');
-insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(4,40,'2017-02-23 00:00:00',1,'10');
-insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(5,40,'2017-02-23 00:00:00',2,'10');
-insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,41,'2017-02-23 00:00:00',1,'10');
-insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,41,'2017-02-23 00:00:00',2,'10');
-insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,43,'2017-02-23 00:00:00',3,'10');
+
+
+select * from studyCourse;
+delete from studyCourse;
+select * from course;
+insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(2,1,'2017-02-23 00:00:00',2,'10');
+insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(2,2,'2017-02-23 00:00:00',1,'10');
+insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(5,3,'2017-02-23 00:00:00',2,'10');
+insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,4,'2017-02-23 00:00:00',1,'10');
+insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,5,'2017-02-23 00:00:00',2,'10');
+insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,6,'2017-02-23 00:00:00',3,'10');
 insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,44,'2017-02-23 00:00:00',1,'10');
 insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,42,'2017-02-23 00:00:00',2,'10');
 insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,44,'2017-02-23 00:00:00',1,'10');
 insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,45,'2017-02-23 00:00:00',4,'10');
-drop table studyCourse;
-select scid,studyCourse.user_id,studyCourse.course_id,begintime,assess,studyPeriod from studyCourse 
-		inner join userInfo
-		on userInfo.user_id=studyCourse.user_id
-		inner join course
-		on course.course_id=studyCourse.course_id
-		where studyCourse.user_id=2;
-		
-		select c.*,begintime from course c,studyCourse s 
-  		where c.course_id=s.course_id  and c.course_id in
-		(select course_id from studyCourse where user_id=2) order by begintime desc limit 2,2;
-=======
 
 --11在教课程表
 create table teachCourse(
@@ -281,8 +294,8 @@ create table teachCourse(
 	assess int ,
     temp01 varchar(200)
 );
->>>>>>> branch 'master' of git@github.com:18397737982/Education.git
-
+select * from teachCourse;
+insert into teachCourse(user_id,course_id,begintime,assess,temp01) values(2,3,4,5,null)
 drop table teachCourse;
 	select c.*,(select count(1) from teachCourse where course_id = c.course_id )
 		memberCount,u.*,
@@ -303,7 +316,7 @@ create table attention(
        temp03 varchar(200)
 );
 drop table teachCourse;
-
+select * from attention;
 select * from userInfo;
 insert into attention(attention,user_id,sreadstatus,temp02,temp03) values(3,2,null,null,null);
 insert into attention(attention,user_id,sreadstatus,temp02,temp03) values(4,2,null,null,null);
@@ -330,28 +343,44 @@ create table courseQuestion(
        qreadstatus int,
        temp03 varchar(200)
 );
-select cq.*,user_name,u.pic from courseQuestion cq
-		inner join userInfo u
-		on cq.user_id=u.user_id
-		where cq.user_id=2
-select ca.*,cqcontent,user_name from courseAnswer ca
-		inner join userInfo u
-		on ca.user_id=u.user_id
-		inner join courseQuestion cq
-		on ca.cqid=cq.cqid
-		where ca.user_id=2;
------------------14.小组表
+--小组表
 create table cgroup(
-       gid int primary key auto_increment,  
-       groupname varchar(50),
-       user_id int,
-       createtime date,
-       groupnumber varchar(500),
-       peoplecount int,
-       pic varchar(200),
-       introduction varchar(400),
-       class_id int
+	gid int primary key auto_increment, 
+	groupname varchar(100),
+	pic varchar(100),
+	introduction varchar(500),
+	user_name varchar(50),
+	createtime date	
 );
+insert into cgroup(groupname,pic,introduction,createtime,user_name) value('strong','../img/headimg/148949695060214942.jpg','strong 是一个强大小组','2017-02-23 00:00:00','t');
+insert into cgroup(groupname,pic,introduction,createtime,user_name) value('super','../img/headimg/148949695060214942.jpg','strong 是一个强大小组','2017-02-23 00:00:00','t');
+
+select * from userInfo;
+delete from joingroup
+drop table cgroup;
+-----------------14.小组表
+
+create table cgroup(
+	gid int primary key auto_increment, 
+	groupname varchar(100),
+	pic varchar(100),
+	introduction varchar(500),
+	user_name varchar(50),
+	createtime date	
+);
+create table joingroup(
+	   jid int primary key auto_increment,
+       gid int,          
+       user_id int
+);
+drop table joingroup;
+
+insert into joingroup(gid,user_id) values(1,2);
+insert into joingroup(gid,user_id) values(1,1);
+
+select * from class_category;
+
+insert into cgroup(groupname,user_id,createtime,groupnumber,peoplecount,pic,introduction,class_id) values('a',2,'2017-03-04 12:00:00','343',31,' ',null,3);
 select cg.*,user_name,ca.* from cgroup cg
 			inner join userInfo u
 			on u.user_id=cg.user_id
@@ -364,22 +393,23 @@ create table selfMessage(
        sendman int, 
        receiveman int,
        scontent varchar(500),
-       smtime date,
+       smtime datetime,
        sendType int ,
        sreadstatus int,
        temp03 varchar(200)
 );
+alter table selfMessage modify column smtime datetime;
+select * from selfMessage;
 select * from userInfo where user_id in
 (select attention from attention where user_id=2)
 
-<<<<<<< HEAD
 select sc.* ,c.*,u.user_id,u.user_name,u.pic from studyCourse sc,Course c,UserInfo u 
 			where sc.course_id=40
 				and sc.user_id=u.user_id 
 				and sc.course_id=c.course_id
 				ORDER BY sc.begintime DESC
-
-=======
-
-		
->>>>>>> branch 'master' of git@github.com:18397737982/Education.git
+select user_name,pic,scontent from selfMessage s
+		inner join userInfo u
+		on s.sendman=u.user_id
+		where s.sendman in (select sendman from selfMessage where receiveman=2)
+select * from selfMessage;
