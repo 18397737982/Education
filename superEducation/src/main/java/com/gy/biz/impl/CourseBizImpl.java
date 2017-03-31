@@ -1,6 +1,8 @@
 package com.gy.biz.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -115,6 +117,36 @@ public class CourseBizImpl implements CourseBiz {
 	@Override
 	public List<Class_hour> findNowclasshour(Class_hour class_hour) {
 		return this.baseDao.findAll(  class_hour  ,  "findNowclasshour");
+	}
+
+	@Override
+	public List<Course> getAllcoursebypage(String pageNumber, String pageSize) {
+		Course course=new Course();
+		int pageN=Integer.parseInt(pageNumber);
+		int pageS=Integer.parseInt(pageSize);
+		Map<String,Integer> map=new HashMap<String,Integer>();
+		
+		map.put("pageNumber", (pageN-1)*pageS);
+		map.put("pageSize", pageS);
+		return this.baseDao.findAll(course, map, "getAllcoursebypage");
+	}
+
+	@Override
+	public int getTotalCourse() {
+		Course course=new Course();
+		int total=Integer.parseInt(this.baseDao.findString(course, "getTotalCourse"));
+		return total;
+	}
+
+	@Override
+	public int delCourse(Course course) {
+		return this.baseDao.delete(course, "delCourse");
+	}
+
+	@Override
+	public int delCourses(List<String> list) {
+		Course course=new Course();
+		return this.baseDao.deleteMany(course, list, "delCourses");
 	}
 
 }

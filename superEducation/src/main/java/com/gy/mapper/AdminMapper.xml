@@ -5,12 +5,12 @@
 
 	<!-- 通过密码和用户名登录 -->
 	<select id="loginadmin" parameterType="Admin" resultType="Admin">
-		select *  from Admin where admin_name=#{admin_name} and admin_password=#{admin_password}
+		select *  from admin where admin_name=#{admin_name} and admin_password=#{admin_password}
 	</select>
 	
 	<!-- 通过密码和邮箱名登录 -->
 	<select id="loginByEmail" parameterType="Admin" resultType="Admin">
-		select *  from Admin where email=#{email} and admin_password=#{admin_password}
+		select *  from admin where email=#{email} and admin_password=#{admin_password}
 	</select>
 	
 	<insert id="regitadmin" parameterType="Admin" useGeneratedKeys="true" keyProperty="admin_id">
@@ -19,6 +19,11 @@
 	
 	<!-- 通过密码和用户名登录 -->
 	<select id="checkName" parameterType="Admin" resultType="Admin">
-		select *  from Admin where admin_name=#{admin_name}
+		select *  from admin where admin_name=#{admin_name}
+	</select>
+	
+	<!-- 查询全部的管理员信息 -->
+	<select id="findAllAdmin"  resultType="Admin">
+		select *  from admin 
 	</select>
 </mapper>

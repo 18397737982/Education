@@ -1,9 +1,11 @@
 package com.gy.biz.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import com.gy.beans.UserInfo;
@@ -90,5 +92,23 @@ public class UserInfoBizImpl implements UserInfoBiz {
 		this.baseDao.update(userInfo, "updatePwd");
 		
 	}
+
+	@Override
+	public int getTotal(UserInfo userInfo) {
+		
+		return Integer.parseInt(this.baseDao.findString(userInfo, "getTotal"));
+	}
+
+	@Override
+	public int delUserInfo(UserInfo userInfo) {
+		return this.baseDao.delete(userInfo, "delUserInfo");
+	}
+
+	@Override
+	public int delUserInfos(List<String> user_ids) {
+		UserInfo userInfo=new UserInfo();
+		return this.baseDao.deletes(userInfo, user_ids, "delUserInfos");
+	}
+
 
 }

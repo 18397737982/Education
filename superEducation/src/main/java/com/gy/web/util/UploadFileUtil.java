@@ -21,9 +21,9 @@ public class UploadFileUtil {
 	 * @param  picProjectUrl  : 图片服务器的url   http://localhost:8080/uploadBookImages/
 	 * @return
 	 */
-	public static Map<String, UploadFile> uploadFile(HttpServletRequest request, List<MultipartFile> files, String picRootName ) {
+	public static Map<String, UploadFile> uploadFile(HttpServletRequest request, MultipartFile files, String picRootName ) {
 		Map<String, UploadFile> map = new HashMap<String, UploadFile>();
-		if (files != null && files.size() > 0) {
+		if (files != null ) {
 			
 			File webappsfile=new File( request.getSession().getServletContext().getRealPath(  "/"     )).getParentFile();
 			//图片保存的服务器位置
@@ -31,13 +31,10 @@ public class UploadFileUtil {
 			//构建图片服务器的url地址
 			String picBasePath =  request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+"/"+picRootName ;
 			
-			for (MultipartFile multipartFile : files) {
+			
 				try {
-					String originalFilename = multipartFile.getOriginalFilename();
+					String originalFilename = files.getOriginalFilename();
 					
-					if(  multipartFile.isEmpty() ){
-						continue;
-					}
 					// 生成新文件名,与时间相关
 					String newfilename = getUniqueFileName()+ originalFilename.substring(originalFilename.lastIndexOf("."));
 					String saveDir=picFile.getAbsolutePath()+getNowDateStr();
@@ -53,8 +50,8 @@ public class UploadFileUtil {
 					File imageFile = new File(newFilePath);
 
 					UploadFile uploadFile = new UploadFile();
-					uploadFile.contentType = multipartFile.getContentType();
-					uploadFile.size = multipartFile.getSize();
+					uploadFile.contentType = files.getContentType();
+					uploadFile.size = files.getSize();
 					uploadFile.originalFileName = originalFilename;
 					uploadFile.newFileName = newfilename;
 					uploadFile.newFilePath=newFilePath;
@@ -62,14 +59,13 @@ public class UploadFileUtil {
 
 					map.put(originalFilename, uploadFile);
 
-					multipartFile.transferTo(imageFile);
+					files.transferTo(imageFile);
 
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 
 			}
-		}
 		return map;
 	}
 

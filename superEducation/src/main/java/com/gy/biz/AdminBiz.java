@@ -3,6 +3,7 @@ package com.gy.biz;
 import java.util.List;
 
 import com.gy.beans.Admin;
+import com.gy.beans.UserInfo;
 
 
 public interface AdminBiz {
@@ -15,4 +16,8 @@ public interface AdminBiz {
 	
 	//检验姓名
 	public Admin checkName(Admin admin);
+	
+	public List<UserInfo> findAllUsers(UserInfo userInfo);
+	
+	public List<Admin> findAllAdmin();
 }

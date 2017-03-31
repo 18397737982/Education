@@ -118,8 +118,28 @@
 		</association>
 	</resultMap>
 	
+	<select id="getTotalCourse" resultType="String">
+		select count(1) from course
+	</select>
+	 
+	 <select id="getAllcoursebypage" resultMap="CourseMap"  parameterType="java.util.Map">
+		select c.*,u.user_id,user_name,class_categorys  from course c
+		inner join userInfo u
+		on c.user_id=c.user_id
+		inner join Class_category ca
+		on ca.class_id=c.class_id
+		limit #{pageNumber},#{pageSize}
+	</select>
 	
-	 
-	 
+	<delete id="delCourse" parameterType="Course">
+		delete from course where course_id=#{course_id}
+	</delete>
+	
+	<delete id="delCourses" parameterType="java.util.List" >
+		delete from course where course_id in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
 	
 </mapper>

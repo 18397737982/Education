@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 (function($) {
     // This is the connector function.
     // It connects one item from the navigation carousel to one item from the
@@ -83,7 +83,6 @@
             });
     });
 })(jQuery);
-=======
 (function($) {
     // This is the connector function.
     // It connects one item from the navigation carousel to one item from the
@@ -168,4 +167,3 @@
             });
     });
 })(jQuery);
->>>>>>> branch 'master' of ssh://git@github.com/18397737982/Education.git
