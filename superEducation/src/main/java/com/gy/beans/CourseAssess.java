@@ -14,6 +14,14 @@ public class CourseAssess implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * 每页显示评论页数 page=10 
+	 */
+	public static final int page=10;
+	/**
+	 * 该课程页面显示最新评论的条数
+	 */
+	public static final int num=3;
 	public Integer getCaid() {
 		return caid;
 	}
@@ -23,7 +31,7 @@ public class CourseAssess implements Serializable{
 	@Override
 	public String toString() {
 		return "CourseAssess [caid=" + caid + ", userInfo=" + userInfo + ", class_hour=" + class_hour + ", content="
-				+ content + ", time=" + time + ", readstatus=" + readstatus + "]";
+				+ content + ", time=" + time + ", readstatus=" + readstatus + ", starpage=" + starpage + "]";
 	}
 	public UserInfo getUserInfo() {
 		return userInfo;
@@ -55,11 +63,17 @@ public class CourseAssess implements Serializable{
 	public void setReadstatus(Integer readstatus) {
 		this.readstatus = readstatus;
 	}
+	public Integer getStarpage() {
+		return starpage;
+	}
+	public void setStarpage(Integer starpage) {
+		this.starpage = starpage;
+	}
 	private Integer caid;
 	private UserInfo userInfo;
 	private Class_hour class_hour;// --课时管理id(外键)
 	private String content;// --评价内容
 	private String time;// --评价时间
 	private Integer readstatus;// --0或1表示未读或已读
-	
+	private Integer starpage=0;
 }

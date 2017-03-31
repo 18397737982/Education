@@ -76,5 +76,5 @@ $(function(){
 
 	function search(){
 		 var key=encodeURI($("#searchcontent").val());
-		 window.location.href="toSearch.action?typeid="+typeid+"&key="+key;
+		 window.location.href="toSearch.action/"+key;
 	 }

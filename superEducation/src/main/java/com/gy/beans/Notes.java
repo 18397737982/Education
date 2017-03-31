@@ -1,17 +1,17 @@
 package com.gy.beans;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Notes implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public static final int NOTESPAGE=3;//笔记每页显示15条 在joinproject.jsp页面
 	private int notes_id;
 	private String notes_content;
 	private Course course;
-	private Date comment_time;
+	private String comment_time;
 	private Class_hour class_hour;
 	private UserInfo stu_user;
 	private String notesCount;
@@ -36,13 +36,14 @@ public class Notes implements Serializable{
 		this.notes_content = notes_content;
 	}
 	
-	public Date getComment_time() {
+	public String getComment_time() {
 		return comment_time;
 	}
 	@Override
 	public String toString() {
-		return "Notes [notes_id=" + notes_id + ", notes_content=" + notes_content + ", comment_time=" + comment_time
-				+ ", class_hour=" + class_hour + ", stu_user=" + stu_user + "]";
+		return "Notes [notes_id=" + notes_id + ", notes_content=" + notes_content + ", course=" + course
+				+ ", comment_time=" + comment_time + ", class_hour=" + class_hour + ", stu_user=" + stu_user
+				+ ", notesCount=" + notesCount + "]";
 	}
 	public Class_hour getClass_hour() {
 		return class_hour;
@@ -50,7 +51,7 @@ public class Notes implements Serializable{
 	public void setClass_hour(Class_hour class_hour) {
 		this.class_hour = class_hour;
 	}
-	public void setComment_time(Date comment_time) {
+	public void setComment_time(String comment_time) {
 		this.comment_time = comment_time;
 	}
 	

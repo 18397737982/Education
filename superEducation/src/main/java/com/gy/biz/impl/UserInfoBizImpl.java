@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.gy.beans.Course;
 import com.gy.beans.UserInfo;
 import com.gy.biz.UserInfoBiz;
 import com.gy.dao.BaseDao;
@@ -13,9 +14,9 @@ import com.gy.dao.BaseDao;
 @Service
 public class UserInfoBizImpl implements UserInfoBiz {
 
-	private BaseDao<UserInfo> baseDao;
+	private BaseDao baseDao;
 
-	public BaseDao<UserInfo> getBaseDao() {
+	public BaseDao getBaseDao() {
 		return baseDao;
 	}
 
@@ -61,6 +62,16 @@ public class UserInfoBizImpl implements UserInfoBiz {
 	@Override
 	public List<UserInfo> getUserInfoByUserid(UserInfo userInfo) {
 		return this.baseDao.findAll(userInfo, "findUserInfoByUserId");
+	}
+
+	@Override
+	public List<UserInfo> getTeacherInfoByCourseid(Course course) {
+		return this.baseDao.findAll(new UserInfo(), "getTeacherInfoByCourseid");
+	}
+
+	@Override
+	public List<UserInfo> getUserInfoByCourseid(Course course) {
+		return this.baseDao.findAll(course,"getUserInfoByCourseid");
 	}
 
 }

@@ -114,4 +114,9 @@ public class CourseBizImpl implements CourseBiz {
 		return this.baseDao.findAll(  class_hour  ,  "findNowclasshour");
 	}
 
+	@Override
+	public List<Course> searchCourse(Course course) {
+		return this.baseDao.findAll(course,"searchCourse");
+	}
+
 }

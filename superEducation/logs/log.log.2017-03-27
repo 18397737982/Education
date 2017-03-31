@@ -1,0 +1,91 @@
+2017-03-27 16:33:53  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@dbd794: startup date [Mon Mar 27 16:33:53 CST 2017]; root of context hierarchy
+2017-03-27 16:33:53  [ main:72 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-27 16:33:53  [ main:579 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-27 16:33:54  [ main:1616 ] - [ DEBUG ]  ==>  Preparing: select n.*,u.user_id,u.user_name,u.pic from notes n,userInfo u where class_hour_id in( select class_hour_id from class_hour where course_id=? ) 
+2017-03-27 16:33:54  [ main:1644 ] - [ DEBUG ]  ==> Parameters: null
+2017-03-27 16:33:54  [ main:1663 ] - [ DEBUG ]  <==      Total: 0
+2017-03-27 16:34:21  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@dbd794: startup date [Mon Mar 27 16:34:21 CST 2017]; root of context hierarchy
+2017-03-27 16:34:21  [ main:56 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-27 16:34:22  [ main:527 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-27 16:34:23  [ main:1541 ] - [ DEBUG ]  ==>  Preparing: select n.*,u.user_id,u.user_name,u.pic from notes n,userInfo u where class_hour_id in( select class_hour_id from class_hour where course_id=? ) 
+2017-03-27 16:34:23  [ main:1570 ] - [ DEBUG ]  ==> Parameters: null
+2017-03-27 16:34:23  [ main:1586 ] - [ DEBUG ]  <==      Total: 0
+2017-03-27 16:42:43  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@dbd794: startup date [Mon Mar 27 16:42:43 CST 2017]; root of context hierarchy
+2017-03-27 16:42:43  [ main:52 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-27 16:42:43  [ main:511 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-27 16:42:44  [ main:1531 ] - [ DEBUG ]  ==>  Preparing: select n.*,u.user_id,u.user_name,u.pic from notes n,userInfo u where class_hour_id in( select class_hour_id from class_hour where course_id=? ) 
+2017-03-27 16:42:44  [ main:1560 ] - [ DEBUG ]  ==> Parameters: null
+2017-03-27 16:42:44  [ main:1575 ] - [ DEBUG ]  <==      Total: 0
+2017-03-27 16:43:09  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@dbd794: startup date [Mon Mar 27 16:43:09 CST 2017]; root of context hierarchy
+2017-03-27 16:43:09  [ main:53 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-27 16:43:09  [ main:512 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-27 16:43:10  [ main:1555 ] - [ DEBUG ]  ==>  Preparing: select n.*,u.user_id,u.user_name,u.pic from notes n,userInfo u where class_hour_id in( select class_hour_id from class_hour where course_id= ) 
+2017-03-27 16:43:10  [ main:1588 ] - [ DEBUG ]  ==> Parameters: 
+2017-03-27 16:43:10  [ main:1607 ] - [ INFO ]  Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2017-03-27 16:43:10  [ main:1643 ] - [ INFO ]  SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2017-03-27 16:46:39  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@dbd794: startup date [Mon Mar 27 16:46:39 CST 2017]; root of context hierarchy
+2017-03-27 16:46:39  [ main:53 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-27 16:46:39  [ main:519 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-27 16:46:40  [ main:1537 ] - [ DEBUG ]  ==>  Preparing: select n.*,u.user_id,u.user_name,u.pic from notes n,userInfo u where class_hour_id in( select class_hour_id from class_hour where course_id=? ) 
+2017-03-27 16:46:40  [ main:1566 ] - [ DEBUG ]  ==> Parameters: null
+2017-03-27 16:46:40  [ main:1581 ] - [ DEBUG ]  <==      Total: 0
+2017-03-27 16:48:09  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@dbd794: startup date [Mon Mar 27 16:48:09 CST 2017]; root of context hierarchy
+2017-03-27 16:48:09  [ main:53 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-27 16:48:09  [ main:520 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-27 16:48:10  [ main:1556 ] - [ DEBUG ]  ==>  Preparing: select n.*,u.user_id,u.user_name,u.pic from notes n,userInfo u where class_hour_id in( select class_hour_id from class_hour where course_id=? ) 
+2017-03-27 16:48:10  [ main:1588 ] - [ DEBUG ]  ==> Parameters: 2(Integer)
+2017-03-27 16:48:10  [ main:1603 ] - [ DEBUG ]  <==      Total: 0
+2017-03-27 16:49:03  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@dbd794: startup date [Mon Mar 27 16:49:03 CST 2017]; root of context hierarchy
+2017-03-27 16:49:03  [ main:52 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-27 16:49:04  [ main:526 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-27 16:49:05  [ main:1562 ] - [ DEBUG ]  ==>  Preparing: select n.*,u.user_id,u.user_name,u.pic from notes n,userInfo u where class_hour_id in( select class_hour_id from class_hour where course_id=? )and n.user_id=u.user_id 
+2017-03-27 16:49:05  [ main:1592 ] - [ DEBUG ]  ==> Parameters: 2(Integer)
+2017-03-27 16:49:05  [ main:1607 ] - [ DEBUG ]  <==      Total: 0
+2017-03-27 19:05:48  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@dbd794: startup date [Mon Mar 27 19:05:48 CST 2017]; root of context hierarchy
+2017-03-27 19:05:48  [ main:54 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-27 19:05:48  [ main:574 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-27 19:05:49  [ main:1676 ] - [ DEBUG ]  ==>  Preparing: select n.*,u.user_id,u.user_name,u.pic from notes n,userInfo u where class_hour_id in( select class_hour_id from class_hour where course_id=? )and n.user_id=u.user_id 
+2017-03-27 19:05:49  [ main:1718 ] - [ DEBUG ]  ==> Parameters: 2(Integer)
+2017-03-27 19:05:49  [ main:1739 ] - [ DEBUG ]  <==      Total: 0
+2017-03-27 19:06:05  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@dbd794: startup date [Mon Mar 27 19:06:05 CST 2017]; root of context hierarchy
+2017-03-27 19:06:05  [ main:59 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-27 19:06:06  [ main:565 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-27 19:06:07  [ main:1651 ] - [ DEBUG ]  ==>  Preparing: select n.*,u.user_id,u.user_name,u.pic from notes n,userInfo u where class_hour_id in( select class_hour_id from class_hour where course_id=? )and n.user_id=u.user_id 
+2017-03-27 19:06:07  [ main:1682 ] - [ DEBUG ]  ==> Parameters: 40(Integer)
+2017-03-27 19:06:07  [ main:1701 ] - [ DEBUG ]  <==      Total: 1
+2017-03-27 19:15:37  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@dbd794: startup date [Mon Mar 27 19:15:37 CST 2017]; root of context hierarchy
+2017-03-27 19:15:37  [ main:53 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-27 19:15:37  [ main:595 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-27 19:15:38  [ main:1685 ] - [ DEBUG ]  ==>  Preparing: select n.*,u.user_id,u.user_name,u.pic from notes n,userInfo u where class_hour_id in( select class_hour_id from class_hour where course_id=? )and n.user_id=u.user_id 
+2017-03-27 19:15:39  [ main:1716 ] - [ DEBUG ]  ==> Parameters: 40(Integer)
+2017-03-27 19:15:39  [ main:1738 ] - [ DEBUG ]  <==      Total: 1
+2017-03-27 20:54:44  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1ea817f: startup date [Mon Mar 27 20:54:44 CST 2017]; root of context hierarchy
+2017-03-27 20:54:44  [ main:59 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-27 20:54:45  [ main:577 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-27 20:54:46  [ main:1748 ] - [ DEBUG ]  ==>  Preparing: select n.*,u.user_id,u.user_name,u.pic from notes n,userInfo u where class_hour_id in( select class_hour_id from class_hour where course_id=? )and n.user_id=u.user_id ORDER BY n.comment_time DESC 
+2017-03-27 20:54:46  [ main:1779 ] - [ DEBUG ]  ==> Parameters: 40(Integer)
+2017-03-27 20:54:46  [ main:1805 ] - [ DEBUG ]  <==      Total: 8
+2017-03-27 20:58:48  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1264666: startup date [Mon Mar 27 20:58:48 CST 2017]; root of context hierarchy
+2017-03-27 20:58:48  [ main:58 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-27 20:58:48  [ main:597 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-27 20:58:49  [ main:1745 ] - [ DEBUG ]  ==>  Preparing: select n.*,u.user_id,u.user_name,u.pic from notes n,userInfo u where class_hour_id in( select class_hour_id from class_hour where course_id=? )and n.user_id=u.user_id ORDER BY n.comment_time DESC limit ?,? 
+2017-03-27 20:58:49  [ main:1776 ] - [ DEBUG ]  ==> Parameters: 40(Integer), 0(Integer), 5(Integer)
+2017-03-27 20:58:49  [ main:1798 ] - [ DEBUG ]  <==      Total: 5
+2017-03-27 21:13:45  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@e265f5: startup date [Mon Mar 27 21:13:45 CST 2017]; root of context hierarchy
+2017-03-27 21:13:45  [ main:56 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-27 21:13:45  [ main:585 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-27 21:13:46  [ main:1754 ] - [ DEBUG ]  ==>  Preparing: select count(1) from notes n,userInfo u where class_hour_id in( select class_hour_id from class_hour where course_id=? )and n.user_id=u.user_id 
+2017-03-27 21:13:46  [ main:1789 ] - [ DEBUG ]  ==> Parameters: 40(Integer)
+2017-03-27 21:13:46  [ main:1807 ] - [ DEBUG ]  <==      Total: 1
+2017-03-27 21:15:09  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@e265f5: startup date [Mon Mar 27 21:15:09 CST 2017]; root of context hierarchy
+2017-03-27 21:15:09  [ main:53 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-27 21:15:10  [ main:594 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-27 21:15:11  [ main:1778 ] - [ DEBUG ]  ==>  Preparing: select count(1) from notes n,userInfo u where class_hour_id in( select class_hour_id from class_hour where course_id=? )and n.user_id=u.user_id 
+2017-03-27 21:15:11  [ main:1814 ] - [ DEBUG ]  ==> Parameters: 40(Integer)
+2017-03-27 21:15:11  [ main:1832 ] - [ DEBUG ]  <==      Total: 1
+2017-03-27 21:26:42  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@193d2f2: startup date [Mon Mar 27 21:26:42 CST 2017]; root of context hierarchy
+2017-03-27 21:26:42  [ main:54 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-27 21:26:42  [ main:596 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-27 21:26:44  [ main:1782 ] - [ DEBUG ]  ==>  Preparing: select count(1) from notes n,userInfo u where class_hour_id in( select class_hour_id from class_hour where course_id=? )and n.user_id=u.user_id 
+2017-03-27 21:26:44  [ main:1815 ] - [ DEBUG ]  ==> Parameters: 40(Integer)
+2017-03-27 21:26:44  [ main:1834 ] - [ DEBUG ]  <==      Total: 1

@@ -1,4 +1,4 @@
-(function($){
+/*(function($){
 	var ms = {
 		init:function(obj,args){
 			return (function(){
@@ -92,4 +92,4 @@
 		},options);
 		ms.init(this,args);
 	}
-})(jQuery);
+})(jQuery);*/

@@ -9,7 +9,8 @@ public interface BaseDao<T> {
 	
 	public T  find(T t,String sqlId);
 	public String  findString(T t,String sqlId);
-
+	public Integer  findInteger(T t,String sqlId);
+	public Integer  findInteger(T t,Map map,String sqlId);
 	public List<T> findAll(T t,String sqlId);
 	
 	public List<T> findAll(T t,Map map,String sqlId);

@@ -29,9 +29,12 @@ import com.google.gson.JsonObject;
 import com.gy.beans.Class_category;
 import com.gy.beans.Class_hour;
 import com.gy.beans.Course;
+import com.gy.beans.CourseAssess;
+import com.gy.beans.Notes;
 import com.gy.beans.StudyCourse;
 import com.gy.beans.UserInfo;
 import com.gy.biz.CategoryBiz;
+import com.gy.biz.CourseAssessBiz;
 import com.gy.biz.CourseBiz;
 import com.gy.biz.StudyCourseBiz;
 import com.gy.biz.UserInfoBiz;
@@ -39,11 +42,20 @@ import com.gy.biz.UserInfoBiz;
 @Controller
 @SessionAttributes({ "category", "class_id" }) // ①将ModelMap中属性名为users的属性
 public class CourseController {
-
+	private UserInfoBiz userInfoBiz;
 	private CourseBiz courseBiz;
 	private CategoryBiz categoryBiz;
 	private StudyCourseBiz studyCourseBiz;
-
+	private CourseAssessBiz courseAssessBiz; 
+	
+	@Resource(name="courseAssessBizImpl")
+	public void setCourseAssessBiz(CourseAssessBiz courseAssessBiz) {
+		this.courseAssessBiz = courseAssessBiz;
+	}
+	@Resource(name = "userInfoBizImpl")
+	public void setuserInfoBiz(UserInfoBiz userInfoBiz) {
+		this.userInfoBiz = userInfoBiz;
+	}
 	@Resource(name = "studyCourseBizImpl")
 	public void setCategoryBiz(StudyCourseBiz studyCourseBiz) {
 		this.studyCourseBiz = studyCourseBiz;
@@ -154,7 +166,14 @@ public class CourseController {
 		model.addAttribute("stu_count",this.courseBiz.findAttentionCount(course));
 		//课时
 		model.addAttribute("class_hour",this.courseBiz.findAllcourseseq(course));
-	
+		//最新评论
+		Map<String,Object> map=new HashMap<>();
+		map.put("course", course);
+		map.put("starpage",0);
+		map.put("page", CourseAssess.num);
+		model.addAttribute("assess", this.courseAssessBiz.findAssessBycourseid(map));
+		//最新笔记
+		model.addAttribute("notes", this.studyCourseBiz.getNoteByCourser_id(map));
 		return "page/joinproject";
 		
 	}
@@ -374,6 +393,61 @@ public class CourseController {
 		}
 	}
 
+	
+	//获取某一门课程的所有课时
+	@RequestMapping(value = "/findClasshourBycourseid.action", produces = "text/html;charset=UTF-8")
+	public @ResponseBody String  getNoteByClass_hour_id(Course course) throws IOException {
+		Gson gson = new Gson();
+		List<Class_hour> list=this.courseBiz.findAllcourseseq(course);
+		return gson.toJson(list);
+		
+	}
+	//获取某一门课程的所有笔记
+	@RequestMapping(value = "/findNoteByCourser_id.action", produces = "text/html;charset=UTF-8")
+	public @ResponseBody String  getNoteByCourser_id(Course course,@RequestParam(value="starpage" ,required =false ) String starpage)throws IOException {
+		Gson gson = new Gson();
+		Map<String,Object> map=new HashMap<>();
+		map.put("course", course);
+		map.put("starpage",Integer.valueOf(starpage));
+		map.put("page", Notes.NOTESPAGE);
+		map.put("notes", this.studyCourseBiz.getNoteByCourser_id(map));
+		map.put("count", this.studyCourseBiz.getCountByCourser_id(map));
+		return gson.toJson(map);
+		
+	}
+	
+	
+	//获取某一门课程的所有学习人员
+		@RequestMapping(value = "/findstudentByCourser_id.action", produces = "text/html;charset=UTF-8")
+		public @ResponseBody String  findstudentByCourser_id(Course course)throws IOException {
+			Gson gson = new Gson();
+			Map<String,Object> map=new HashMap<>();
+			map.put("course", course);
+			map.put("page", Notes.NOTESPAGE);
+			map.put("student", this.userInfoBiz.getUserInfoByCourseid(course));
+
+			return gson.toJson(map);
+			
+		}
+		//评价课程
+		@RequestMapping(value = "/toPingjiaCourse.action", produces = "text/html;charset=UTF-8")
+		public  @ResponseBody String  toPingjiaCourse(StudyCourse scourse,Course course,UserInfo userInfo) {
+			scourse.setCourse(course);scourse.setUserInfo(userInfo);
+			System.out.println(scourse);Gson gson = new Gson();
+			if(scourse.getAssess().equals("1")||scourse.getAssess().equals("2")||scourse.getAssess().equals("3")||scourse.getAssess().equals("4")||scourse.getAssess().equals("5")){
+				
+			
+			try {
+				this.studyCourseBiz.pinglunCourse(scourse);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return gson.toJson("false1");
+			}
+			
+			return gson.toJson("true");
+			}
+			return gson.toJson("false2");
+		}
 	
 	
 	

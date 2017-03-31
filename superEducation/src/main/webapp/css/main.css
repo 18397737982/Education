@@ -10924,7 +10924,7 @@ textarea {
   text-align: center;
 }
 .search-banner {
-  background: url('../img/banner_search.jpg') top center no-repeat;
+  background: url('../images/banner_search.jpg') top center no-repeat;
   height: 200px;
 }
 .search-banner .search-input-group {

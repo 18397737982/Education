@@ -1,0 +1,40 @@
+2017-03-23 21:31:03  [ main:1 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@6d75b6: startup date [Thu Mar 23 21:31:03 CST 2017]; root of context hierarchy
+2017-03-23 21:31:03  [ main:63 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-23 21:31:03  [ main:616 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-23 21:31:04  [ main:1753 ] - [ DEBUG ]  ==>  Preparing: select count(1) from courseAssess where class_hour_id=? 
+2017-03-23 21:31:05  [ main:1790 ] - [ DEBUG ]  ==> Parameters: 2(Integer)
+2017-03-23 21:31:05  [ main:1807 ] - [ DEBUG ]  <==      Total: 1
+2017-03-23 21:31:28  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1fe1e26: startup date [Thu Mar 23 21:31:28 CST 2017]; root of context hierarchy
+2017-03-23 21:31:28  [ main:66 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-23 21:31:29  [ main:554 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-23 21:31:30  [ main:1757 ] - [ DEBUG ]  ==>  Preparing: select count(1) from courseAssess where class_hour_id=? 
+2017-03-23 21:31:30  [ main:1796 ] - [ DEBUG ]  ==> Parameters: 2(Integer)
+2017-03-23 21:31:30  [ main:1816 ] - [ DEBUG ]  <==      Total: 1
+2017-03-23 21:32:19  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@6d75b6: startup date [Thu Mar 23 21:32:19 CST 2017]; root of context hierarchy
+2017-03-23 21:32:19  [ main:61 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-23 21:32:20  [ main:560 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-23 21:32:21  [ main:1804 ] - [ DEBUG ]  ==>  Preparing: select count(1) from courseAssess where class_hour_id=? 
+2017-03-23 21:32:21  [ main:1844 ] - [ DEBUG ]  ==> Parameters: 2(Integer)
+2017-03-23 21:32:21  [ main:1865 ] - [ DEBUG ]  <==      Total: 1
+2017-03-23 21:34:59  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@6d75b6: startup date [Thu Mar 23 21:34:59 CST 2017]; root of context hierarchy
+2017-03-23 21:34:59  [ main:54 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-23 21:34:59  [ main:587 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-23 21:35:00  [ main:1112 ] - [ WARN ]  Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'adminBizImpl': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'baseDaoMybabitsImpl': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [beans.xml]: Invocation of init method failed; nested exception is org.springframework.core.NestedIOException: Failed to parse mapping resource: 'file [C:\Users\Administrator\git\Education\superEducation\target\classes\com\gy\mapper\CourseAssessMapper.xml]'; nested exception is org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'java.lang.Double '.  Cause: java.lang.ClassNotFoundException: Cannot find class: java.lang.Double 
+2017-03-23 21:38:51  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@6d75b6: startup date [Thu Mar 23 21:38:51 CST 2017]; root of context hierarchy
+2017-03-23 21:38:51  [ main:55 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-23 21:38:52  [ main:612 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-23 21:38:53  [ main:1816 ] - [ DEBUG ]  ==>  Preparing: select count(1) from courseAssess where class_hour_id=? 
+2017-03-23 21:38:53  [ main:1855 ] - [ DEBUG ]  ==> Parameters: 2(Integer)
+2017-03-23 21:38:53  [ main:1875 ] - [ DEBUG ]  <==      Total: 1
+2017-03-23 21:39:56  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@6d75b6: startup date [Thu Mar 23 21:39:56 CST 2017]; root of context hierarchy
+2017-03-23 21:39:56  [ main:60 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-23 21:39:57  [ main:611 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-23 21:39:58  [ main:1764 ] - [ DEBUG ]  ==>  Preparing: select count(1) from courseAssess where class_hour_id=? 
+2017-03-23 21:39:58  [ main:1804 ] - [ DEBUG ]  ==> Parameters: 2(Integer)
+2017-03-23 21:39:58  [ main:1823 ] - [ DEBUG ]  <==      Total: 1
+2017-03-23 21:43:04  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@6d75b6: startup date [Thu Mar 23 21:43:04 CST 2017]; root of context hierarchy
+2017-03-23 21:43:04  [ main:56 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-23 21:43:04  [ main:629 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-23 21:43:06  [ main:1816 ] - [ DEBUG ]  ==>  Preparing: select count(1) from courseAssess where class_hour_id=? 
+2017-03-23 21:43:06  [ main:1859 ] - [ DEBUG ]  ==> Parameters: 2(Integer)
+2017-03-23 21:43:06  [ main:1880 ] - [ DEBUG ]  <==      Total: 1

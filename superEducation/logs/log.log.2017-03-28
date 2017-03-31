@@ -1,0 +1,72 @@
+2017-03-28 20:37:20  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@66998f: startup date [Tue Mar 28 20:37:20 CST 2017]; root of context hierarchy
+2017-03-28 20:37:20  [ main:77 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-28 20:37:21  [ main:658 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-28 20:37:44  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@81b83c: startup date [Tue Mar 28 20:37:44 CST 2017]; root of context hierarchy
+2017-03-28 20:37:44  [ main:56 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-28 20:37:45  [ main:581 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-28 20:37:46  [ main:1707 ] - [ DEBUG ]  ==>  Preparing: select count(1) from courseAssess ca,userInfo u where ca.class_hour_id=? and ca.user_id=u.user_id 
+2017-03-28 20:37:46  [ main:1738 ] - [ DEBUG ]  ==> Parameters: null
+2017-03-28 20:37:46  [ main:1760 ] - [ DEBUG ]  <==      Total: 1
+2017-03-28 20:40:35  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@81b83c: startup date [Tue Mar 28 20:40:35 CST 2017]; root of context hierarchy
+2017-03-28 20:40:35  [ main:52 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-28 20:40:35  [ main:581 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-28 20:40:36  [ main:1716 ] - [ DEBUG ]  ==>  Preparing: select count(1) from courseAssess ca,userInfo u where ca.class_hour_id=? and ca.user_id=u.user_id 
+2017-03-28 20:40:36  [ main:1748 ] - [ DEBUG ]  ==> Parameters: null
+2017-03-28 20:40:36  [ main:1770 ] - [ DEBUG ]  <==      Total: 1
+2017-03-28 20:40:50  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1fe4d40: startup date [Tue Mar 28 20:40:50 CST 2017]; root of context hierarchy
+2017-03-28 20:40:50  [ main:57 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-28 20:40:50  [ main:579 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-28 20:40:51  [ main:1721 ] - [ DEBUG ]  ==>  Preparing: select count(1) from notes n,userInfo u where class_hour_id in( select class_hour_id from class_hour where course_id=? )and n.user_id=u.user_id 
+2017-03-28 20:40:51  [ main:1752 ] - [ DEBUG ]  ==> Parameters: 40(Integer)
+2017-03-28 20:40:52  [ main:1775 ] - [ DEBUG ]  <==      Total: 1
+2017-03-28 20:43:22  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1fe4d40: startup date [Tue Mar 28 20:43:22 CST 2017]; root of context hierarchy
+2017-03-28 20:43:22  [ main:62 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-28 20:43:22  [ main:597 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-28 20:43:23  [ main:1730 ] - [ DEBUG ]  ==>  Preparing: select count(1) from courseAssess ca,userInfo u where ca.class_hour_id in( select class_hour_id from class_hour where course_id=? ) and ca.user_id=u.user_id 
+2017-03-28 20:43:23  [ main:1763 ] - [ DEBUG ]  ==> Parameters: 40(Integer)
+2017-03-28 20:43:23  [ main:1790 ] - [ DEBUG ]  <==      Total: 1
+2017-03-28 20:44:02  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@81b83c: startup date [Tue Mar 28 20:44:02 CST 2017]; root of context hierarchy
+2017-03-28 20:44:02  [ main:57 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-28 20:44:03  [ main:585 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-28 20:44:04  [ main:1740 ] - [ DEBUG ]  ==>  Preparing: select count(1) from courseAssess ca,userInfo u where ca.class_hour_id in( select class_hour_id from class_hour where course_id=? ) and ca.user_id=u.user_id 
+2017-03-28 20:44:04  [ main:1780 ] - [ DEBUG ]  ==> Parameters: 40(Integer)
+2017-03-28 20:44:04  [ main:1807 ] - [ DEBUG ]  <==      Total: 1
+2017-03-28 20:44:04  [ main:1811 ] - [ DEBUG ]  ==>  Preparing: select ca.*,u.user_id,u.user_name,u.pic,ch.title from courseAssess ca,userInfo u,class_hour ch where class_hour_id in( select class_hour_id from class_hour where course_id=? )and ca.user_id=u.user_id limit ?,? 
+2017-03-28 20:44:04  [ main:1812 ] - [ DEBUG ]  ==> Parameters: 40(Integer), null, null
+2017-03-28 20:44:04  [ main:1831 ] - [ INFO ]  Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2017-03-28 20:44:04  [ main:1871 ] - [ INFO ]  SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2017-03-28 20:44:51  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@81b83c: startup date [Tue Mar 28 20:44:51 CST 2017]; root of context hierarchy
+2017-03-28 20:44:52  [ main:70 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-28 20:44:52  [ main:706 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-28 20:44:54  [ main:2115 ] - [ DEBUG ]  ==>  Preparing: select count(1) from notes n,userInfo u where class_hour_id in( select class_hour_id from class_hour where course_id=? )and n.user_id=u.user_id 
+2017-03-28 20:44:54  [ main:2165 ] - [ DEBUG ]  ==> Parameters: 40(Integer)
+2017-03-28 20:44:54  [ main:2190 ] - [ DEBUG ]  <==      Total: 1
+2017-03-28 20:45:01  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1fe4d40: startup date [Tue Mar 28 20:45:01 CST 2017]; root of context hierarchy
+2017-03-28 20:45:01  [ main:59 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-28 20:45:02  [ main:565 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-28 20:45:03  [ main:1716 ] - [ DEBUG ]  ==>  Preparing: select count(1) from courseAssess ca,userInfo u where ca.class_hour_id in( select class_hour_id from class_hour where course_id=? ) and ca.user_id=u.user_id 
+2017-03-28 20:45:03  [ main:1758 ] - [ DEBUG ]  ==> Parameters: 40(Integer)
+2017-03-28 20:45:03  [ main:1784 ] - [ DEBUG ]  <==      Total: 1
+2017-03-28 20:45:03  [ main:1789 ] - [ DEBUG ]  ==>  Preparing: select ca.*,u.user_id,u.user_name,u.pic,ch.title from courseAssess ca,userInfo u,class_hour ch where class_hour_id in( select class_hour_id from class_hour where course_id=? )and ca.user_id=u.user_id limit ?,? 
+2017-03-28 20:45:03  [ main:1790 ] - [ DEBUG ]  ==> Parameters: 40(Integer), null, null
+2017-03-28 20:45:03  [ main:1810 ] - [ INFO ]  Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2017-03-28 20:45:03  [ main:1848 ] - [ INFO ]  SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2017-03-28 20:45:21  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@81b83c: startup date [Tue Mar 28 20:45:21 CST 2017]; root of context hierarchy
+2017-03-28 20:45:21  [ main:58 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-28 20:45:21  [ main:601 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-28 20:45:22  [ main:1742 ] - [ DEBUG ]  ==>  Preparing: select count(1) from courseAssess ca,userInfo u where ca.class_hour_id in( select class_hour_id from class_hour where course_id=? ) and ca.user_id=u.user_id 
+2017-03-28 20:45:22  [ main:1773 ] - [ DEBUG ]  ==> Parameters: 40(Integer)
+2017-03-28 20:45:22  [ main:1792 ] - [ DEBUG ]  <==      Total: 1
+2017-03-28 20:45:22  [ main:1801 ] - [ DEBUG ]  ==>  Preparing: select ca.*,u.user_id,u.user_name,u.pic,ch.title from courseAssess ca,userInfo u,class_hour ch where class_hour_id in( select class_hour_id from class_hour where course_id=? )and ca.user_id=u.user_id limit ?,? 
+2017-03-28 20:45:22  [ main:1801 ] - [ DEBUG ]  ==> Parameters: 40(Integer), 5(Integer), 10(Integer)
+2017-03-28 20:45:22  [ main:1823 ] - [ INFO ]  Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2017-03-28 20:45:22  [ main:1857 ] - [ INFO ]  SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2017-03-28 20:46:27  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@81b83c: startup date [Tue Mar 28 20:46:27 CST 2017]; root of context hierarchy
+2017-03-28 20:46:27  [ main:63 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-28 20:46:28  [ main:588 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-28 20:46:29  [ main:1746 ] - [ DEBUG ]  ==>  Preparing: select count(1) from courseAssess ca,userInfo u where ca.class_hour_id in( select class_hour_id from class_hour where course_id=? ) and ca.user_id=u.user_id 
+2017-03-28 20:46:29  [ main:1776 ] - [ DEBUG ]  ==> Parameters: 40(Integer)
+2017-03-28 20:46:29  [ main:1798 ] - [ DEBUG ]  <==      Total: 1
+2017-03-28 20:46:29  [ main:1802 ] - [ DEBUG ]  ==>  Preparing: select ca.*,u.user_id,u.user_name,u.pic,ch.title from courseAssess ca,userInfo u,class_hour ch where ca.class_hour_id in( select chh.class_hour_id from class_hour chh where chh.course_id=? )and ca.user_id=u.user_id limit ?,? 
+2017-03-28 20:46:29  [ main:1802 ] - [ DEBUG ]  ==> Parameters: 40(Integer), 5(Integer), 10(Integer)
+2017-03-28 20:46:29  [ main:1811 ] - [ DEBUG ]  <==      Total: 10

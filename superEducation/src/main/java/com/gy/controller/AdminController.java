@@ -106,4 +106,37 @@ public class AdminController {
 		}
 		return userInfo;
 	}
+	
+	
+	// 登录2 在播放的页面
+	@RequestMapping(value = "/loginDiv.action", method = RequestMethod.POST)
+	public @ResponseBody String loginDiv(UserInfo userInfo, Model model, ModelMap map) {
+		model.addAttribute("category",this.categoryBiz.findAllCategory());
+		String name = userInfo.getUser_name();
+		List<UserInfo> list = null;
+		name = new UsuallyUtil().decode(name);
+		if (userInfo != null && name.contains("@")) {
+			list = userInfoBiz.getUserInfoByEmail(userInfo);
+			if (list.size() > 0 && list != null) {
+				userInfo = list.get(0);
+				map.put("users", userInfo);
+				model.addAttribute("users", userInfo);
+			}
+		} else if (userInfo!= null && !name.contains("@")) {
+			userInfo.setUser_name(name);
+			userInfo.toString();
+			list = userInfoBiz.getUserInfoByUserName(userInfo);
+			if (list.size() > 0 && list != null) {
+				map.put("users", list.get(0));
+				model.addAttribute("users", list.get(0));
+			}
+		}
+		// 登录页面跳转
+		if (list.size()==0) {
+			map.put("Message", "block");
+			map.put("users", "");
+			return "false";
+		}
+		return "true"; 
+	}
 }

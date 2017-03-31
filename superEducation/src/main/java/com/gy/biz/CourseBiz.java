@@ -44,4 +44,7 @@ public interface CourseBiz {
 	public int findAttentionCount(Course course);
 
 	public List<Class_hour> findNowclasshour(Class_hour class_hour);
+	
+	//搜索
+	public List<Course> searchCourse(Course course);
 }

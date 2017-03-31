@@ -1,0 +1,32 @@
+2017-03-29 19:31:37  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@112bd54: startup date [Wed Mar 29 19:31:37 CST 2017]; root of context hierarchy
+2017-03-29 19:31:37  [ main:95 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-29 19:31:38  [ main:879 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-29 19:34:31  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1743ff4: startup date [Wed Mar 29 19:34:31 CST 2017]; root of context hierarchy
+2017-03-29 19:34:31  [ main:60 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-29 19:34:31  [ main:721 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-29 19:34:33  [ main:2277 ] - [ DEBUG ]  ==>  Preparing: select cq.*,user_name,u.pic from courseQuestion cq inner join userInfo u on cq.user_id=u.user_id where cq.class_hour_id in( select chh.class_hour_id from class_hour chh where chh.course_id=? )limit ?,? ORDER BY cq.cqtime DESC 
+2017-03-29 19:34:33  [ main:2323 ] - [ DEBUG ]  ==> Parameters: 40(Integer), 5(Integer), 10(Integer)
+2017-03-29 19:34:33  [ main:2358 ] - [ INFO ]  Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2017-03-29 19:34:33  [ main:2409 ] - [ INFO ]  SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2017-03-29 19:35:16  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1743ff4: startup date [Wed Mar 29 19:35:16 CST 2017]; root of context hierarchy
+2017-03-29 19:35:16  [ main:58 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-29 19:35:17  [ main:713 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-29 19:35:18  [ main:2249 ] - [ DEBUG ]  ==>  Preparing: select cq.*,user_name,u.pic from courseQuestion cq inner join userInfo u on cq.user_id=u.user_id where cq.class_hour_id in( select chh.class_hour_id from class_hour chh where chh.course_id=? )limit ?,? ORDER BY cq.cqtime DESC 
+2017-03-29 19:35:19  [ main:2294 ] - [ DEBUG ]  ==> Parameters: 40(Integer), 5(Integer), 10(Integer)
+2017-03-29 19:35:19  [ main:2327 ] - [ INFO ]  Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+2017-03-29 19:35:19  [ main:2372 ] - [ INFO ]  SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+2017-03-29 19:55:00  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1743ff4: startup date [Wed Mar 29 19:55:00 CST 2017]; root of context hierarchy
+2017-03-29 19:55:00  [ main:79 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-29 19:55:01  [ main:960 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-29 19:55:02  [ main:2563 ] - [ DEBUG ]  ==>  Preparing: select cq.*,user_name,u.pic from courseQuestion cq inner join userInfo u on cq.user_id=u.user_id where cq.class_hour_id in( select chh.class_hour_id from class_hour chh where chh.course_id=? )ORDER BY cq.cqtime DESC limit ?,? 
+2017-03-29 19:55:02  [ main:2608 ] - [ DEBUG ]  ==> Parameters: 40(Integer), 5(Integer), 10(Integer)
+2017-03-29 19:55:02  [ main:2641 ] - [ DEBUG ]  <==      Total: 0
+2017-03-29 20:15:04  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@112bd54: startup date [Wed Mar 29 20:15:04 CST 2017]; root of context hierarchy
+2017-03-29 20:15:04  [ main:62 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-29 20:15:05  [ main:725 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-29 20:15:07  [ main:2330 ] - [ DEBUG ]  ==>  Preparing: select cq.*,user_name,u.pic from courseQuestion cq inner join userInfo u on cq.user_id=u.user_id where cq.class_hour_id in( select chh.class_hour_id from class_hour chh where chh.course_id=? )ORDER BY cq.cqtime DESC limit ?,? 
+2017-03-29 20:15:07  [ main:2376 ] - [ DEBUG ]  ==> Parameters: 40(Integer), 5(Integer), 10(Integer)
+2017-03-29 20:15:07  [ main:2406 ] - [ DEBUG ]  <==      Total: 0
+2017-03-29 20:15:07  [ main:2412 ] - [ DEBUG ]  ==>  Preparing: select count(1) from courseQuestion cq inner join userInfo u on cq.user_id=u.user_id where cq.class_hour_id in( select chh.class_hour_id from class_hour chh where chh.course_id=? ) 
+2017-03-29 20:15:07  [ main:2413 ] - [ DEBUG ]  ==> Parameters: 40(Integer)
+2017-03-29 20:15:07  [ main:2415 ] - [ DEBUG ]  <==      Total: 1

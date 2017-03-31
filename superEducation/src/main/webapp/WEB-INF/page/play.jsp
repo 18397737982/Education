@@ -68,6 +68,7 @@
 	var uname = '${users.user_name}';
 	var userid = '${users.user_id}';
 	var course_id ='${onecourse.course_id}';
+	var class_hour_id='${theclass_hour[0].class_hour_id}';
 	$(function() {
 		
 	
@@ -238,8 +239,10 @@
 					<div class="tab-title">
 						<i class="hz-icon icon-forum mrm"></i>问答
 					</div>
+					<a id="showquestion_form" onclick="showquestion_form()">->_->我要提问</a>
+					<a style="float:right" onclick="hiddenquestion_form()">[X]&nbsp&nbsp&nbsp</a>
 					<form class="form " id="lesson_qustion_form" method="post"
-						action="" novalidate="novalidate" data-widget-cid="widget-4">
+						action="" novalidate="novalidate" data-widget-cid="widget-4" style="display:none">
 						<div class="form-group">
 							<div class="controls">
 								<!-- textarea id="question_title"
@@ -295,8 +298,8 @@
 					</form>
 
 					<ul id="questionList" style="margin-top: 40px;">
-						<li><span>0回答</span><a
-							href="javascript:void(0);" target="_black">高光怎样去找</a></li>
+						<!-- <li><span>0回答</span><a
+							href="javascript:void(0);" target="_black">高光怎样去找</a></li> -->
 					</ul>
 
 				</div>
@@ -365,7 +368,7 @@
 
 					<!--  评论 --------------------------------- -->
 					<ul class=" comment-item-list" id="commentList">
-						<!-- <li id="item92627">
+						<li id="item92627">
 							<div class="userimg">
 								<a class=" js-user-card" href="#"
 									data-card-url="/user/2357277/card/show" data-user-id="2357277">
@@ -384,7 +387,7 @@
 										data-revertto="楚嫣然" onclick="revert()">回复</a>
 								</div>
 							</div>
-						</li> -->
+						</li>
 					</ul>
 					<!-- 分页 ---------------------------------------------------------------------------------  -->
 					<div class="tcdPageCode" id="commenttcpage"></div>

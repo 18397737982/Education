@@ -1,6 +1,8 @@
 package com.gy.biz.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -74,6 +76,27 @@ public class StudyCourseBizImpl implements StudyCourseBiz {
 	@Override
 	public List<TeachCourse> getTeachByUsid(TeachCourse teachCourse) {
 		return this.baseDao.findAll(teachCourse, "getTeachByUsid");
+	}
+	@Override
+	public int insertNotes(Notes notes) {
+		return this.baseDao.add(notes, "insertNotes");
+	}
+	@Override
+	public List<Notes> getNoteByClass_hour_id(Notes notes) {
+		return this.baseDao.findAll(notes, "getNoteByClass_hour_id");
+	}
+	@Override
+	public List<Notes> getNoteByCourser_id(Map map) {
+		System.out.println(map);
+		return this.baseDao.findAll(new Notes(),map, "getNoteByCourser_id");
+	}
+	@Override
+	public int getCountByCourser_id(Map map) {
+		return this.baseDao.findInteger(new Notes(),map, "getCountByCourser_id");
+	}
+	@Override
+	public int pinglunCourse(StudyCourse scourse) {
+		return this.baseDao.update(scourse, "pinglunCourse");
 	}
 
 }

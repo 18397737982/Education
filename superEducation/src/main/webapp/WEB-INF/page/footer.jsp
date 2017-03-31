@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css">
 <footer class="footer">
 	<div class="container">
 		<div class="row">
