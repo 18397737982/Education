@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.gy.beans.Course;
 import com.gy.beans.UserInfo;
 
 public interface UserInfoBiz {
@@ -19,6 +20,7 @@ public interface UserInfoBiz {
 	public List<UserInfo> getUserInfoByEmail(UserInfo userInfo);
 	//通过id查询用户信息
 	public List<UserInfo> getUserInfoByUserid(UserInfo userInfo);
+
 
 	//编辑信息
 	public int saveInfo(UserInfo user);
@@ -35,4 +37,9 @@ public interface UserInfoBiz {
 	//删除多个用户
 	public int delUserInfos(List<String> user_ids);
 
+
+	//某一门课程的在教的老师
+	public List<UserInfo> getTeacherInfoByCourseid(Course course);
+	//某一门课程的在学的所有学生
+	public List<UserInfo> getUserInfoByCourseid(Course course);
 }

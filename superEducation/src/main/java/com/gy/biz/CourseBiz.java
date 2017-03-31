@@ -54,4 +54,7 @@ public interface CourseBiz {
 	public int delCourse(Course course);
 
 	public int delCourses(List<String> list);
+	
+	//搜索
+	public List<Course> searchCourse(Course course);
 }

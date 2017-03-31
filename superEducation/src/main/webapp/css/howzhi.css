@@ -4983,7 +4983,7 @@ a.hzlink-line:hover {
 
 .course-in-ul li {
 	border-bottom: 1px dashed #eee;
-	padding: 20px 0;
+/* 	padding: 20px 0; */
 	position: relative
 }
 

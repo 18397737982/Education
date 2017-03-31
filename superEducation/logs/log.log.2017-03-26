@@ -1,0 +1,12 @@
+2017-03-26 12:27:10  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1fe1e26: startup date [Sun Mar 26 12:27:10 CST 2017]; root of context hierarchy
+2017-03-26 12:27:10  [ main:55 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-26 12:27:10  [ main:547 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-26 12:27:11  [ main:1563 ] - [ DEBUG ]  ==>  Preparing: select count(1) from courseAssess where class_hour_id=? 
+2017-03-26 12:27:11  [ main:1596 ] - [ DEBUG ]  ==> Parameters: 2(Integer)
+2017-03-26 12:27:11  [ main:1614 ] - [ DEBUG ]  <==      Total: 1
+2017-03-26 12:29:32  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@ece36: startup date [Sun Mar 26 12:29:32 CST 2017]; root of context hierarchy
+2017-03-26 12:29:32  [ main:54 ] - [ INFO ]  Loading XML bean definitions from class path resource [beans.xml]
+2017-03-26 12:29:32  [ main:518 ] - [ INFO ]  Loading properties file from URL [file:/C:/Users/Administrator/git/Education/superEducation/target/classes/db.properties]
+2017-03-26 12:29:33  [ main:1521 ] - [ DEBUG ]  ==>  Preparing: select ca.*,u.user_id,u.user_name,u.pic from courseAssess ca,userInfo u where class_hour_id=? limit ?,? 
+2017-03-26 12:29:33  [ main:1561 ] - [ DEBUG ]  ==> Parameters: 2(Integer), 0(Integer), 10(Integer)
+2017-03-26 12:29:33  [ main:1584 ] - [ DEBUG ]  <==      Total: 10

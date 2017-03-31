@@ -2,6 +2,7 @@
 <!-- 登录后的头部----------- -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page isELIgnored="false" %>
+<script src="js/top.js"></script>
 <header class="header" style="z-index: 2000">
   <div class="container" >
     <div class="navbar-header pull-left"> <a href="skip_index.action" class="navbar-brand"> <img src="images/logo.png" class="img-responsive" alt="好知，howzhi.com"> </a>
@@ -9,7 +10,7 @@
     </div>
     <nav class="collapse navbar-collapse pull-left">
       <ul class="nav navbar-nav topmenu">
-        <li class="visible-xs"> <a href="skip_index.action"><i class="fa fa-search mrm"></i>搜索</a> </li>
+        <li class="visible-xs"> <a href="javaScript:void(0);"><i class="fa fa-search mrm"></i>搜索</a> </li>
         <li class=""> <a href="learnCenter.action">学习中心 </a> </li>
         <li class="nav-hover" > <a href="toCourse.action">课程 <b class="caret"></b></a>
           <ul class="dropdown-menu"  role="menu" id="menu">
@@ -69,29 +70,33 @@
 					</div> <span class="close" data-dismiss="alert">×</span>
 				</li>
 			</ul>
-	    <form class="navbar-form pull-right hz-search hidden-xs" role="search" action="/search">
-	        <div class="form-group">
-	          <div id="search-left" class="pull-left search-left">
-	            <div class="search-type pull-left">
-	              <div class="choose" style="color:#666;font-size:14px;margin-top:3px;">课程<i style="color:#999;font-size:11px;margin-left:5px" class="glyphicon glyphicon-chevron-down"></i></div>
-	              <ul class="text-center" id="text-center" style="color:#999;">
-	                <li data-type="1">课程</li>
-	                <li data-type="2">话题</li>
-	                <li data-type="3">用户</li>
-	                <li data-type="4">小组</li>
-	              </ul>
-	            </div>
-	            <input class="form-control js-search" name="q" placeholder="输入要查找的内容" autocomplete="off">
-	          </div>
-	          <input name="t" value="course" type="hidden"/>
-	          <button style="color: #15C288; font-size:20px;margin-top:7px; border:none;background:#fff;width:50px;" class="glyphicon glyphicon-search" type="button" onclick="search()"></button>
-	          <script type="text/javascript">
-	          	 function search(){
-	          		 
-	          	 }
-	          </script>
-	        </div>
-	    </form>
+	    <form class="navbar-form pull-right hz-search hidden-xs"
+				role="search" action="">
+				<div class="form-group">
+					<div id="search-left" class="pull-left search-left">
+						<div class="search-type pull-left">
+							<div class="choose"
+								style="color: #666; font-size: 14px; margin-top: 3px;">
+								课程<i style="color: #999; font-size: 11px; margin-left: 5px"
+									class="glyphicon glyphicon-chevron-down"></i>
+							</div>
+							<ul class="text-center" id="text-center" style="color: #999;">
+								<li data-type="course">课程</li>
+								<li data-type="discussion">话题</li>
+								<li data-type="user">用户</li>
+								<li data-type="group">小组</li>
+							</ul>
+						</div>
+						<input id="searchcontent" class="form-control js-search" name="q"
+							placeholder="输入要查找的内容" autocomplete="off">
+					</div>
+					<input name="t" value="course" type="hidden">
+					<button
+						style="color: #15C288; font-size: 20px; margin-top: 7px; border: none; background: #fff; width: 50px;"
+						class="glyphicon glyphicon-search" type="button"
+						onclick="search()"></button>
+				</div>
+			</form>
 
     </div>
   </div>

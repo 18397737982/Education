@@ -3,10 +3,11 @@
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page isELIgnored="false" %>
 <!-- 未登录前的头部----------- -->
+<script src="js/top.js"></script>
 <script type="text/javascript" >
 if("${category}"==""){
 	$.post("getCategoryInformation.action",function(json){
-			
+		 window.location.reload();
 	});
 }
 </script>
@@ -24,9 +25,9 @@ if("${category}"==""){
 		</div>
 		<nav class="collapse navbar-collapse pull-left">
 			<ul class="nav navbar-nav topmenu">
-				<li class="visible-xs"><a href="javascript:void(0);"><i
+				<li class="visible-xs"><a href="javaScript:void(0);"><i
 						class="fa fa-search mrm"></i>搜索</a></li>
-				<li class=""><a href="learnCenter.action">学习中心 </a></li>
+				<li class=""><a href="learnCenter.action" >学习中心 </a></li>
 				<li class="nav-hover"><a href="toCourse.action">课程 <b
 						class="caret"></b></a>
 					<ul class="dropdown-menu" role="menu" id="menu">

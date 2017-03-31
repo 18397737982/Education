@@ -17,6 +17,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<id property="class_hour_id" column="user_id"/>
 			<result column="title" property="title"/>
 		</collection>
+		<collection property="stu_user" ofType="UserInfo" >
+			<id property="user_id" column="user_id"/>
+			<result column="user_name" property="user_name"/>
+			<result column="pic" property="pic"/>
+		</collection>
 	</resultMap>
 	<select id="getPersonNoteByUseid" resultMap="CourseNoteMap3" parameterType="Notes">
 		select * from notes where user_id=#{stu_user.user_id}
@@ -25,5 +30,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getNoteCount" parameterType="Notes" resultType="string">
 		select count(1) from notes where user_id=#{stu_user.user_id}
 	</select>
-
+	
+	<select id="getNoteByClass_hour_id"  parameterType="Notes" resultMap="CourseNoteMap3">
+		select n.*,u.user_id,u.user_name,u.pic from notes n,userInfo u 
+			where class_hour_id=#{class_hour.class_hour_id} and n.user_id=u.user_id
+	</select>
+	<!--  某一门课程的所有笔记-->
+	<select id="getNoteByCourser_id"  parameterType="java.util.Map" resultMap="CourseNoteMap3">
+		select n.*,u.user_id,u.user_name,u.pic from notes n,userInfo u 
+			where class_hour_id in(
+		select class_hour_id from class_hour  where course_id=#{course.course_id}
+	)and n.user_id=u.user_id 
+	ORDER BY n.comment_time DESC limit #{starpage},#{page}
+	</select>
+	
+	<!-- 统计某一门课程的笔记数量 -->
+	<select id="getCountByCourser_id"  parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(1)  from notes n,userInfo u 
+			where class_hour_id in(
+		select class_hour_id from class_hour  where course_id=#{course.course_id}
+	)and n.user_id=u.user_id 
+	</select>
+	
+	<insert id="insertNotes" parameterType="Notes" useGeneratedKeys="true" keyProperty="notes_id">
+			insert into notes(notes_content,class_hour_id,user_id,comment_time) 
+			values(#{notes_content},#{class_hour.class_hour_id},#{stu_user.user_id},#{comment_time});
+	</insert>
 </mapper>

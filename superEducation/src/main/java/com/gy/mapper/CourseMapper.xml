@@ -11,6 +11,15 @@
 <select id="findAllCourse"  resultMap="CourseMap"  parameterType="Course">
 		select course_id,course_name,c.user_id,class_id,course_view,course_description,coursephoto,price,u.user_id,u.user_name from course c , userInfo u where c.user_id=u.user_id ORDER BY course_view DESC
  </select>
+ <!-- 查询搜锁的课程 -->
+<select id="searchCourse"  resultMap="CourseMap"  parameterType="Course">
+		select course_id,course_name,c.user_id,class_id,course_view,course_description,coursephoto,price,u.user_id,u.user_name from course c , userInfo u 
+		where c.user_id=u.user_id 
+		and (c.course_name like #{course_description} 
+		or c.course_description like #{course_description} 
+		or c.courseting like #{course_description}) 
+		ORDER BY c.course_view DESC
+ </select>
  
  <!-- 查询所有的课程  最热排行-->
   <select id="findAllHotCourse"  resultMap="CourseMap"  parameterType="Course">
@@ -142,4 +151,11 @@
 		</foreach>
 	</delete>
 	
+	
+			<!-- //所有学习了某一门课程所有学生 -->
+	<select id="getUserInfoByCourseid" resultType="UserInfo"  parameterType="Course">
+		select *from userInfo where user_id in(
+			select user_id from studyCourse where course_id=#{course_id}
+		)
+	</select>
 </mapper>

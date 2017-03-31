@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gy.mapper.CourseAssessMapper">
+<select id="findAssessByclass_hourid"  resultMap="CourseAssessMap"  parameterType="CourseAssess">
+		select ca.*,u.user_id,u.user_name,u.pic from courseAssess ca,userInfo u 
+		where class_hour_id=#{class_hour.class_hour_id} and ca.user_id=u.user_id 
+		ORDER BY ca.time DESC limit #{starpage},#{page}
+ </select>
+ 	
+	<!-- 统计评论的数量 -->
+<select id="countAssessByclass_hourid"  resultType="java.lang.Integer"  parameterType="CourseAssess">
+		select count(1) from courseAssess ca,userInfo u  where ca.class_hour_id=#{class_hour.class_hour_id} and ca.user_id=u.user_id
+ </select>
+
+<resultMap id="CourseAssessMap" type="CourseAssess">
+		<id property="caid" column="caid"/>
+		<result property="content" column="content" />
+		<result property="time" column="time" />
+		<result property="readstatus" column="readstatus" />
+		<association property="userInfo" javaType="UserInfo">
+			<id property="user_id" column="user_id"/>
+			<result property="user_name" column="user_name"/>
+			<result property="pic" column="pic"/>
+		</association>
+		<association property="class_hour" javaType="Class_hour">
+			<id property="class_hour_id" column="class_hour_id"/>
+			<id property="title" column="title"/>
+		</association>
+	</resultMap>
+	
+	
+	<insert id="insertAssess" parameterType="CourseAssess" useGeneratedKeys="true" keyProperty="caid">
+		insert into courseAssess(user_id,class_hour_id,content,time,readstatus) 
+		values(#{userInfo.user_id},#{class_hour.class_hour_id},#{content},#{time},#{readstatus})
+	</insert>
+	
+	<!-- 某一课程的所有评论  -->
+	<select id="findAssessBycourseid"  resultMap="CourseAssessMap"  parameterType="java.util.Map">
+		select ca.*,u.user_id,u.user_name,u.pic,ch.title from courseAssess ca,userInfo u,class_hour ch
+		where ca.class_hour_id in(
+		select chh.class_hour_id from class_hour chh where chh.course_id=#{course.course_id}
+	)and ca.user_id=u.user_id 
+		and ch.class_hour_id=ca.class_hour_id
+	limit #{starpage},#{page}
+ </select>
+ 
+ 	<!-- 统计评论的数量 -->
+<select id="countAssessBycourseid"  resultType="java.lang.Integer"  parameterType="java.util.Map">
+		select count(1) from courseAssess ca,userInfo u  where ca.class_hour_id in(
+		select class_hour_id from class_hour  where course_id=#{course.course_id}
+	) and ca.user_id=u.user_id
+ </select>
+</mapper>

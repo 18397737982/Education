@@ -107,10 +107,13 @@ public class BaseDaoMybabitsImpl<T> extends SqlSessionDaoSupport implements Base
 		return super.getSqlSession().delete(this.getMapperId(t, sqlId),param);
 	}
 
-	
+	public Integer findInteger(T t, String sqlId) {
+		return super.getSqlSession().selectOne(this.getMapperId(t, sqlId), t);
+	}
 
-	
-
-
+	@Override
+	public Integer findInteger(T t, Map map, String sqlId) {
+		return super.getSqlSession().selectOne(this.getMapperId(t, sqlId),map);
+	}
 
 }

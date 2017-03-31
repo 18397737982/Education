@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
+import com.gy.beans.Course;
 import com.gy.beans.UserInfo;
 import com.gy.biz.UserInfoBiz;
 import com.gy.dao.BaseDao;
@@ -15,9 +16,9 @@ import com.gy.dao.BaseDao;
 @Service
 public class UserInfoBizImpl implements UserInfoBiz {
 
-	private BaseDao<UserInfo> baseDao;
+	private BaseDao baseDao;
 
-	public BaseDao<UserInfo> getBaseDao() {
+	public BaseDao getBaseDao() {
 		return baseDao;
 	}
 
@@ -66,6 +67,7 @@ public class UserInfoBizImpl implements UserInfoBiz {
 	}
 
 	@Override
+
 	public int saveInfo(UserInfo user) {
 		int result=this.baseDao.update(user, "updateUserInfo");
 		return result;
@@ -110,5 +112,13 @@ public class UserInfoBizImpl implements UserInfoBiz {
 		return this.baseDao.deletes(userInfo, user_ids, "delUserInfos");
 	}
 
+	public List<UserInfo> getTeacherInfoByCourseid(Course course) {
+		return this.baseDao.findAll(new UserInfo(), "getTeacherInfoByCourseid");
+	}
+
+	@Override
+	public List<UserInfo> getUserInfoByCourseid(Course course) {
+		return this.baseDao.findAll(course,"getUserInfoByCourseid");
+	}
 
 }

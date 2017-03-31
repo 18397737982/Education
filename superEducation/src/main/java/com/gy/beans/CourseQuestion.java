@@ -12,6 +12,10 @@ public class CourseQuestion implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * 每页显示评论多少条
+	 */
+	public static final int QUESTION_PAGE = 15;
 	private Integer cqid;
 	private String cqcontent;// --提问内容
 	private String cqtime;// --提问时间

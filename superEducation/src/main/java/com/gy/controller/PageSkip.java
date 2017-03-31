@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -66,8 +67,15 @@ public class PageSkip {
 	}
 
 	// 跳转search界面
-	@RequestMapping(value = "/toSearch.action")
-	public String toSearch() {
+	@RequestMapping(value = "/toSearch.action/{key}")
+	public String toSearch(@PathVariable String key,Model model) {
+		try {
+			key= new String( key.getBytes("iso-8859-1"), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+		
+			e.printStackTrace();
+		}
+		model.addAttribute("key", key);
 		return "page/search";
 
 	}

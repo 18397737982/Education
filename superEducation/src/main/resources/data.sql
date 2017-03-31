@@ -32,6 +32,8 @@ create table userInfo(
 drop table userInfo;
 select * from userInfo;
 alter table userInfo modify column pic varchar(100);
+update userInfo set pic='../img/headimg/1489496618068.jpg' where user_id=1;
+select *from userInfo;
 --3课程类别
 create table class_category(
 	class_id int primary key auto_increment,
@@ -54,6 +56,9 @@ create table course(
 	price numeric(8,2),
 	status int
 );
+select *from course;
+select *from course where course_name like '%摄影%' or course_description like '%摄影%' or courseting like '%摄影%' ;
+select course_id,course_name,c.user_id,class_id,course_view,course_description,coursephoto,price,u.user_id,u.user_name from course c , userInfo u where c.user_id=u.user_id and c.class_id=1 ORDER BY course_view DESC
 
 select *from course;
 insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('java初级教学',1,5,0,'这门课程将会带领你初步的学会java语言编程','../img/headimg/1489496618068.jpg','23.88');
@@ -106,7 +111,6 @@ create table class_hour(
 	content varchar(2000)	
 );
 
-drop table class_hour;
 		select * from class_hour where courseseq >= (
 		select courseseq from class_hour 
 			where class_hour_id=4 GROUP BY class_hour_id
@@ -132,6 +136,16 @@ alter table files
 	
 
 
+--评论回复	
+create table comment_detail(
+	comment_id int,
+	user_id int,
+	rely_id int,
+	content varchar(500)
+	
+)
+
+
 alter table comment 
 	add constraint cm_course_id foreign key(course_id) references course(course_id);
 
@@ -142,15 +156,24 @@ create table notes(
 	notes_content varchar(500),
 	class_hour_id int,
 	user_id int,
-	comment_time date
+	comment_time datetime
+);
+drop table notes;
+select *from notes n	ORDER BY n.comment_time DESC
+
+select *from notes where class_hour_id in(
+	select class_hour_id from class_hour where course_id=40
 );
 
+
+insert into notes(notes_content,class_hour_id,user_id,comment_time) values('哎呀我擦',3,1,'2017-02-23 00:00:00');
 --7课程学习总数(统计某课程被加入关注的总数)
 create table stu_count(
 	user_count_id int primary key auto_increment,
 	course_id int,
 	stu_id int
 );
+--
 insert into  stu_count(course_id,stu_id) values(41,1);
 insert into  stu_count(course_id,stu_id) values(51,2);
 insert into  stu_count(course_id,stu_id) values(1,4);
@@ -187,8 +210,16 @@ alter table stu_count
 	add constraint sc_stu_id foreign key(stu_id) references stu_user(stu_id);
 
 --账户表
+<<<<<<< HEAD
 
+=======
+=======
+>>>>>>> branch 'master' of ssh://git@github.com/18397737982/Education.git
 --8账户表
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of ssh://git@github.com/18397737982/Education.git
 create table account(
 	user_id int,--学员id 
 	balance decimal
@@ -200,15 +231,30 @@ create table courseAssess(
        class_hour_id int, 
        content varchar(500),
        time date,
-       readstatus int,
-       temp03 varchar(200)--备用字段  
-);
---10学习课程表
+       readstatus int, 
+       temp03 varchar(200)
+); 
+select ca.*,u.user_id,u.user_name,u.pic,ch.title from courseAssess ca,userInfo u,class_hour ch 
+	where ca.class_hour_id in
+	( select chh.class_hour_id from class_hour chh where chh.course_id=40 )
+	and ca.user_id=u.user_id 
+	and ch.class_hour_id=ca.class_hour_id
+	limit 0,10
+
+select *from courseAssess;
+select ca.*,u.user_id,u.user_name,u.pic from courseAssess ca,userInfo u where class_hour_id=2 and ca.user_id=u.user_id limit 0,10
+insert into courseAssess(user_id,class_hour_id,content,time,readstatus) values(2,2,'22还不错','2017-02-23 00:00:00',0);
+insert into courseAssess(user_id,class_hour_id,content,time,readstatus) values(5,2,'555还hvv不sd错31','2017-02-23 00:00:00',0);
+insert into courseAssess(user_id,class_hour_id,content,time,readstatus) values(9,2,'99还f不vvvdg错32','2017-02-23 00:00:00',0);
+insert into courseAssess(user_id,class_hour_id,content,time,readstatus) values(8,2,'88还不jhbw错33','2017-02-23 00:00:00',0);
+
+select *from courseAssess where class_hour_id=2;
+--10学习课程表  assess 参加学习后可以评价星级
 create table studyCourse(
        scid int primary key auto_increment,
        user_id int,
        course_id int, 
-       begintime date ,
+       begintime datetime ,
        assess int,
        studyPeriod varchar(500),
        temp01 varchar(200),
@@ -223,17 +269,40 @@ insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(5
 insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,4,'2017-02-23 00:00:00',1,'10');
 insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,5,'2017-02-23 00:00:00',2,'10');
 insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,6,'2017-02-23 00:00:00',3,'10');
+update studyCourse set assess=5 where user_id=1 and course_id=40
+select *from studyCourse where user_id=1 and course_id=40;
+select *from userInfo where user_id in(
+	select user_id from studyCourse where course_id=40
+)
+insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(1,40,'2017-02-23 00:00:00',2,'10');
+insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(4,40,'2017-02-23 00:00:00',1,'10');
+insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(5,40,'2017-02-23 00:00:00',2,'10');
+insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,41,'2017-02-23 00:00:00',1,'10');
+insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,41,'2017-02-23 00:00:00',2,'10');
+insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,43,'2017-02-23 00:00:00',3,'10');
+>>>>>>> branch 'master' of ssh://git@github.com/18397737982/Education.git
 insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,44,'2017-02-23 00:00:00',1,'10');
 insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,42,'2017-02-23 00:00:00',2,'10');
 insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,44,'2017-02-23 00:00:00',1,'10');
 insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,45,'2017-02-23 00:00:00',4,'10');
+drop table studyCourse;
+select scid,studyCourse.user_id,studyCourse.course_id,begintime,assess,studyPeriod from studyCourse 
+		inner join userInfo
+		on userInfo.user_id=studyCourse.user_id
+		inner join course
+		on course.course_id=studyCourse.course_id
+		where studyCourse.user_id=2;
+		
+		select c.*,begintime from course c,studyCourse s 
+  		where c.course_id=s.course_id  and c.course_id in
+		(select course_id from studyCourse where user_id=2) order by begintime desc limit 2,2;
 
 --11在教课程表
 create table teachCourse(
 	tcid int primary key auto_increment,
 	user_id int,
 	course_id int,
-	begintime date,
+	begintime datetime,
 	assess int ,
     temp01 varchar(200)
 );
@@ -279,7 +348,7 @@ create table courseAnswer(
        cqid int,
        user_id int,
        answerContent varchar(100),
-       answertime date,
+       answertime datetime,
        temp01 varchar(200)
 );
 --------------------16.课程提问表
@@ -288,13 +357,33 @@ create table courseQuestion(
        user_id int, 
        class_hour_id int ,
        cqcontent varchar(500),
-       cqtime date,
+       cqtime datetime,
        cqview int ,
        qreadstatus int,
        temp03 varchar(200)
 );
 
 --小组表
+select cq.*,user_name,u.pic from courseQuestion cq,userInfo u
+		where (cq.class_hour_id in(
+		select chh.class_hour_id from class_hour chh where chh.course_id=40
+	))and  cq.user_id=u.user_id 
+	ORDER BY cq.cqtime DESC limit 0,5 
+ 
+drop table courseQuestion;
+select *from courseQuestion;
+insert into courseQuestion(user_id,class_hour_id,cqcontent,cqtime,cqview,qreadstatus) values();
+select cq.*,user_name,u.pic from courseQuestion cq
+		inner join userInfo u
+		on cq.user_id=u.user_id
+		where cq.user_id=2
+select ca.*,cqcontent,user_name from courseAnswer ca
+		inner join userInfo u
+		on ca.user_id=u.user_id
+		inner join courseQuestion cq
+		on ca.cqid=cq.cqid
+		where ca.user_id=2;
+-----------------14.小组表
 create table cgroup(
 	git int primary key auto_increment, 
 	groupname varchar(100),
@@ -342,3 +431,4 @@ select user_name,pic,scontent from selfMessage s
 		on s.sendman=u.user_id
 		where s.sendman in (select sendman from selfMessage where receiveman=2)
 select * from selfMessage;
+

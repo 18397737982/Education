@@ -18,13 +18,14 @@
 <link rel="stylesheet" type="text/css" href="css/tcdPageCode.css">
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="js/assets/css/font-awesome.css" rel="stylesheet">
+<link href="css/smohan.face.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="js/top.js"></script>
-<script type="text/javascript" src="js/joinproject.js"></script>
 <script type="text/javascript" src="js/smohan.face.js" charset="utf-8"></script>
 <script type="text/javascript" src="js/jquery.page.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
-
+<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="js/joinproject.js"></script>
 <style>
 .form-group {
 	margin-top: 14px;
@@ -79,7 +80,10 @@
 	var uname = '${users.user_name}';
 	var userid = '${users.user_id}';
 	var presentid='${users.user_id}';
-	console.info(presentid);
+	var course_id='${onecourse.course_id}';
+	var techername='${onecourse.userInfo.user_name}';
+	var techerid='${onecourse.userInfo.user_id}';
+	var techerpic='${onecourse.userInfo.pic}';
 	if("${users}"==""){
 		console.info("yes");
 		presentid=0;
@@ -91,11 +95,9 @@
 		}
 		
 		
- 		$.post('courseAnswer/AddAnswerbycqid/',{userid:"${users.user_id}",cqid:$("#cqid").val(),answerContent:$("#add").val()},function(data){
-			
-			
+ 		/* $.post('courseAnswer/AddAnswerbycqid/',{userid:"${users.user_id}",cqid:$("#cqid").val(),answerContent:$("#add").val()},function(data){
 			window.location.href=window.location.href;
-		})
+		}) */
 		 
 	}
 	function Assessgrade(){
@@ -124,6 +126,40 @@
 		}
 	}
 	
+function myAssess(){
+	if(userid!=null&&userid!=''){
+		mystar=$("#mystar").val();
+		if(mystar>5||mystar<1){
+			return 0;
+		}
+		$.ajax({
+			url:"toPingjiaCourse.action",
+			data: {"user_id": userid,
+						"course_id":course_id,
+						"assess":mystar
+			},
+			method:"POST",
+			type:"POST",
+			dataType: 'json',
+			success:function(data){
+				alert(data);
+				if(data=="false1"){
+					 alert("你还没加入该课程...")
+				}else if(data=="false2"){
+					 alert("评价分数异常...")
+				}else if(data=="true"){
+					 alert("评价成功...")
+				}
+	
+			}
+		});
+		
+		
+		
+	}else{
+		alert("温馨提示：你还没有 登陆....");
+	}
+}
 	
 </script>
 </head>
@@ -184,6 +220,16 @@
 									<input
 									type="hidden" name="score" value="3"></span> <span id="ass"></span> <span
 							id="asscount">（${assessCount}人评价）</span>
+							<b style="float:right"><span>我要评价：</span>
+							<select id="mystar">
+							  <option value ="1">1星</option>
+							  <option value ="2">2星</option>
+							  <option value="3">3星</option>
+							  <option value="4">4星</option>
+							  <option value="5">5星</option>
+							</select>&nbsp&nbsp&nbsp&nbsp<a href="javascript:void(0);" onclick="myAssess()">提交</a>
+							&nbsp&nbsp&nbsp&nbsp
+							</b>
 					</div>
 
 					<ul class="metas clearfix">
@@ -228,33 +274,33 @@
 									data-toggle="modal"
 									data-url="/announcement/254/9573/show?targetType=course"> <i
 									class="es-icon es-icon-infooutline"></i>
-									好知摄影课堂官方讨论群：499012956欢迎各位小伙伴进群讨论。好知摄影课堂会...
+									好知课堂官方讨论群：499012956欢迎各位小伙伴进群讨论。好知课堂会...
 								</a>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="course-lessons flat" data-widget-cid="widget-1">
+				<div class="course-lessons flat" data-widget-cid="widget-1"  id="course-content">
 					<div class="course-nav clearfix affix-top" id="myScrollspy">
 						<ul class="nav" id="nav">
 
-							<li class="active"><a href="javascript:void(0);">简介</a></li>
+							<li class="active"><a href="javascript:void(0);"onclick="myrefresh()">简介</a></li>
 
-							<li class=""><a href="javascript:void(0);">课时 <span
+							<li class=""  id="showallclasshour"><a  href="javascript:void(0);" onclick="showclasshour()">课时 <span
 									id="cm"></span>
 							</a></li>
-							<li class="hz-x-hide "><a href="javascript:void(0);">笔记
+							<li class="hz-x-hide "><a href="javascript:void(0);" onclick="shownotes(0)">笔记
 									<span id="bj"></span>
 							</a></li>
-							<li class="hz-x-hide "><a href="javascript:void(0);">问答
-									<span id="questionnumber">(23)</span>
+							<li class="hz-x-hide "><a href="javascript:void(0);" onclick="courseQuestion(0)">问答
+									<span id="questionnumber"></span>
 							</a></li>
-							<li class="hz-x-hide "><a href="javascript:void(0);">学员
-									<span id="Allstudent">(11922)</span>
+							<li class="hz-x-hide "><a href="javascript:void(0);"onclick='showstudent()'>学员
+									<span id="Allstudent">(${all_study.size() })</span>
 							</a></li>
-							<li class=""><a href="javascript:void(0);">评论 <span
-									id="Allcomment">(474)</span></a></li>
+							<li class=""><a href="javascript:void(0);" onclick="showAssess(0)">评论 <span
+									id="Allcomment"></span></a></li>
 							<li class="btnbar pull-right"><a
 								class="btn btn-primary joinbtn pull-right mlm"
 								data-toggle="modal" href="javascript:void(0);"
@@ -273,7 +319,7 @@
 						</div>
 						<h3 class="overview-title hz-line-left">课程标签</h3>
 						<ul class="tag mtl phl clearfix">
-							<li><a href="" id="courseing">人像摄影</a></li>
+							<li><a href="" id="courseing">${onecourse.course_name }</a></li>
 						</ul>
 
 						<h3 class="overview-title hz-line-left">课程列表</h3>
@@ -301,20 +347,11 @@
 							
 					</div>
 					<!--  课程详情分割线 ------------------------------------ -->
-
-<!-- 					 课程列表分割线  ----------------------------------------------
-					<ul class="period-list hz-courselist" id="courselist"
-						style="display: none;">
-						<li class="period lesson-item lesson-item-67383 "
-							style="text-align: center; color: #616161">该课程还未添加课时！！！</li>
-
-					</ul>
-					 课程列表分割线  ---------------------------------------------- -->
 					<!--  笔记 ----------------------------------- -->
 					<div class="course-notes course-in" style="display: none;"
 						id="courseNotes">
 						<div class="notes-header">
-							<a href="http://www.howzhi.com/course/9573/notes"
+							<a href="javascript:void(0);"
 								class="  active  nn">同学笔记</a> <span><a
 								href="javascript:void(0);">最热</a> <a href="javascript:void(0);"
 								class="active">最新</a></span>
@@ -442,7 +479,7 @@
 					<!--  学员分割线 --------------------------------- -->
 					<div class="course-classmate course-in" style="display: none;"
 						id="courseClassmate">
-						<h4>
+<!-- 						<h4>
 							<span class="dash-icon"></span>授课老师
 						</h4>
 						<ul class="course-in-ul clearfix" id="studentsInfo">
@@ -468,59 +505,26 @@
 
 
 
-						<div class="tcdPageCode" id="stcpage"></div>
+						<div class="tcdPageCode" id="stcpage"></div> -->
 
 
 
 					</div>
 					<!--  学员分割线 ------------------------------ -->
 					<!-- 评论分割线 ---------------------------------------- -->
-					<div class="course-notes course-in" style="display: none"
+					<div class="course-notes course-in"  style="display: none;"
 						id="courseAssess">
-						<ul class="notes-list" id="commentcontent">
-							<li id="item92930">
-								<div class="notes-img">
-									<a class=" js-user-card"
-										href="http://www.howzhi.com/u/1731774/"
-										data-card-url="/user/1731774/card/show" data-user-id="1731774">
-										<img class="avatar-sm" src="images/avatar.png" alt="竹墨涵清">
-									</a>
-
-								</div>
-								<div class="notes-content">
-									<h4>
-										发布在课时 <a href="http://www.howzhi.com/course/9573/lesson/67386">人像后期调色</a>
-									</h4>
-									<div class="body">好好</div>
-									<div class="metas">
-										<span class="name">by <a href="javascrit:;">竹墨涵清</a></span><span
-											class="time">--8天前</span>
-									</div>
-								</div>
-							</li>
-
-							<li id="item92778">
-								<div class="notes-img">
-									<a class=" js-user-card"
-										href="http://www.howzhi.com/u/2359649/"
-										data-card-url="/user/2359649/card/show" data-user-id="2359649">
-										<img class="avatar-sm" src="images/avatar.png" alt="suiyuang">
-									</a>
-
-								</div>
-								<div class="notes-content">
-									<h4>
-										发布在课时<a href="http://www.howzhi.com/course/9573/lesson/67385">光影和动作捕捉</a>
-									</h4>
-									<div class="body">好好</div>
-									<div class="metas">
-										<span class="name">by <a href="javascrit:;">suiyuang</a></span><span
-											class="time">--13天前</span>
-									</div>
-								</div>
-							</li>
-
-						</ul>
+						
+						  <ul class="course-in-ul">
+                                  <li>
+                 <h4>
+                    <span class="q-icon"></span><a class="js-nav" href="/question/57888">请问能下载吗？</a>
+                                                             
+                  </h4>
+                   <p>by     <a class="link-light link-muted" href="/u/2423289/">泡宓</a>
+   • 0 回答 • 18浏览</p>
+                </li>
+                </ul>
 						<div class="tcdPageCode" id="commenttcpage"></div>
 					</div>
 					<!--  评论分割线 ------------------------------------- -->
@@ -658,7 +662,7 @@
 
 					</div>
 					<div class="teach-info media-body">
-						<p class="text-o-show">
+						<p class="text-o-show"> 
 							<a class="link-light " href="http://www.howzhi.com/u/1687444/" id="tname">${onecourse.userInfo.user_name}</a>
 						</p>
 						<p>
@@ -667,10 +671,10 @@
 						</p>
 					</div>
 					<div class="ta clearfix" data-role="followUser">
-						<a class="act first follow-btn" href="javascript:;"
+						<a class="act first follow-btn" href="javaScript:void(0);"
 							data-url="/user/8441/follow" id="attion"> <i
 							class="fa fa-plus"></i> 关注TA
-						</a> <a class="act first unfollow-btn" href="javascript:;"
+						</a> <a class="act first unfollow-btn" href="javaScript:void(0);"
 							data-url="/user/8441/unfollow" style="display: none"
 							 id="attion2"> <i class="fa fa-check" ></i> 已关注
 						</a> <a id="mes" class="act" href="javaScript:void(0);" data-toggle="modal"
@@ -690,25 +694,28 @@
 					<h3>最新评论</h3>
 					<ul id="mediacomment">
 						<!-- 右边的评论 -->
+						<c:if test="${assess.size()>0}"> 
+						<c:forEach items="${assess}" var="item" >
 						<li class="media">
 							<div class="media-left">
-								<a class=" js-user-card" href="http://www.howzhi.com/u/1559536/"
+								<a class=" js-user-card" href="javascript:void(0);"
 									data-card-url="/user/1559536/card/show" data-user-id="1559536">
-									<img class="avatar-xs " src="images/avatar.png" 　alt="ylzd">
+									<img class="avatar-xs " src="${item.userInfo.pic}" 　alt="${item.userInfo.user_name}">
 								</a>
 							</div>
 							<div class="comment-content media-body ">
 								<div class="name">
-									<a class="link-light " href="http://www.howzhi.com/u/1559536/">ylzd</a>
-									<span class="day">12天前</span>
+									<a class="link-light " href="javascript:void(0);">${item.userInfo.user_name}</a>
+									<span class="day">${item.time}</span>
 								</div>
-								<div class="content">都是干货，赞</div>
+								<div class="content">${item.content}</div>
 							</div>
 						</li>
-
+					</c:forEach>
+					</c:if>
 					</ul>
 					<div class="more">
-						<a href="http://www.howzhi.com/course/9573/comments"><i
+						<a href="javascript:void(0);"><i
 							class="glyphicon glyphicon-chevron-right"></i>查看更多</a>
 					</div>
 				</div>
@@ -723,24 +730,17 @@
 
 					<div class="panel-body" id="studentsdynamic">
 
-
+						<c:if test="${all_study.size()>0}"> 
+						<c:forEach items="${all_study}" var="item"  begin='0'  end='2'>
 						<div class="media media-number-o">
 							<div class="media-body">
-								<a class="link-light " href="http://www.howzhi.com/u/2355584/">白城阿3</a>
+								<a class="link-light " href="http://www.howzhi.com/u/2355584/">${item.userInfo.user_name}</a>
 								开始学习课时 <a class="link-dark"
-									href="http://www.howzhi.com/course/9573/" title="来自《人像摄影高级教程》">人像器材的选择</a>
-
+									href="http://www.howzhi.com/course/9573/" title="来自《${item.course.course_name}》">${item.course.course_name}</a>
 							</div>
 						</div>
-						<div class="media media-number-o">
-							<div class="media-body">
-								<a class="link-light " href="http://www.howzhi.com/u/2355584/">白城阿3</a>
-								开始学习课时 <a class="link-dark"
-									href="http://www.howzhi.com/course/9573/" title="来自《人像摄影高级教程》">人像器材的选择</a>
-
-							</div>
-						</div>
-
+						</c:forEach>
+						</c:if>
 					</div>
 
 				</div>
@@ -748,13 +748,16 @@
 				<div class="flat sidebar-notes">
 					<h3>课程最新笔记</h3>
 					<ul id="rightNote">
+						<c:if test="${notes.size()>0}"> 
+						<c:forEach items="${notes}" var="item" >
 						<li>
 							<h4>
 								<a href="javascript:void(0);"><i
-									class="glyphicon glyphicon-pencil"></i>人像后期调色的笔记</a>
-							</h4> <span>呈现出</span>
+									class="glyphicon glyphicon-pencil"></i>${item.stu_user.user_name}的笔记</a>
+							</h4> <span>${item.notes_content}</span>
 						</li>
-
+						</c:forEach>
+						</c:if>
 					</ul>
 					<div class="more">
 						<a href="http://www.howzhi.com/course/9573/notes"><i
@@ -762,7 +765,7 @@
 					</div>
 				</div>
 
-				<div class="flat sidebar-question">
+<!-- 				<div class="flat sidebar-question">
 					<h3>课程最新问题</h3>
 					<ul id="topquestion">
 
@@ -778,7 +781,7 @@
 						<a href="http://www.howzhi.com/course/9573/questions"><i
 							class="glyphicon glyphicon-chevron-right"></i>查看更多</a>
 					</div>
-				</div>
+				</div> -->
 
 				<!--新加入学员-->
 				<div class="flat sidebar-learner ">
@@ -1074,5 +1077,12 @@
 	
 
 </body>
-
+<style>
+.pagination{
+text-align:center !important;list-style-type:none !important;
+}
+.pagination li{
+display:inline !important;
+}
+</style>
 </html>

@@ -148,5 +148,9 @@ public class CourseBizImpl implements CourseBiz {
 		Course course=new Course();
 		return this.baseDao.deleteMany(course, list, "delCourses");
 	}
+	
+	public List<Course> searchCourse(Course course) {
+		return this.baseDao.findAll(course,"searchCourse");
+	}
 
 }

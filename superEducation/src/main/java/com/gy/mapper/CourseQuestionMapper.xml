@@ -7,6 +7,8 @@
 	<resultMap type="CourseQuestion" id="QuestionMap">
 		<id property="cqid" column="cqid"/>
 		<result property="cqcontent" column="cqcontent"/>
+		<result property="cqview" column="cqview"/>
+		<result property="qreadstatus" column="qreadstatus"/>
 		<association property="userInfo" javaType="UserInfo">
 			<id property="user_id" column="user_id"/>
 			<result property="user_name" column="user_name"/>
@@ -20,4 +22,27 @@
 		where cq.user_id=#{userInfo.user_id}
 	</select>
 	
+	<!--通过课程id 分页查询提问 ty -->
+	<select id="getMyQuestionByCourseid" resultMap="QuestionMap"  parameterType="java.util.Map">
+		select cq.*,user_name,u.pic from courseQuestion cq
+		inner join userInfo u
+		on cq.user_id=u.user_id
+		where cq.class_hour_id in(
+		select chh.class_hour_id from class_hour chh where chh.course_id=#{course.course_id}
+	)ORDER BY cq.cqtime DESC limit #{starpage},#{page} 
+	</select>
+	
+	<select id="countMyQuestionByCourseid" resultType="java.lang.Integer"  parameterType="java.util.Map">
+		select count(1) from courseQuestion cq
+		inner join userInfo u
+		on cq.user_id=u.user_id
+		where cq.class_hour_id in(
+		select chh.class_hour_id from class_hour chh where chh.course_id=#{course.course_id}
+	)
+	</select>
+	
+	<insert id="insertcourseQuestion" parameterType="CourseQuestion" useGeneratedKeys="true" keyProperty="cqid">
+			insert into courseQuestion(user_id,class_hour_id,cqcontent,cqtime,cqview,qreadstatus) 
+			values(#{userInfo.user_id},#{class_hour.class_hour_id},#{cqcontent},#{cqtime},#{cqview},#{qreadstatus});
+	</insert>
 </mapper>
