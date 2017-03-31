@@ -80,9 +80,29 @@
 		where user_id=#{user_id}
 	</update>
 	
+
 	<select id="findPicByUsername" parameterType="UserInfo" resultType="UserInfo">
 		select * from userInfo where user_name=#{user_name}
 	</select>
 	
+
+	<select id="findAllUsers" resultType="UserInfo">
+		select * from userInfo limit #{pagenumber},#{pagesize}
+	</select>
+	
+	<select id="getTotal" resultType="String">
+		select count(1) from userInfo
+	</select>
+	
+	<delete id="delUserInfo"  parameterType="UserInfo" >
+		delete from userInfo where user_id=#{user_id}
+	</delete>
+	
+	<delete id="delUserInfos" parameterType="java.util.List" >
+		delete from userInfo where user_id in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
 	
 </mapper>

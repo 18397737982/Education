@@ -8,18 +8,19 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.gy.beans.Admin;
+import com.gy.beans.UserInfo;
 import com.gy.biz.AdminBiz;
 import com.gy.dao.BaseDao;
 @Service
 public class AdminBizImpl implements AdminBiz {
-	private BaseDao<Admin> baseDao;
+	private BaseDao baseDao;
 
-	public BaseDao<Admin> getBaseDao() {
+	public BaseDao getBaseDao() {
 		return baseDao;
 	}
 
 	@Resource(name = "baseDaoMybabitsImpl")
-	public void setBaseDao(BaseDao<Admin> baseDao) {
+	public void setBaseDao(BaseDao baseDao) {
 		this.baseDao = baseDao;
 	}
 
@@ -69,6 +70,15 @@ public class AdminBizImpl implements AdminBiz {
 		String s=this.baseDao.findString(admin, "findCount");
 		System.out.println(Integer.parseInt(s));
 		return Integer.parseInt(s);
+	}
+	public List<UserInfo> findAllUsers(UserInfo userInfo) {
+		return this.baseDao.findAll(userInfo, "findAllUsers");
+	}
+
+	@Override
+	public List<Admin> findAllAdmin() {
+		Admin admin=new Admin();
+		return this.baseDao.findAll(admin, "findAllAdmin");
 	}
 	
 }

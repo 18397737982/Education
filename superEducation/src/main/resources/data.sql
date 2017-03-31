@@ -10,6 +10,7 @@ create table admin(
 select * from joingroup  where gid=1 order by jid desc
 select * from cgroup where groupname='super';
 drop table admin;
+select * from admin;
 --2学员表
 select user_name from userInfo where user_name='a';
 create table userInfo(
@@ -18,7 +19,7 @@ create table userInfo(
 	realname varchar(50),
 	age    int,
 	sex   varchar(10),
-	pic   longblob,
+	pic   varchar(100),
 	password varchar(50) not null,
 	usign varchar(500),
 	introduce varchar(500),
@@ -31,13 +32,17 @@ create table userInfo(
 	temp02 varchar(200),
     temp03 varchar(200)
 );
+drop table userInfo;
 select * from userInfo;
+alter table userInfo modify column pic varchar(100);
 --3课程类别
 create table class_category(
 	class_id int primary key auto_increment,
 	class_categorys varchar(50),
 	temp01 varchar(200) 
 );
+
+delete from userInfo where user_id= 5;
 --4课程
 drop table course;
 create table course(
@@ -52,6 +57,7 @@ create table course(
 	price numeric(8,2),
 	status int
 );
+<<<<<<< HEAD
 select * from class_hour;
 select * from userInfo;
 alter table course alter column status set default 0;
@@ -79,18 +85,20 @@ select c.*,(select count(1) from teachCourse where user_id=2)
 		where t.user_id=2 and c.status=1
 select * from course;		
 select course_id,course_name,c.user_id,class_id,course_view,course_description,coursephoto,price,u.user_id,u.user_name from course c , userInfo u where c.user_id=u.user_id and c.class_id=1 ORDER BY course_view DESC
+=======
+>>>>>>> branch 'master' of ssh://git@github.com/18397737982/Education.git
 
 select *from course;
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('java初级教学',2,5,0,'这门课程将会带领你初步的学会java语言编程','../img/headimg/1489496618068.jpg','23.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('摄影初级教学',10,1,0,'这门课程将会带领你初步的学会摄影初级','../img/headimg/1489496618068.jpg','21.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('摄影中级教学',10,1,0,'这门课程将会带领你中步的学会摄影初级','../img/headimg/1489496618068.jpg','43.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('设计图初级教学',2,2,0,'这门课程将会带领你初步的学会设计图初级','../img/headimg/1489496618068.jpg','23.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('设计图中级教学',2,2,0,'这门课程将会带领你进一步的学会设计图初级','../img/headimg/1489496618068.jpg','43.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('吉他初级教学',3,3,0,'这门课程将会带领你初步的学会吉他','../img/headimg/1489496618068.jpg','23.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('吉他初级教学',3,3,0,'这门课程将会带领你进一步步的学会吉他','../img/headimg/1489496618068.jpg','43.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('篮球初级教学',4,4,0,'这门课程将会带领你初步的学会篮球','../img/headimg/1489496618068.jpg','23.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('篮球中级教学',4,4,0,'这门课程将会带领你进一步的学会java语言编程','../img/headimg/1489496618068.jpg','43.88');
-insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('js初级教学',5,5,0,'这门课程将会带领你初步的学会js语言编程','../img/headimg/1489496618068.jpg','23.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('java初级教学',1,5,0,'这门课程将会带领你初步的学会java语言编程','../img/headimg/1489496618068.jpg','23.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('摄影初级教学',1,1,0,'这门课程将会带领你初步的学会摄影初级','../img/headimg/1489496618068.jpg','21.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('摄影中级教学',1,1,0,'这门课程将会带领你中步的学会摄影初级','../img/headimg/1489496618068.jpg','43.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('设计图初级教学',1,2,0,'这门课程将会带领你初步的学会设计图初级','../img/headimg/1489496618068.jpg','23.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('设计图中级教学',1,2,0,'这门课程将会带领你进一步的学会设计图初级','../img/headimg/1489496618068.jpg','43.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('吉他初级教学',1,3,0,'这门课程将会带领你初步的学会吉他','../img/headimg/1489496618068.jpg','23.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('吉他初级教学',1,3,0,'这门课程将会带领你进一步步的学会吉他','../img/headimg/1489496618068.jpg','43.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('篮球初级教学',1,4,0,'这门课程将会带领你初步的学会篮球','../img/headimg/1489496618068.jpg','23.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('篮球中级教学',1,4,0,'这门课程将会带领你进一步的学会java语言编程','../img/headimg/1489496618068.jpg','43.88');
+insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('js初级教学',1,5,0,'这门课程将会带领你初步的学会js语言编程','../img/headimg/1489496618068.jpg','23.88');
 insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('js中级教学',5,5,0,'这门课程将会带领你进一步的学会js语言编程','../img/headimg/1489496618068.jpg','43.88');
 insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('LOL初级教学',6,6,0,'这门课程将会带领你初步的学会LOL','../img/headimg/1489496618068.jpg','23.88');
 insert into course(course_name,user_id,class_id,course_view,course_description,coursephoto,price) values('LOL中级教学',6,6,0,'这门课程将会带领你进一步的学会LOL','../img/headimg/1489496618068.jpg','23.88');
@@ -130,6 +138,8 @@ create table class_hour(
 	courseseq int ,
 	content varchar(2000)	
 );
+
+drop table class_hour;
 		select * from class_hour where courseseq >= (
 		select courseseq from class_hour 
 			where class_hour_id=4 GROUP BY class_hour_id
@@ -153,20 +163,8 @@ create table files(
 alter table files 
 	add constraint fl_course_id foreign key(course_id) references course(course_id);
 	
---评论
-create table comment(
-	comment_id int primary key auto_increment,--评论id
-	comment_content varchar(500),--评论内容
-	
-);
---评论回复	
-create table comment_detail(
-	comment_id int,
-	user_id int,
-	rely_id int,
-	content varchar(500)
-	
-)
+
+
 alter table comment 
 	add constraint cm_course_id foreign key(course_id) references course(course_id);
 
@@ -269,10 +267,15 @@ create table studyCourse(
        temp01 varchar(200),
        temp02 varchar(200)
 );
+<<<<<<< HEAD
 
 
 select * from studyCourse;
 delete from studyCourse;
+=======
+drop table studyCourse;
+select * from teachCourse where user_id=8;
+>>>>>>> branch 'master' of ssh://git@github.com/18397737982/Education.git
 select * from course;
 insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(2,1,'2017-02-23 00:00:00',2,'10');
 insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(2,2,'2017-02-23 00:00:00',1,'10');
@@ -295,6 +298,7 @@ create table teachCourse(
     temp01 varchar(200)
 );
 select * from teachCourse;
+drop table teachCourse;
 insert into teachCourse(user_id,course_id,begintime,assess,temp01) values(2,3,4,5,null)
 drop table teachCourse;
 	select c.*,(select count(1) from teachCourse where course_id = c.course_id )
@@ -305,7 +309,13 @@ drop table teachCourse;
 		on u.user_id=t.user_id
 		inner join course c
 		on c.course_id=t.course_id
-		where t.user_id=2
+		where t.user_id=8
+select c.*,(select count(1) from teachCourse where user_id=8) memberCount,u.*, (select avg(assess) from teachCourse where course_id = c.course_id) assessAvg from teachCourse t inner join userInfo u on u.user_id=t.user_id inner join course c on c.course_id=t.course_id where t.user_id=8 and c.status=1 
+update course set status=1 where user_id=1;
+select * from teachCourse;
+select * from course;
+commit;
+select s.*,(select count(1) from studyCourse where course_id = s.course_id ) memberCount, (select avg(assess) from studyCourse where course_id = s.course_id) assessAvg, (select count(*) from class_hour ch where ch.course_id=s.course_id )totalCm, (select studyPeriod from studyCourse sc where sc.user_id=8 and sc.course_id=s.course_id)studyPeriod from course s left join userInfo u on s.user_id=u.user_id left join class_category cl on cl.class_id=s.class_id where s.course_id in(select course_id from studyCourse where user_id =8) 
 --------------------------11.关注表（保留意见）
 create table attention(
        atid  int  primary key auto_increment,  
@@ -343,14 +353,31 @@ create table courseQuestion(
        qreadstatus int,
        temp03 varchar(200)
 );
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of ssh://git@github.com/18397737982/Education.git
 --小组表
 create table cgroup(
+<<<<<<< HEAD
 	gid int primary key auto_increment, 
 	groupname varchar(100),
 	pic varchar(100),
 	introduction varchar(500),
 	user_name varchar(50),
 	createtime date	
+=======
+	git int primary key auto_increment, 
+	groupname varchar(100),
+	pic varchar(100),
+	cdate date
+	
+)
+-----------------14.小组表
+create table joingroup(
+       git int,
+       user_id int,    
+>>>>>>> branch 'master' of ssh://git@github.com/18397737982/Education.git
 );
 insert into cgroup(groupname,pic,introduction,createtime,user_name) value('strong','../img/headimg/148949695060214942.jpg','strong 是一个强大小组','2017-02-23 00:00:00','t');
 insert into cgroup(groupname,pic,introduction,createtime,user_name) value('super','../img/headimg/148949695060214942.jpg','strong 是一个强大小组','2017-02-23 00:00:00','t');

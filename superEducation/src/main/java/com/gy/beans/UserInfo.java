@@ -3,6 +3,8 @@ package com.gy.beans;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class UserInfo implements Serializable{
 
 	/**
@@ -23,8 +25,6 @@ public class UserInfo implements Serializable{
 	private Integer status;
 	private int pagenumber;
 	private int pagesize;
-
-	
 	
 	@Override
 	public String toString() {

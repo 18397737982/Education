@@ -193,9 +193,12 @@ public class CourseController {
 		
 	}
 	// 课程类
-	@RequestMapping(value = "getCategoryInformation.action", produces = "text/html;charset=UTF-8")
-	public void getCategoryInformation(Model model) throws IOException {
-		model.addAttribute("category", this.categoryBiz.findAllCategory());
+	@ResponseBody
+	@RequestMapping(value = "/getCategoryInformation.action")
+	public List<Class_category> getCategoryInformation(Model model) throws IOException {
+		List<Class_category> list=this.categoryBiz.findAllCategory();
+		model.addAttribute("category", list);
+		return list;
 	}
 	
 

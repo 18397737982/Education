@@ -15,7 +15,7 @@ $(function(){
 					$('#center_area').tabs('add',{
 						title:'课程类型管理',
 						closable:true,
-						href:"/newhaozhiwang/back/manager/coursetype.html"
+						href:"/superEducation/back/manager/coursetype.html"
 					});
 				}
 			}else if(text=="课程管理"){
@@ -25,7 +25,7 @@ $(function(){
 					$('#center_area').tabs('add',{
 						title:'课程管理',
 						closable:true,
-						href:"/newhaozhiwang/back/manager/course.html"
+						href:"/superEducation/back/manager/course.html"
 					});
 				}
 			}else if(text=="管理员管理"){
@@ -45,7 +45,7 @@ $(function(){
 					$('#center_area').tabs('add',{
 						title:'会员管理',
 						closable:true,
-						href:"/newhaozhiwang/back/manager/users.html"
+						href:"/superEducation/back/manager/users.html"
 					});
 				}
 			}else if(text=="个人信息"){
@@ -55,7 +55,7 @@ $(function(){
 					$('#center_area').tabs('add',{
 						title:'个人信息',
 						closable:true,
-						href:"/newhaozhiwang/back/manager/edit.html"
+						href:"/superEducation/back/manager/edit.html"
 					});
 				}
 			}
@@ -66,7 +66,7 @@ $(function(){
 					$('#center_area').tabs('add',{
 						title:'小组管理',
 						closable:true,
-						href:"/newhaozhiwang/back/manager/group.html"
+						href:"/superEducation/back/manager/group.html"
 					});
 				}
 			}

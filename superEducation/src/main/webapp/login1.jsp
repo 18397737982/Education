@@ -56,7 +56,7 @@ function InputYZcode(){
 				if(data>0){
 					$("#aname").val("");
 					$("#apassword").val("");
-					location.href = "back/index.action";
+					location.href = "back/manager/index.jsp";
 				}else{
 					alert("账户或密码错误");
 				}
@@ -83,9 +83,6 @@ function InputYZcode(){
 		}
 	}
 </script>
-<%
-	
-%>
 </head>
 <body>
 	<body>
@@ -114,14 +111,12 @@ function InputYZcode(){
                 <div class="uinArea" id="uinArea">
                 <label class="input-tips" for="u">帐号：</label>
                 <div class="inputOuter" id="uArea">
-                    
                     <input type="text" id="aname" name="aname" class="inputstyle"/><span id="msg"></span>
                 </div>
                 </div>
                 <div class="pwdArea" id="pwdArea">
                <label class="input-tips" for="p">密码：</label> 
                <div class="inputOuter" id="pArea">
-                    
                     <input type="password" id="apassword" name="apassword" class="inputstyle"/><span id="msg02"></span>
                 </div>
                 </div>

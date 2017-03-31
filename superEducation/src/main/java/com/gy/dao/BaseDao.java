@@ -9,13 +9,17 @@ public interface BaseDao<T> {
 	
 	public T  find(T t,String sqlId);
 	public String  findString(T t,String sqlId);
-	
+
+	//用于分页查询
+
 	public List<T> findAll(T t,String sqlId);
 	
 	public List<T> findAll(T t,Map map,String sqlId);
 	
 	//添加
 	public int add(T t,String sqlId);
+	
+	public int deletes(T t,List param,String sqlId);
 	
 	public int add(T t,Map map,String sqlId);
 	//删除

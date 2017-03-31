@@ -49,12 +49,12 @@ data-options="iconCls:'icon-add',resizable:true,model:true,closed:true">
 	pageNumber:1,//初始页码
 	pageSize:10,//分页大小
 	pageList:[5,10,20,30,40,50],//设置属性
-	sortName:'aid',//定义那个列可以排序.
+	sortName:'admin_id',//定义那个列可以排序.
 	remoteSort:false,//定义是否远程排序.对数据库进行操作
     columns:[[ 
-		{field:'aids',title:'',width:60,align:'center',checkbox:true}, 
-        {field:'aid',title:'管理员编号',width:80,align:'center',sortable:true},  
-        {field:'aname',title:'管理员名称',width:80,align:'center',editor:{type:"text",options:{requires:true}}},
+		{field:'admin_ids',title:'',width:60,align:'center',checkbox:true}, 
+        {field:'admin_id',title:'管理员编号',width:80,align:'center',sortable:true},  
+        {field:'admin_name',title:'管理员名称',width:80,align:'center',editor:{type:"text",options:{requires:true}}},
         {field:'email',title:'管理员邮箱',width:80,align:'center',editor:{type:"text",options:{requires:true}}},
 
     ]],

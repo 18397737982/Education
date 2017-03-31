@@ -47,4 +47,12 @@ public interface CourseBiz {
 	public int findAttentionCount(Course course);
 
 	public List<Class_hour> findNowclasshour(Class_hour class_hour);
+	//得到课程分页
+	public List<Course> getAllcoursebypage(String pageNumber,String pageSize);
+	
+	public int getTotalCourse();
+
+	public int delCourse(Course course);
+
+	public int delCourses(List<String> list);
 }

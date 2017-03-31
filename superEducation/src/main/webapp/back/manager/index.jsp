@@ -3,11 +3,13 @@
     pageEncoding="UTF-8"%>
 <%@page isELIgnored="false"  %> 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page isELIgnored="false"  %>
 <!DOCTYPE html>
 <html>
 <head>
 	<base href="/superEducation/"/>
 	<meta charset="UTF-8"> 
+	<meta charset=utf-8 />	
 	<title>好知网</title>
 	<link href="http://f1.howzhi.com/system/2016/03-31/113613d6a857327741.ico" rel="shortcut icon">
 	<link rel="stylesheet" type="text/css" href="easyui/css/easyui.css">
@@ -22,12 +24,8 @@
 	<script type="text/javascript" src="ckeditor/ckeditor.js"></script>  
     <script type="text/javascript" src="ckeditor/config.js"></script>  
     <script type="text/javascript" src="back/js/index.js"></script>
-   	<!-- <script type="text/javascript">
-   		var myckeditor;
-	    	$(document).ready(function(){  
-	    	 myckeditor=CKEDITOR.replace('myckeditor'); 
-	    });  
-	</script>   -->
+    <script type="text/javascript" src="back/js/showpic.js"></script>
+   	
 <style type="text/css">
 	#toplogo{
 		font-size:14px;
@@ -52,6 +50,8 @@
 				 $.post("back/manager/doExit.jsp",function(data){
 						if(data>0){
 							location.href = "toAdmin.action";
+
+							location.href = "login1.jsp";
 						}
 					});
 			 }else{
@@ -110,19 +110,6 @@
 	</div>
 	</div>
 	<div data-options="region:'west',split:true,title:'菜单'" style="width:150px;padding:10px;">
-		<!-- <ul class="easyui-tree" id="menu_tree">
-			<li>
-				<span>菜单</span>
-				<ul>
-					<li>管理员管理</li>
-					<li>会员管理</li>
-					<li>课程类型管理</li>
-					<li>课程管理</li>
-					<li>小组管理</li>
-				    <li>个人信息</li>	
-				</ul>
-			</li>
-		</ul> -->
 		<div class="easyui-accordion" style="width: 100%;">
 		<div title="管理员管理" style="padding:10px;overflow: auto;">
 			<ul class="easyui-tree" >

@@ -17,4 +17,31 @@
 	<select id="findbycalss_id" resultType="Class_category"  parameterType="Class_category">
 		select *  from Class_category where class_id=#{class_id}
 	</select>
+	
+	<select id="getAllCourseType" resultType="Class_category"  parameterType="java.util.Map">
+		select *  from Class_category limit #{pageNumber},#{pageSize}
+	</select>
+	
+	<select id="getTotalCourseType" resultType="String">
+		select count(1) from Class_category
+	</select>
+	
+	<insert id="addCourseType" parameterType="Class_category">
+		insert into Class_category(class_categorys,temp01) values(#{class_categorys},null)
+	</insert>
+	
+	<insert id="updateCourseType" parameterType="Class_category">
+		update Class_category set class_categorys=#{class_categorys} where class_id=#{class_id}
+	</insert>
+	
+	<delete id="delCourseType" parameterType="Class_category">
+		delete from Class_category where class_id=#{class_id}
+	</delete>
+	
+	<delete id="delCourseTypes" parameterType="java.util.List" >
+		delete from Class_category where class_id in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
 </mapper>
