@@ -171,6 +171,7 @@ create table stu_count(
 	course_id int,
 	stu_id int
 );
+--
 insert into  stu_count(course_id,stu_id) values(41,1);
 insert into  stu_count(course_id,stu_id) values(51,2);
 insert into  stu_count(course_id,stu_id) values(1,4);
