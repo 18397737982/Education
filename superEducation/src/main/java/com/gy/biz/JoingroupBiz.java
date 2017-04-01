@@ -13,4 +13,6 @@ public interface JoingroupBiz {
 
 	public List<Joingroup> selectAllgroup(Joingroup join);
 
+	public List<Joingroup> selectAllgroupByuser_id(Joingroup join);
+
 }

@@ -15,4 +15,6 @@ public interface CgroupBiz {
 	public List<Cgroup> getAllGroupInfo();
 
 	public Cgroup searchGroup(Cgroup group);
+
+	public Cgroup searchGroupBygid(Cgroup c);
 }

@@ -7,7 +7,7 @@ create table admin(
 );
 
 --2学员表
-select user_name from userInfo where user_name='a';
+select * from userInfo where user_name='a';
 create table userInfo(
 	user_id int primary key auto_increment,
 	user_name varchar(50) not null,
@@ -188,5 +188,5 @@ create table selfMessage(
 );
 commit;
 select * from cgroup;
-insert into cgroup(groupname,pic,introduction,createtime,user_name) value('strong','../img/headimg/148949695060214942.jpg','strong 是一个强大小组','2017-02-23 00:00:00','lgy');
+insert into cgroup(groupname,pic,introduction,createtime,user_name) value('strong','../img/headimg/148949695060214942.jpg','strong 是一个强大小组','2017-02-23 00:00:00','zz');
 insert into cgroup(groupname,pic,introduction,createtime,user_name) value('strong','../img/headimg/148949695060214942.jpg','strong 是一个强大小组','2017-02-23 00:00:00','lgy');
