@@ -142,7 +142,6 @@ function myAssess(){
 			type:"POST",
 			dataType: 'json',
 			success:function(data){
-				alert(data);
 				if(data=="false1"){
 					 alert("你还没加入该课程...")
 				}else if(data=="false2"){
@@ -150,7 +149,7 @@ function myAssess(){
 				}else if(data=="true"){
 					 alert("评价成功...")
 				}
-	
+				myrefresh()
 			}
 		});
 		
@@ -327,7 +326,7 @@ function myAssess(){
 							<c:if test="${class_hour.size()>0}"> 
 								<c:forEach items="${class_hour}" var="item" >
 									<li class="period lesson-item lesson-item-67383 " data-num="1" data-id="67383">
-											<a title="${item.title}" href="toplay.action/${onecourse.course_id}_${item.class_hour_id}">
+											<a title="${item.title}" href="javascript:void(0);" onclick="toplaycourse(${onecourse.course_id},${item.class_hour_id})">
 											<i class="es-icon es-icon-undone status-icon"></i>
 											<span class="title">L${item.courseseq}：${item.title}</span>
 										<!-- 	<span class="date" title="视频时长25:10">(75:10)</span> -->

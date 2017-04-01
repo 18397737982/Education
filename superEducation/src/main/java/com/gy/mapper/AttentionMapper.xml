@@ -21,4 +21,18 @@
 	select * from userInfo where user_id in
 		(select user_id from  attention where attention=#{userInfo.user_id})
 	</select>
+	
+	<!-- 判断是否已关注 -->
+	<select id="isAttion" parameterType="Attention" resultType="java.lang.Integer">
+	select count(1) from attention where user_id =#{userInfo.user_id} and attention=#{attention} 
+	</select>
+	
+	
+	<insert id="insertAttion" parameterType="Attention" >
+		insert into attention(attention,user_id) values(#{attention},#{user_id})
+	</insert>
+	
+	<update id="delAttion" parameterType="Attention" >
+	delete from attention where attention=#{attention} and user_id=#{user_id};
+	</update>
 </mapper>

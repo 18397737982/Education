@@ -37,5 +37,20 @@ public class AttentionBizImpl implements AttentionBiz {
 	public List<Attention> getFansInfo(Attention attention) {
 		return this.baseDao.findAll(attention, "getFansInfo");
 	}
+	@Override
+	public int insertAttion(Attention attention) {
+		
+		return this.baseDao.add(attention, "insertAttion");
+	}
+	@Override
+	public int delAttion(Attention attention) {
+		
+		return this.baseDao.delete(attention, "delAttion");
+	}
+	@Override
+	public int isAttion(Attention attention) {
+		
+		return this.baseDao.findInteger(attention, "isAttion");
+	}
 
 }

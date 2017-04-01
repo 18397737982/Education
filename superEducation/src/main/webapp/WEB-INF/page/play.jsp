@@ -69,9 +69,10 @@
 	var userid = '${users.user_id}';
 	var course_id ='${onecourse.course_id}';
 	var class_hour_id='${theclass_hour[0].class_hour_id}';
+	var attention='${onecourse.userInfo.user_id}';
 	$(function() {
 		
-	
+		
 		
 	});
 </script>

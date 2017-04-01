@@ -14,6 +14,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.gy.beans.Class_hour;
 import com.gy.beans.Course;
 import com.gy.beans.CourseAssess;
+import com.gy.beans.StudyCourse;
+import com.gy.beans.UserInfo;
 import com.gy.biz.CourseAssessBiz;
 import com.gy.biz.CourseBiz;
 import com.gy.biz.CourseQuestionBiz;
@@ -163,6 +165,21 @@ public class AppTest  extends TestCase{
     	ApplicationContext ac=new ClassPathXmlApplicationContext("beans.xml");
     	CourseBiz courseBiz=(CourseBiz) ac.getBean("courseBizImpl");
     	System.out.println(courseBiz.searchCourse(course));
+    	
+    }
+    public void testApp11() throws IOException
+    { 
+    	Course course=new Course();
+    	course.setCourse_id(1);
+    	UserInfo userInfo=new UserInfo();
+    	userInfo.setUser_id(1);
+    	StudyCourse scourse=new StudyCourse();
+    	scourse.setAssess("2");
+    	scourse.setCourse(course);
+    	scourse.setUserInfo(userInfo);
+    	ApplicationContext ac=new ClassPathXmlApplicationContext("beans.xml");
+    	StudyCourseBiz StudyCourseBiz=(StudyCourseBiz) ac.getBean("studyCourseBizImpl");
+    	System.out.println(StudyCourseBiz.pinglunCourse(scourse));
     	
     }
     

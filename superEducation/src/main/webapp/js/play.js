@@ -2,9 +2,16 @@
 	var page=1;
 	var starpage=0;
 $(function() {
-
-	
-	var attention
+	//是否已经关注
+	$.post("attention/isAttion",{"attention":attention,"user_id":userid},function(data){
+		if(data!=1){
+			$("#attion2").css("display","block");
+			$("#attion").css("display","none");
+		}else{
+			$("#attion").css("display","block");
+			$("#attion2").css("display","none");
+		}
+	});
 	//查出授课老师相关信息
 
 	
@@ -127,8 +134,10 @@ $(function() {
 						success:function(data){
 							if(data=="1"){
 								alert("评论成功...")
+								window.location.reload();
 							}else{
-								alert("错误：评论添加失败...")
+								alert("错误：评论添加失败...");
+								window.location.reload();
 							}
 						}
 					 });
@@ -434,17 +443,16 @@ $(function() {
 	}
 	
 	$('#attion').bind("click",function(){	
-		$.post("attention/insertAttion",{"attention":attention,"userid":userid},function(data){
+		$.post("attention/insertAttion",{"attention":attention,"user_id":userid},function(data){
 			if(data==1){
 				$("#attion2").css("display","block");
 				$("#attion").css("display","none");
 			}
 		});
-		
 	});
 	
 	$('#attion2').bind("click",function(){	
-		$.post("attention/delAttion",{"attention":attention,"userid":userid},function(data){
+		$.post("attention/delAttion",{"attention":attention,"user_id":userid},function(data){
 			if(data==1){
 				$("#attion").css("display","block");
 				$("#attion2").css("display","none");
@@ -462,6 +470,7 @@ $(function() {
 		scontent=$('#messageContent').val();
 		$.post("selfMessage/insertMessage",{"sendman":userid,"receiveman":attention,"scontent":scontent},function(data){
 			if(data==1){
+				alert("发送成功...");
 				$('#message').css('display','none');
 				$('#loadingDiv').css('display','none');
 				$('#message_receiver').val("");

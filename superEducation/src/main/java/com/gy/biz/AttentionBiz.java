@@ -14,4 +14,12 @@ public interface AttentionBiz {
 	public String getFansCount(Attention attention);
 	//得到粉丝的信息
 	public List<Attention> getFansInfo(Attention attention);
+	
+	public int insertAttion(Attention attention);
+	public int delAttion(Attention attention);
+	
+	//是否已经关注
+	public int isAttion(Attention attention);
+	
+	
 }

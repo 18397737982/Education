@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -70,11 +71,19 @@ public class PlayVideoController {
 
 	
 	@RequestMapping(value = "/playVideo.action/{course_id}_{class_hour_id}")
-	public String  getVideoInformation(Model model,@PathVariable int course_id,@PathVariable int class_hour_id,Course course,Class_hour class_hour) throws IOException {
+	public String  getVideoInformation(Model model,@PathVariable int course_id,@PathVariable int class_hour_id,Course course,Class_hour class_hour,HttpServletRequest request) throws IOException {
 		course.setCourse_id(course_id);class_hour.setClass_hour_id(class_hour_id);class_hour.setCourse(course);
 		System.out.println(course);
+		HttpSession session=request.getSession();
+		System.out.println(session.getAttribute("users")+"......................");
+		if(session.getAttribute("user")==null){//说明管理员 没有登陆
+			//将当前请求截断，立即回送一个请求登陆的信息给客户端
+			return "page/login";
+		}
+		
+		
 		model.addAttribute("onecourse",this.courseBiz.findOneCourse(course));
-
+		System.out.println(this.courseBiz.findOneCourse(course));
 		//评论
 		model.addAttribute("assess",this.studyCourseBiz.studyCourseOfassess(course));
 		//学习人数

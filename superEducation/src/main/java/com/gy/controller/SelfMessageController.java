@@ -41,4 +41,17 @@ public class SelfMessageController {
 		List<SelfMessage> list=selfMessageBiz.getInfoByreceiveman(selfMessage);
 		return list;
 	}
+	
+	//插入 私信
+	@RequestMapping(value = "selfMessage/insertMessage", method = RequestMethod.POST)
+	public @ResponseBody int insertMessage(SelfMessage selfMessage) {
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String date=sdf.format(new Date());
+		selfMessage.setUser_id(selfMessage.getSendman());
+		selfMessage.setSmtime(date);
+		selfMessage.setSendType(1);
+		selfMessage.setSreadstatus(0);
+		selfMessageBiz.addSelfMessage(selfMessage);
+		return 1;
+	}
 }
