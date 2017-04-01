@@ -265,7 +265,7 @@ public class CourseController {
 	// 添加基本课程信息
 	@RequestMapping("course/basic")
 	public void savebasic(Class_category class_category, PrintWriter out, String course_name, String course_description,
-			int class_id, String courseting, BigDecimal price, HttpSession session) {
+			int class_id, String courseting, double price, HttpSession session) {
 
 		class_category.setClass_id(class_id);
 
@@ -552,7 +552,7 @@ public class CourseController {
 
 		int course_id = course.getCourse_id();
 		// 价格
-		Double money = course.getPrice();
+		Double money = 30.0;
 
 		// 系统时间
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");
@@ -567,8 +567,9 @@ public class CourseController {
 		Account account = new Account();
 		account.setStu_user(userInfo);
 		Account accounts = this.accountBiz.selectBalance(account);
-		if (accounts.getBalance().intValue() > money.intValue()) {
-			account.setBalance(money);
+		if (accounts.getBalance() > money) {
+			
+			account.setBalance(accounts.getBalance() - money);
 			this.accountBiz.addBalance(account);
 
 			// 扣费成功实现加入课程

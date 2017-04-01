@@ -76,11 +76,11 @@ public class PlayVideoController {
 		System.out.println(course);
 		HttpSession session=request.getSession();
 		System.out.println(session.getAttribute("users")+"......................");
-		if(session.getAttribute("user")==null){//说明管理员 没有登陆
-			//将当前请求截断，立即回送一个请求登陆的信息给客户端
-			return "page/login";
-		}
-		
+//		if(session.getAttribute("user")==null){//说明管理员 没有登陆
+//			//将当前请求截断，立即回送一个请求登陆的信息给客户端
+//			return "page/login";
+//		}
+//		
 		
 		model.addAttribute("onecourse",this.courseBiz.findOneCourse(course));
 		System.out.println(this.courseBiz.findOneCourse(course));

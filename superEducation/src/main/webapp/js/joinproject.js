@@ -406,8 +406,8 @@ $(function(){
 	});
 	
 	$('#join-course-btn').bind("click",function(){
-		tojoinCOurse();
-/*		$.post("studyCourse/joinStudyCourse/",{"userid":userid,"courseid":courseid},function(data){
+//		tojoinCOurse();
+		$.post("studyCourse/joinStudyCourse/",{"userid":userid,"courseid":courseid},function(data){
 			   if(data==1){
 				   $("#joinCourse").css("display","none");
 				   $("#joinedCourse").css("display","block");
@@ -416,7 +416,7 @@ $(function(){
 			   }else{
 				   alert("加入失败，请重试!!!");
 			   }
-		 });*/
+		 });
 	});
 	
 	$('#attion').bind("click",function(){	
@@ -565,6 +565,7 @@ $(function(){
 				alert("添加成功...");
 				$("#joinedCourse")[0].style.display = "block";
 				$("#joinCourse")[0].style.display = "none";
+				 window.location.reload();
 			}else if(data>1){
 				alert("加入失败");
 			}else{

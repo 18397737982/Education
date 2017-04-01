@@ -17,4 +17,8 @@
 	<select id="findOAllJoingroup" resultType="Joingroup" parameterType="Joingroup">
 		select * from joingroup  where gid=#{gid} order by jid desc
 	</select>
+	
+	<select id="findOAllJoingroupByuser_id" resultType="Joingroup" parameterType="Joingroup">
+		select * from joingroup  where user_id=#{user_id}
+	</select>
 </mapper>

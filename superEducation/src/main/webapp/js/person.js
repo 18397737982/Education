@@ -217,7 +217,7 @@ $(function(){
 					listStr+='<div class="col-md-4 col-sm-6">';
 					listStr+='<div class="course-item">';
 					listStr+='<div class="course-img">';
-					listStr+='<a href="page/joinproject.jsp?courseid='+data[i].course_id+'">';	
+					listStr+='<a href="page/joinproject.jsp?courseid='+data[i].p+'">';	
 					listStr+='<img src="'+data[i].coursephoto+'" class="img-responsive" alt="'+data[i].course_name+'">';
 					listStr+='<span class="load" style="width:0%"></span>';
 					listStr+='<div class="image-overlay"></div></a>';
@@ -231,7 +231,7 @@ $(function(){
 					listStr+='<a class="transition" href="page/joinproject.jsp?courseid='+data[i].course_id+'">'+data[i].course_name+'</a></div>';
 					listStr+='<div class="metas"><span><a>'+data[i].course_view+'</a>浏览</span>/<span><a>'+data[i].memberCount+'</a>学员</span>/<span><a>'+data[i].assessAvg+'</a>评分</span></div>';
 					listStr+='<div class="teacher"><a class=" js-user-card" href="http://www.howzhi.com/u/1400247/" data-card-url="/user/1400247/card/show" data-user-id="'+data[i].userInfo.user_id+'">';
-					listStr+='<img class="avatar-ss " src="'+data[i].userInfo.photo+'" 　alt="'+data[i].userInfo.user_name+'">'+data[i].userInfo.user_name+'</a></div></div></div></div>';
+					listStr+='<img class="avatar-ss " src="'+data[i].userInfo.pic+'" 　alt="'+data[i].userInfo.user_name+'">'+data[i].userInfo.user_name+'</a></div></div></div></div>';
 				}
 			}else{
 				listStr+='<div class="empty"><i class="es-icon es-icon-locallibrary"></i>ta还没有参加任何课程</div>';
@@ -246,7 +246,7 @@ $(function(){
 		$("#nav-mian").children().removeClass("active");
 		$(this).addClass("active");
 		var user_id=$('#toggle img').attr("id");
-		$.post("groups/getAllGroup",{"_method":"POST"},function(data){
+		$.post("groups/getMyGroup",{"_method":"POST",user_id:user_id},function(data){
 			var listStr="";
 			listStr+='<div class="myhz-group flat">'; 
 			listStr+='<h3>参加的小组</h3>';
@@ -255,14 +255,9 @@ $(function(){
 			if(data.length!=0){
 				for(var i=0;i<data.length;i++){
 					var strs= new Array(); 
-					var groupnumber=data[i].groupnumber;
-					strs=groupnumber.split(",")
-					for(var j=0;j<strs.length;j++){
 							listStr+='<li>';
-							listStr+='<a href="toGroupIntroduce.action?groupname='+data[i].groupname+'&user_id='+user_id+'"><img src="'+data[i].pic+'"></a>';
-							listStr+='<p><a href="toGroupIntroduce.action?groupname='+data[i].groupname+'&userid='+user_id+'">'+data[i].groupname+'</a></p></li>';
-					}
-					
+							listStr+='<a href="groups/groupIntroduce.action/'+user_id+'/'+data[i].groupname+'"><img src="'+data[i].pic+'"></a>';
+							listStr+='<p><a href="groups/groupIntroduce.action/'+user_id+'/'+data[i].groupname+'">'+data[i].groupname+'</a></p></li>';
 				}
 			}else{
 				listStr+=' <li class="empty"><i class="es-icon es-icon-forum"></i>TA没有参加任何小组！</li>';

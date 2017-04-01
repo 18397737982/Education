@@ -44,5 +44,16 @@ public class CgroupBizImpl implements CgroupBiz {
 			return null;
 		}	
 	}
+	@Override
+	public Cgroup searchGroupBygid(Cgroup c) {
+		List<Cgroup> list=this.baseDao.findAll(c, "searchGroupBygid");
+		System.out.println(list);
+		if(list.size()>0){
+			System.out.println(list.get(0));
+			return list.get(0);
+		}else{
+			return null;
+		}	
+	}
 
 }

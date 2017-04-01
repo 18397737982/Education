@@ -5,9 +5,9 @@ create table admin(
 	admin_password varchar(50),
 	email varchar(20)
 );
-
+select * from userInfo;
 --2学员表
-select user_name from userInfo where user_name='a';
+select * from userInfo where user_name='a';
 create table userInfo(
 	user_id int primary key auto_increment,
 	user_name varchar(50) not null,
@@ -174,7 +174,8 @@ create table cgroup(
 	user_name varchar(50),
 	createtime date	
 );
-
+delete from cgroup;
+delete from joingroup;
 --17加入小组表
 create table joingroup(
 	   jid int primary key auto_increment,
@@ -192,11 +193,13 @@ create table selfMessage(
        sreadstatus int,
        temp03 varchar(200)
 );
+select * from course;
+
 select *from selfMessage;
 insert into selfMessage(sendman,receiveman,scontent,smtime,sendType,sreadstatus) values(1,2,'hello','2017-02-23 00:00:00',1,0);
 commit;
 select * from cgroup;
-insert into cgroup(groupname,pic,introduction,createtime,user_name) value('strong','../img/headimg/148949695060214942.jpg','strong 是一个强大小组','2017-02-23 00:00:00','lgy');
-insert into cgroup(groupname,pic,introduction,createtime,user_name) value('strong','../img/headimg/148949695060214942.jpg','strong 是一个强大小组','2017-02-23 00:00:00','lgy');
+insert into cgroup(groupname,pic,introduction,createtime,user_name) value('strong','../img/headimg/15.jpg','strong 是一个强大小组','2017-02-23 00:00:00','xyj');
+insert into cgroup(groupname,pic,introduction,createtime,user_name) value('super','../img/headimg/16.jpg','strong 是一个强大小组','2017-02-23 00:00:00','xyj');
 insert into account(user_id,balance) values(1,0.0)
 delete from account;

@@ -35,5 +35,7 @@
 		select * from cgroup where groupname=#{groupname}
 	</select>
 	
-
+	<select id="searchGroupBygid" resultType="Cgroup"  parameterType="Cgroup">
+		select * from cgroup where gid=#{gid}
+	</select>
 </mapper>

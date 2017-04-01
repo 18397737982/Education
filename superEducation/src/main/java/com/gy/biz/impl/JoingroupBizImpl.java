@@ -40,5 +40,10 @@ public class JoingroupBizImpl implements JoingroupBiz {
 	public List<Joingroup> selectAllgroup(Joingroup join) {
 		 return this.baseDao.findAll(join, "findOAllJoingroup");
 	}
+	@Override
+	public List<Joingroup> selectAllgroupByuser_id(Joingroup join) {
+		return this.baseDao.findAll(join, "findOAllJoingroupByuser_id");
+		
+	}
 
 }

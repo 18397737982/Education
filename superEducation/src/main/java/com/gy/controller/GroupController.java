@@ -48,14 +48,42 @@ public class GroupController {
 	public void setCgroupBiz(CgroupBiz cgroupBiz) {
 		this.cgroupBiz = cgroupBiz;
 	}
+	
+	//我参加的小组
+	@ResponseBody
+	@RequestMapping(value = "groups/getMyGroup")
+	public List<Cgroup> GetMyGroup(int user_id, Model model) {
+		List<Cgroup> allGroups = new ArrayList<Cgroup>();
+		Joingroup join=new Joingroup();
+		join.setUer_id(user_id);
+		List<Joingroup> list=this.joingroupBiz.selectAllgroupByuser_id(join);
+		if(list.size()>0){
+			for(int i=0;i<list.size();i++){
+				int gid=list.get(i).getGid();
+				Cgroup c=new Cgroup();
+				c.setGid(gid);
+				if(this.cgroupBiz.searchGroupBygid(c)!=null){
+					allGroups.add(this.cgroupBiz.searchGroupBygid(c));
+				}
+			}
+		}
+		model.addAttribute("groups", allGroups);
+		return allGroups;
+	}
+	
+	
+	
+	
 	// 得到全部小组的信息
 	@ResponseBody
-	@RequestMapping(value = "/groups/getAllGroup")
+	@RequestMapping(value = "groups/getAllGroup")
 	public List<Cgroup> GetAllGroup(Model model) {
 		List<Cgroup> allGroups = cgroupBiz.getAllGroupInfo();
 		model.addAttribute("groups", allGroups);
 		return allGroups;
 	}
+	
+	
 	
 	@RequestMapping(value = "groups/groupIntroduce.action/{user_id}/{groupname}")
 	public String togroupIntroduce(@PathVariable int user_id,@PathVariable String groupname) {
