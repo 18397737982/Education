@@ -34,4 +34,5 @@ public class SelfMessageBizImpl implements SelfMessageBiz {
 		return this.baseDao.findAll(selfMessage, "getInfoByreceiveman");
 	}
 
+
 }

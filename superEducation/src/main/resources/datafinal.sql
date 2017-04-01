@@ -137,7 +137,10 @@ create table attention(
        sreadstatus int,
        temp02 varchar(200),
        temp03 varchar(200)
-);
+);select * from attention;
+select * from attention where user_id =1 and attention=1
+delete from attention where attention=1 and user_id=1;
+insert into attention(attention,user_id,sreadstatus) values();
 --14课程问题
 --cqid 课程提问表
 create table courseAnswer(
@@ -186,6 +189,8 @@ create table selfMessage(
        sreadstatus int,
        temp03 varchar(200)
 );
+select *from selfMessage;
+insert into selfMessage(sendman,receiveman,scontent,smtime,sendType,sreadstatus) values(1,2,'hello','2017-02-23 00:00:00',1,0);
 commit;
 select * from cgroup;
 insert into cgroup(groupname,pic,introduction,createtime,user_name) value('strong','../img/headimg/148949695060214942.jpg','strong 是一个强大小组','2017-02-23 00:00:00','lgy');

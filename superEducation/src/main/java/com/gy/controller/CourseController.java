@@ -510,7 +510,10 @@ public class CourseController {
 				|| scourse.getAssess().equals("4") || scourse.getAssess().equals("5")) {
 
 			try {
-				this.studyCourseBiz.pinglunCourse(scourse);
+				Integer x=this.studyCourseBiz.pinglunCourse(scourse);
+				if(x<=0||x==null){
+					return gson.toJson("false1");
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				return gson.toJson("false1");

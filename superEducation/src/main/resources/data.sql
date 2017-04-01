@@ -59,12 +59,10 @@ create table course(
 	price numeric(8,2),
 	status int
 );
-<<<<<<< HEAD
 select *from course;
 select *from course where course_name like '%摄影%' or course_description like '%摄影%' or courseting like '%摄影%' ;
 select course_id,course_name,c.user_id,class_id,course_view,course_description,coursephoto,price,u.user_id,u.user_name from course c , userInfo u where c.user_id=u.user_id and c.class_id=1 ORDER BY course_view DESC
 =======
-<<<<<<< HEAD
 select * from class_hour;
 select * from userInfo;
 alter table course alter column status set default 0;
@@ -332,9 +330,8 @@ delete from studyCourse;
 =======
 drop table studyCourse;
 select * from teachCourse where user_id=8;
->>>>>>> branch 'master' of ssh://git@github.com/18397737982/Education.git
 select * from course;
-insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(2,1,'2017-02-23 00:00:00',2,'10');
+insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(1,1,'2017-02-23 00:00:00',2,'10');
 insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(2,2,'2017-02-23 00:00:00',1,'10');
 insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(5,3,'2017-02-23 00:00:00',2,'10');
 insert into studyCourse(user_id,course_id,begintime,assess,studyPeriod) values(3,4,'2017-02-23 00:00:00',1,'10');

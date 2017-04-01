@@ -67,4 +67,27 @@ public class AttentionController {
 		List<Attention> fans=attentionBiz.getFansInfo(attention);
 		return fans;
 	}
+	
+	@RequestMapping("attention/insertAttion")
+	@ResponseBody
+	public int insertAttion(Attention attention){
+		this.attentionBiz.insertAttion(attention);
+		return 1;
+	}
+	
+	@RequestMapping("attention/delAttion")
+	@ResponseBody
+	public int delAttion(Attention attention){
+		this.attentionBiz.delAttion(attention);
+		return 1;
+	}
+	
+	@RequestMapping("attention/isAttion")
+	@ResponseBody
+	public int isAttion(Attention attention){
+		return this.attentionBiz.isAttion(attention);
+	}
+	
+	
+	
 }

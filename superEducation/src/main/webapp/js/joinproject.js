@@ -1,8 +1,10 @@
+var flag_study=0;
 $(function(){
 	$.post("courseStudy/findCourse.action",{user_id:userid},function(data){
 		if(data>0){
 			$("#joinedCourse")[0].style.display = "block";
 			$("#joinCourse")[0].style.display = "none";
+			flag_study=1;
 		}else{
 			$("#joinCourse")[0].style.display = "block";
 			$("#joinedCourse")[0].style.display = "none";
@@ -404,7 +406,8 @@ $(function(){
 	});
 	
 	$('#join-course-btn').bind("click",function(){
-		$.post("studyCourse/joinStudyCourse/",{"userid":userid,"courseid":courseid},function(data){
+		tojoinCOurse();
+/*		$.post("studyCourse/joinStudyCourse/",{"userid":userid,"courseid":courseid},function(data){
 			   if(data==1){
 				   $("#joinCourse").css("display","none");
 				   $("#joinedCourse").css("display","block");
@@ -413,7 +416,7 @@ $(function(){
 			   }else{
 				   alert("加入失败，请重试!!!");
 			   }
-		 });
+		 });*/
 	});
 	
 	$('#attion').bind("click",function(){	

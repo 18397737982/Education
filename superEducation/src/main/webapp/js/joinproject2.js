@@ -1,10 +1,3 @@
-
-$(function(){
-
-		
-});
-
-	
 	//课时
 	function showclasshour(){
 		$.ajax({
@@ -323,9 +316,21 @@ var oldpage_question=0;	//上一页
 var allcount_question=0;		//所有数据条数
 	
 
+function toplaycourse(course_id,class_hour_id){
+	if(flag_study==1){
+		 window.location.href="toplay.action/"+course_id+"_"+class_hour_id;
+	}else{
+		alert("你还没有加入课程");
+	}
+}
+
+
+
 	//刷新
 	function myrefresh()
 	{
 	       window.location.reload();
 	}
 	
+	
+	//toplay.action/${onecourse.course_id}_${item.class_hour_id}

@@ -61,7 +61,7 @@
 		select * from studyCourse where user_id=#{userInfo.user_id} and course_id=#{course.course_id}
 	</select>
 
-<update id="pinglunCourse" parameterType="StudyCourse">
+<update id="pinglunCourse" parameterType="StudyCourse" >
 update studyCourse set assess=#{assess} where user_id=#{userInfo.user_id} and course_id=#{course.course_id}
 </update> 
 </mapper>

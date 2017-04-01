@@ -10,4 +10,5 @@ public interface SelfMessageBiz {
 	public void addSelfMessage(SelfMessage selfMessage);
 	
 	public List<SelfMessage> getInfoByreceiveman(SelfMessage selfMessage);
+	
 }
