@@ -103,7 +103,7 @@
 	var ue2 = UE.getEditor('editor2'); */
 	
 	var obj=$('#group_data').datagrid({  
-	    url:'/newhaozhiwang/group/getAllgroupbypage',  
+	    url:'group/getAllgroupbypage',  
 		fitColumns:true,//true将自动扩展/收缩columns大小适应grid的宽度,防止水平滚动.
 		striped:true,//显示条纹所在行
 		loadMsg:"数据加载中...",//当从远程服务器加载数据的时候,显示的提示消息.
@@ -117,9 +117,7 @@
 		remoteSort:false,//定义是否远程排序.对数据库进行操作
 	    columns:[[ 
 			{field:'gids',title:'',width:60,align:'center',checkbox:true}, 
-			 {field:'gid',title:'小组编号',width:100,align:'center',
-	        	
-			},
+			 {field:'gid',title:'小组编号',width:100,align:'center',},
 			 {field:'groupname',title:'小组名称',width:100,align:'center',
 	        	formatter: function(value,row,index){
 	        			if(row.groupType){
@@ -317,42 +315,7 @@
 				$.messager.show({title:'成功提示',msg:"小组添加失败...",timeout:2000,showType:'slide'});
 
 			}
-		},"json");
-		
-		
-	/* 	$.ajaxFileUpload({
-			url:"/newhaozhiwang/back/manager/uploadheadpic.jsp",
-			secureuri:false,
-			//fileElementId:"update_news_pics",
-			dataType:"json",
-			data:{groupphoto:groupphoto,ctid:ctid,ctitle:ctitle,userId:userId,createTime:createTime,ctintrodution:ctintrodution},
-			success:function(data,status){
-				if(data>0){
-					$.messager.show({title:'成功提示',msg:"新闻修改成功...",timeout:2000,showType:'slide'});
-					/* $("#update_news_newstypes").val("");
-					$("#update_news_title").val("");
-					$("#update_news_author").val("新闻中国");
-					$("#update_news_date").datebox('setValue',"");
-					$("#update_news_weight").val("0");
-					ue1.setContent("");
-					$("update_news_pic_show").html("");
-					obj.datagrid('reload');
-			/* 		$('#update_news').dialog('close'); */
-			/* 	}else{
-					$.messager.alert("错误提示","新闻信息修改失败...\n","error");
-				}
-			},
-			error:function(data,status,e){
-				$.messager.alert("错误提示","新闻信息修改失败...\n","error");
-			}	
-		});	 */
-
-	/* 	$.post("/newhaohziwang/group/addgroup",{"groupphoto":groupphoto,"ctid":ctid,"ctitle":ctitle,"userId":userId,"createTime":createTime,"ctintrodution":ctintrodution},function(data){
-			
-		}); */
-		
-	}
-	
+		},"json");	
 	//上传头像的js
 	var options =
 	{

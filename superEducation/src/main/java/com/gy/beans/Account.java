@@ -9,7 +9,7 @@ public class Account implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private UserInfo stu_user;
-	private BigDecimal balance;
+	private Double balance;
 	
 	
 	public UserInfo getStu_user() {
@@ -18,10 +18,11 @@ public class Account implements Serializable {
 	public void setStu_user(UserInfo stu_user) {
 		this.stu_user = stu_user;
 	}
-	public BigDecimal getBalance() {
+	
+	public Double getBalance() {
 		return balance;
 	}
-	public void setBalance(BigDecimal balance) {
+	public void setBalance(Double balance) {
 		this.balance = balance;
 	}
 	@Override

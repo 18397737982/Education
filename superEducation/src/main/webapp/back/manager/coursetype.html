@@ -54,7 +54,6 @@
 					}else{
 						//获取用户选中的行的索引
 						var index=obj.datagrid("getRowIndex",rows);
-						console.info(rows);
 						obj.datagrid("updateRow",{index:index,row:rows}); 
 						obj.datagrid("beginEdit",index);
 						editRow=index;  //记录当前被编辑的行

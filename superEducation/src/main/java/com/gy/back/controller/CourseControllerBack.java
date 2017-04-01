@@ -47,8 +47,8 @@ public class CourseControllerBack {
 	private String pdfRootName = "education";
 	@ResponseBody
 	@RequestMapping(value = "/addCourse.action", method = RequestMethod.POST)
-	public void addUserInfo(@RequestParam("coursephoto") MultipartFile coursephoto,Integer user_id,Integer class_id,String course_name
-			,String courseting,String course_description
+	public void addCourse(@RequestParam("coursephoto") MultipartFile coursephoto,Integer user_id,Integer class_id,String course_name
+			,String courseting,String course_description,Double price
 			,HttpServletRequest request,PrintWriter out) {
 		String pdfs = "";
 		// 上传
@@ -66,8 +66,35 @@ public class CourseControllerBack {
 		userInfo.setUser_id(user_id);
 		course.setClass_id(class_id);
 		course.setUserInfo(userInfo);
+		course.setPrice(price);
 		// 上传
 		courseBiz.save(course);
+		out.print(1);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/editCourse.action", method = RequestMethod.POST)
+	public void editCourse(@RequestParam("coursephoto") MultipartFile coursephoto,Integer course_id,Integer class_id,String course_name
+			,String courseting,String course_description,Integer status,Double price
+			,HttpServletRequest request,PrintWriter out) {
+		String pdfs = "";
+		// 上传
+		Map<String, UploadFile> map = UploadFileUtil.uploadFile(request, coursephoto, pdfRootName);
+		for (Entry<String, UploadFile> entry : map.entrySet()) {
+			UploadFile uploadFile = entry.getValue();
+			pdfs += uploadFile.getNewFileUrl();
+		}
+		Course course=new Course();
+		course.setCourse_id(course_id);
+		course.setCourse_description(course_description);
+		course.setCourse_name(course_name);
+		course.setCourseting(courseting);
+		course.setCoursephoto(pdfs);
+		course.setClass_id(class_id);
+		course.setStatus(status);
+		course.setPrice(price);
+		// 上传
+		courseBiz.updateCourse(course);
 		out.print(1);
 	}
 	@ResponseBody

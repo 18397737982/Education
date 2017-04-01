@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
  <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gy.mapper.CgroupMapper">
-	<!--  
+	 
 	<resultMap type="Cgroup" id="CgroupMap">		
-		<id property="gid" column="git"/>
+		<id property="gid" column="gid"/>
 		<result property="groupname" column="groupname" />
-		<result property="createman" column="createman" />
 		<result property="createtime" column="createtime" />
-		<result property="groupnumber" column="groupnumber" />
-		<result property="peoplecount" column="peoplecount" />
 		<result property="pic" column="pic" />
 		<result property="introduction" column="introduction" />
 		<association property="userInfo" javaType="UserInfo">
@@ -16,13 +13,11 @@
 			<result property="user_name" column="user_name" />
 		</association>
 	</resultMap>
-	-->
+	
 	<select id="findAllgroupBypage"  parameterType="Cgroup" >
 			select cg.*,user_name,class_categorys from cgroup cg
 			inner join userInfo u
 			on u.user_id=cg.user_id
-			inner join class_category ca
-			on cg.class_id=ca.class_id
 			order by gid limit #{pagesize}*(#{pagenumber}-1),#{pagesize}
 	</select>
 	

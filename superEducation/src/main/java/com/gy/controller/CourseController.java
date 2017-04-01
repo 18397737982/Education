@@ -343,7 +343,7 @@ public class CourseController {
 			Class_category class_category = (Class_category) session.getAttribute("Class_category");
 			int class_id = class_category.getClass_id();
 			String courseting = (String) session.getAttribute("courseting");
-			BigDecimal price = (BigDecimal) session.getAttribute("price");
+			Double price = (Double) session.getAttribute("price");
 			UserInfo user = (UserInfo) session.getAttribute("users");
 			course.setCourse_name(course_name);
 			course.setClass_id(class_id);
@@ -549,7 +549,7 @@ public class CourseController {
 
 		int course_id = course.getCourse_id();
 		// 价格
-		BigDecimal money = course.getPrice();
+		Double money = course.getPrice();
 
 		// 系统时间
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");
@@ -565,7 +565,7 @@ public class CourseController {
 		account.setStu_user(userInfo);
 		Account accounts = this.accountBiz.selectBalance(account);
 		if (accounts.getBalance().intValue() > money.intValue()) {
-			account.setBalance(accounts.getBalance().subtract(money));
+			account.setBalance(money);
 			this.accountBiz.addBalance(account);
 
 			// 扣费成功实现加入课程
@@ -581,11 +581,11 @@ public class CourseController {
 
 				// 添加账户记录
 				AccountNotes accountNotes = new AccountNotes();
-				BigDecimal moneys = new BigDecimal("0");
-				BigDecimal price = moneys.subtract(money);
+//				BigDecimal moneys = new BigDecimal("0");
+//				BigDecimal price = moneys.subtract(money);
 
 				accountNotes.setUser_id(user_id);
-				accountNotes.setMoney(price);
+				accountNotes.setMoney(0.0);
 				accountNotes.setPayment("quickpay");
 				accountNotes.setTimes(date);
 				this.accountNotesBiz.addnotes(accountNotes);

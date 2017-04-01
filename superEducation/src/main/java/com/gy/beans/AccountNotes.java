@@ -12,7 +12,7 @@ public class AccountNotes implements Serializable{
 	private static final long serialVersionUID = 6078082816202216723L;
 	
 	private int user_id;
-	private BigDecimal money;
+	private Double money;
 	private String payment;
 	private String times;
 	
@@ -35,11 +35,13 @@ public class AccountNotes implements Serializable{
 		this.user_id = user_id;
 	}
 
-	public BigDecimal getMoney() {
+	
+
+	public Double getMoney() {
 		return money;
 	}
 
-	public void setMoney(BigDecimal money) {
+	public void setMoney(Double money) {
 		this.money = money;
 	}
 

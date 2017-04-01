@@ -1,18 +1,29 @@
 
 <table id="course_data"></table>  
 
-<div id="add_course" class="easyui-dialog" title="添加课程" data-options="iconCls:'icon-add',resizable:true,model:true,closed:true,fit:true">
+<div id="add_course" class="easyui-dialog" title="添加课程/修改课程" data-options="iconCls:'icon-add',resizable:true,model:true,closed:true,fit:true">
 	<br />
 	<form id="courseForm" style="float:left;padding-left:20px;" enctype="multipart/form-data">
 		<div style="padding-left:50px;float:left;">
 			<label>课程类型：</label><select id="class_id" name="class_id"></select> <br /><br />
+			<input type="hidden" name="course_id" id="course_id">
 			<label>课程标题：</label><input type="text" id="course_name" name="course_name" /> <br /><br />
-			<input type="hidden" id="user_id" name="user_id" value="1">
-			<label>课程作者：</label><input type="text" id="user_name" name="user_name"  value="xy" readonly/> <br /><br />
+			<div id="authorinfo">
+				<input type="hidden" id="user_id" name="user_id" value="1">
+				<label>课程作者：</label><input type="text" id="user_name" name="user_name"  value="xy" readonly/> <br /><br />
+			</div>
 			<label>课程标签：</label><input type="text" id="courseting" name="courseting" /> <br /><br />
-			<div><label >课程描述：</label></div><textarea id="course_description" name="course_description" Style="width:400px;height:200px;" rows="" cols=""></textarea><br /><br /><br /><br />	
+			<label>课程价格：￥</label><input type="text" id="price" name="price" /> <br /><br />
+			<div id="courseStatus" style="display:none">
+				<label>课程状态：</label><select id="status" name="status">
+					<option value="0">未审核</option>
+					<option value="1">已审核</option>
+				</select>
+			</div>	
+			<div><label >课程描述：</label></div><textarea id="course_description" name="course_description" Style="width:400px;height:200px;" rows="" cols=""></textarea><br /><br /><br /><br />
+			
 		</div>
-		<div class="container" style="float:right;margin-right: 100px;">
+		<div class="container" style="float:right;margin-right: 50px;">
 		  	<div id="addimg" class="imageBox" style=" url(&quot;http://www.17sucai.com/preview/1/2015-03-19/%E4%B8%8A%E4%BC%A0%E6%88%AA%E5%9B%BE/images/avatar.jpg&quot;); background-size: 658px 851px; background-position: -129px -225.5px; background-repeat: no-repeat;"float:right;">
 		    <div class="thumbBox"></div>
 		    <div class="spinner" style="display: none;">Loading...</div>
@@ -29,7 +40,8 @@
 			  </div>
 	  		<div class="cropped"></div>
 		</div><br/><br/><br/><br/><br/><br/><br/>
-		<input type="button" style="width:200px;height:50px;mrgin-right:500px;" class="easyui-linkbutton" value="添加会员" onclick="addCourse()"/>&nbsp;&nbsp;&nbsp;
+		<input type="button" style="width:200px;height:50px;mrgin-right:500px;" class="easyui-linkbutton" value="添加课程" onclick="addCourse()"/>&nbsp;&nbsp;&nbsp;
+		<input type="button" style="width:200px;height:50px;mrgin-right:500px;" class="easyui-linkbutton" value="修改课程" onclick="editCourse()"/>&nbsp;&nbsp;&nbsp;
 	
 	</form>
 		
@@ -96,6 +108,7 @@
 				}
 			},
 	        {field:'course_view',title:'浏览次数',width:60,align:'center'},
+	        {field:'price',title:'课程价格',width:60,align:'center'},
 	        {field:'coursephoto',title:'课程图片',width:100,align:'center',
 	        	formatter: function(value,row,index){
 					if(value!=null){
@@ -112,7 +125,8 @@
 			},
 	        {field:'status',title:'课程状态', width:100,align:'center',
 				formatter: function(value,row,index){
-					if(value==0){
+					alert(row.status);
+					if(row.status==0){
 						return "未审核";
 					}else if(value==1){
 						return "审核通过";
@@ -125,28 +139,31 @@
 			iconCls:"icon-add",
 			handler:function(){
 				$('#add_course').dialog('open'); 
-				$("#course_date").datebox('setValue',myformatter(new Date()));
+				//$("#course_date").datebox('setValue',myformatter(new Date()));
 			}
 		},{
 			text:"修改",
 			iconCls:"icon-edit",
 			handler:function(){
 				var rows=$('#course_data').datagrid("getChecked")[0];
-				if(rows!=undefined){
-					 var nid=rows.nid;
-					 console.info(nid);
-					$('#edit_news').dialog('open');
-					$("#enews_nid").val(nid);
-					$("#enews_date").datebox('setValue',myformatter(new Date()));
-					$.post("../../newsInfoServlet",{op:"findAllNewsByNid",nid:nid},function(data){
-						$.each(data.rows,function(index,item){
-							$("#enews_title").val(item.title);
-							$("#enews_author").val(item.author);
-							$("#enews_mdate").datebox('setValue',item.mdate);
-							$("#enews_weight").val(item.weight);
-							ue2.setContent(item.ncontent);
-						});
-					},"json");	
+				if(rows!=null  && rows!=""){
+					var course_id=rows.course_id;
+					$('#add_course').dialog('open');
+					$('#authorinfo').hide();
+					$('#courseStatus').show();
+					$("#course_id").val(rows.course_id);
+					$("#class_id").attr("value",rows.lass_category.class_categorys);
+					$('#course_name').val(rows.course_name);
+					if(rows.status==0){
+						
+						$('#status').attr("value","未审核");
+					}else{
+						$('#status').attr("value","已审核");
+					}
+					$('#courseting').val(rows.courseting);
+					$('#course_description').val(rows.course_description);
+					$('#course_description').val(rows.course_description);
+					$('.cropped').append('<img  id="uploadhead" src="'+rows.coursephoto+'" style="width:250px;height:250px;margin-top:4px;box-shadow:0px 0px 12px #7E7E7E;">');
 				}else{
 					$.messager.show({
 						title:'成功提示',
@@ -280,6 +297,30 @@
 				 	}
 			 	}
 	   	});
+	}
+	
+	function editCourse(){
+		var formData = new FormData($( "#courseForm" )[0]);
+		$.ajax({
+		 	url:"course/editCourse.action",
+		 	data:formData,
+		 	type: 'POST',
+		 	dataType:"json",
+		 	async: false,  
+	        cache: false,  
+	        contentType: false,  
+	        processData: false,  
+		 	success:function(data,status){
+			 	if(data){
+			 		$.messager.show({title:'成功提示',msg:"课程修改成功...",timeout:2000,showType:'slide'});
+					$('.cropped').html("");
+					obj.datagrid('reload');
+					$('#add_course').dialog('close');
+			 	}else{
+			 		$.messager.show({title:'成功提示',msg:"课程修改失败...",timeout:2000,showType:'slide'});
+			 	}
+		 	}
+   	});
 	}
 	//上传头像的js
 	var options =

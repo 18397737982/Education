@@ -17,7 +17,7 @@ public class Course  implements Serializable{
 	private UserInfo userInfo;
 	private Integer class_id; // --课程类别id
 	private Integer course_view;// --浏览量
-	private BigDecimal price; //价格
+	private Double price; //价格
 	private Class_category lass_category;
 	private Integer memberCount;  //--课程总人员
 	private Double assessAvg;  //--课程评分
@@ -29,6 +29,12 @@ public class Course  implements Serializable{
 	private Integer user_id;
 	private String user_name;
 
+	public Double getPrice() {
+		return price;
+	}
+	public void setPrice(Double price) {
+		this.price = price;
+	}
 	public Integer getUser_id() {
 		return user_id;
 	}
@@ -107,12 +113,7 @@ public class Course  implements Serializable{
 	public void setCourse_view(Integer course_view) {
 		this.course_view = course_view;
 	}
-	public BigDecimal getPrice() {
-		return price;
-	}
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
+	
 	public Class_category getLass_category() {
 		return lass_category;
 	}

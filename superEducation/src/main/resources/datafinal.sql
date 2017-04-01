@@ -34,6 +34,7 @@ create table class_category(
 	temp01 varchar(200) 
 );
 
+
 insert into  class_category(class_categorys) values('摄影课堂');
 insert into  class_category(class_categorys) values('创意设计');
 insert into  class_category(class_categorys) values('声乐器乐');
@@ -57,7 +58,9 @@ create table course(
 	price numeric(8,2),
 	status int
 );
-
+update course set status=1 where course_id=1;
+select * from course;
+commit;
 --5课时 
 create table class_hour(
 	class_hour_id int primary key auto_increment,
@@ -190,3 +193,5 @@ commit;
 select * from cgroup;
 insert into cgroup(groupname,pic,introduction,createtime,user_name) value('strong','../img/headimg/148949695060214942.jpg','strong 是一个强大小组','2017-02-23 00:00:00','lgy');
 insert into cgroup(groupname,pic,introduction,createtime,user_name) value('strong','../img/headimg/148949695060214942.jpg','strong 是一个强大小组','2017-02-23 00:00:00','lgy');
+insert into account(user_id,balance) values(1,0.0)
+delete from account;

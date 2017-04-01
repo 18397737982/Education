@@ -64,14 +64,14 @@ public class AccountController {
 	//实现充值
 	@ResponseBody
 	@RequestMapping(value="account/addbalance.action",method=RequestMethod.POST)
-	public void addbalance(HttpSession session,BigDecimal money,String payment,ModelMap map,PrintWriter out){
+	public void addbalance(HttpSession session,Double money,String payment,ModelMap map,PrintWriter out){
 		Account accounts=(Account) session.getAttribute("accountByadd");
 		UserInfo userInfo=(UserInfo) session.getAttribute("userInfoByadd");
 	      
 		//修改账户金额
-		BigDecimal balance=accounts.getBalance().add(money);
+//		BigDecimal balance=accounts.getBalance().add(money);
 		accounts.setStu_user(userInfo);
-		accounts.setBalance(balance);                        
+		accounts.setBalance(money);                        
 		System.out.println(accounts);
 		int result=this.accountBiz.addBalance(accounts);
 		

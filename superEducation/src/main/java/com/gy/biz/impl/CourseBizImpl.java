@@ -153,4 +153,9 @@ public class CourseBizImpl implements CourseBiz {
 		return this.baseDao.findAll(course,"searchCourse");
 	}
 
+	@Override
+	public int updateCourse(Course course) {
+		return this.baseDao.update(course, "updateCourse");
+	}
+
 }

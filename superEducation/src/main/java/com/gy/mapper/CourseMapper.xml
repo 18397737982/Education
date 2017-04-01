@@ -64,6 +64,7 @@
 		<result property="course_description" column="course_description" />
 		<result property="coursephoto" column="coursephoto" /> 
 		<result property="price" column="price" />
+		<result property="status" column="status" />
 		<association property="userInfo" javaType="UserInfo">
 			<id property="user_id" column="user_id"/>
 			<result property="user_name" column="user_name"/>
@@ -158,4 +159,9 @@
 			select user_id from studyCourse where course_id=#{course_id}
 		)
 	</select>
+	
+	<update id="updateCourse" parameterType="Course">
+		update course set course_name=#{course_name},courseting=#{courseting},class_id=#{class_id},price=#{price},
+		coursephoto=#{coursephoto},status=#{status} where course_id=#{course_id}
+	</update>
 </mapper>

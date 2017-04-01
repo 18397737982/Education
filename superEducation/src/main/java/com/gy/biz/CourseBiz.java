@@ -58,4 +58,6 @@ public interface CourseBiz {
 	
 	//搜索
 	public List<Course> searchCourse(Course course);
+	
+	public int updateCourse(Course course);
 }

@@ -64,9 +64,9 @@ public class AdminController {
 		userInfoBiz.addAdmin(userInfo);
 		
 		Account account=new Account();
-		BigDecimal moneys=new BigDecimal("0");
+		//BigDecimal moneys=new BigDecimal("0");
 		account.setStu_user(userInfo);
-		account.setBalance(moneys);
+		//account.setBalance(moneys);
 		this.accountBiz.addAccount(account);
 		
 		return "page/login";
